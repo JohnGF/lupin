@@ -1,0 +1,2923 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>The Art of the Pitch — Scientific Communication Seminar</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+            colors: {
+              oxfordblue: "#0A192F",
+              fculblue: "#3b82f6",
+              fculgreen: "#10b981",
+              tured: "#ef4444",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg-overlay: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.98) 100%
+        );
+      }
+      html.dark {
+        --bg-overlay: linear-gradient(
+          180deg,
+          rgba(10, 25, 47, 0.96) 0%,
+          rgba(10, 25, 47, 0.99) 100%
+        );
+      }
+      body {
+        overflow: hidden;
+      }
+      .slide-bg {
+        background: var(--bg-overlay);
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 dark:bg-oxfordblue transition-colors duration-300"
+  >
+    <!-- Main Presentation Container -->
+    <div class="flex h-screen w-screen relative overflow-hidden">
+      <!-- LEFT PANEL: Slide Frame -->
+      <div class="flex-1 flex flex-col justify-between h-full p-4 lg:p-8 relative z-10">
+        <!-- HEADER -->
+        <header
+          class="flex justify-between items-center shrink-0 pb-2 border-b border-gray-200/50 dark:border-gray-800/50"
+        >
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-8 h-8 rounded-lg bg-fculblue flex items-center justify-center text-white shadow-md"
+            >
+              <i class="fa-solid fa-person-chalkboard text-xs"></i>
+            </div>
+            <div>
+              <h1
+                class="text-sm font-black text-slate-800 dark:text-white tracking-wide uppercase"
+              >
+                The Art of the Pitch
+              </h1>
+              <p class="text-[10px] text-gray-400 font-medium">
+                Scientific Communication Seminar
+              </p>
+            </div>
+          </div>
+
+          <!-- TOP CONTROL MENU -->
+          <div class="flex items-center space-x-3">
+            <!-- Sync status badge (listeners) -->
+            <span
+              id="sync-status-badge"
+              class="hidden px-2.5 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider"
+            ></span>
+            <button
+              id="btn-catchup"
+              class="hidden px-2.5 py-1 rounded-md text-[10px] font-bold bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 transition-all"
+              title="Jump back to the presenter's slide"
+            >
+              Catch up
+            </button>
+            <button
+              id="theme-toggle"
+              class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800 transition-colors"
+              title="Toggle Theme"
+            >
+              <i class="fa-solid fa-moon dark:hidden"></i>
+              <i class="fa-solid fa-sun hidden dark:block"></i>
+            </button>
+            <button
+              id="btn-notes"
+              class="px-3 py-1.5 rounded-md text-xs font-bold transition-all text-gray-500 hover:text-gray-900 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800"
+              title="Presenter view"
+            >
+              <i class="fa-solid fa-clipboard-list mr-1"></i> Notes
+            </button>
+          </div>
+        </header>
+
+        <!-- SLIDE WINDOW -->
+        <main
+          class="flex-1 flex items-center justify-center relative overflow-hidden my-4 lg:my-6 rounded-3xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-slate-900/60 shadow-xl transition-all duration-300 slide-bg"
+        >
+          <div
+            id="slide-container"
+            class="w-full h-full p-6 lg:p-12 relative overflow-y-auto"
+          >
+            <!-- Slide HTML is dynamically loaded here -->
+          </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer
+          class="shrink-0 flex items-center justify-between pt-2 border-t border-gray-200/50 dark:border-gray-800/50 text-[11px] text-gray-400"
+        >
+          <div>
+            <span
+              id="slide-section"
+              class="font-bold text-fculblue uppercase tracking-wider"
+              >Overview</span
+            >
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              id="btn-prev"
+              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+              title="Previous Slide"
+            >
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+            <span class="font-semibold text-slate-700 dark:text-slate-300"
+              ><span id="slide-num-current">1</span> /
+              <span id="slide-num-total">14</span></span
+            >
+            <button
+              id="btn-next"
+              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+              title="Next Slide"
+            >
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+          </div>
+
+          <div class="hidden sm:block">
+            <span class="font-medium">João Garcia Farinha — Lasige, FCUL</span>
+          </div>
+        </footer>
+
+        <!-- PROGRESS BAR -->
+        <div class="absolute bottom-0 left-0 w-full h-[3px] bg-gray-200 dark:bg-slate-800">
+          <div
+            id="progress-fill"
+            class="h-full bg-fculblue transition-all duration-300"
+            style="width: 0%"
+          ></div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Backup Speaker Notes -->
+      <div
+        id="notes-panel"
+        class="w-[380px] h-full bg-white dark:bg-slate-900 border-l border-gray-200 dark:border-gray-800 shadow-2xl z-20 flex flex-col justify-between hidden transform translate-x-full transition-transform duration-300"
+      >
+        <header
+          class="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center shrink-0"
+        >
+          <div class="flex items-center space-x-2 text-fculblue">
+            <i class="fa-solid fa-clipboard-list text-sm"></i>
+            <h3
+              class="font-bold text-sm text-oxfordblue dark:text-white uppercase tracking-wider"
+            >
+              Backup Speaker Notes
+            </h3>
+          </div>
+          <button
+            id="close-notes-btn"
+            class="p-1 rounded-md text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800"
+          >
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </header>
+        <main
+          id="notes-content"
+          class="flex-1 p-6 overflow-y-auto text-sm text-gray-600 dark:text-gray-300 leading-relaxed space-y-4"
+        ></main>
+        <footer
+          class="p-4 border-t border-gray-200 dark:border-gray-800 text-center text-[10px] text-gray-400 shrink-0"
+        >
+          Standalone Notes panel (Mirrored in the popup Presenter View)
+        </footer>
+      </div>
+    </div>
+
+    <!-- PHONE CONTROLLER UI (?role=controller) -->
+    <div
+      id="controller-ui"
+      class="hidden fixed inset-0 z-[100] bg-slate-950 text-slate-100 flex flex-col justify-between p-6 overflow-hidden select-none"
+    >
+      <header
+        class="flex justify-between items-center pb-4 border-b border-slate-800 shrink-0"
+      >
+        <div>
+          <span
+            class="text-xs md:text-sm font-black text-fculblue uppercase tracking-widest block"
+            >Presenter Remote</span
+          >
+          <h1
+            class="text-sm font-extrabold text-white mt-0.5"
+            id="controller-section"
+          >
+            Overview
+          </h1>
+        </div>
+        <div class="text-right">
+          <span class="text-xs md:text-sm text-gray-500 block">Slide progress</span>
+          <span class="text-base font-black text-fculblue" id="controller-slide-num"
+            >1 / 14</span
+          >
+        </div>
+      </header>
+
+      <div class="flex-1 overflow-y-auto my-4 py-4 pr-1 scroll-smooth">
+        <span
+          class="text-xs md:text-sm font-black text-gray-500 uppercase tracking-wider block mb-2"
+          >Active Slide Script</span
+        >
+        <div
+          id="controller-notes-text"
+          class="text-sm leading-relaxed text-slate-300 font-medium italic"
+        >
+          Loading script...
+        </div>
+      </div>
+
+      <div class="space-y-4 shrink-0">
+        <div
+          class="flex justify-between items-center p-3.5 bg-slate-900 border border-slate-800 rounded-2xl"
+        >
+          <div class="text-left">
+            <span class="text-xs font-bold text-white block">Audience Lock Sync</span>
+            <span class="text-xs md:text-sm text-gray-500 block"
+              >Lock audience screens to follow slides</span
+            >
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="controller-sync-lock"
+              checked
+              class="sr-only peer"
+            />
+            <div
+              class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-fculblue"
+            ></div>
+          </label>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 h-24">
+          <button
+            id="ctrl-btn-prev"
+            class="bg-slate-900 active:bg-slate-800 text-white rounded-2xl font-black text-xs active:scale-95 transition-all border border-slate-800 flex flex-col items-center justify-center gap-1"
+          >
+            <span class="text-base">◀</span> PREV
+          </button>
+          <button
+            id="ctrl-btn-next"
+            class="bg-fculblue active:bg-blue-800 text-white rounded-2xl font-black text-xs active:scale-95 transition-all flex flex-col items-center justify-center gap-1 shadow-lg"
+          >
+            <span class="text-base">▶</span> NEXT
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification toast -->
+    <div
+      id="notification-box"
+      class="fixed bottom-20 right-6 z-[110] transform translate-y-12 opacity-0 transition-all duration-300 pointer-events-none"
+    >
+      <div
+        class="bg-oxfordblue text-white px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-xs font-bold border border-gray-700"
+      >
+        <span id="notification-text">Notification</span>
+      </div>
+    </div>
+
+    <script>
+      /* ============================================================
+       *  SLIDES DEFINITION (ported from the reveal.js art_pitch deck)
+       * ============================================================ */
+      const slides = [
+  {
+    section: "1. How to deliver a presentation The Art of the Pitch",
+    notes: `Good morning breakfast joke Presentation Overrides Goals. Prompt the audience to scan the QR code to join the interactive session before starting.`,
+    html: `<div
+            class="flex flex-col items-center justify-center text-center space-y-4 lg:space-y-6 h-full py-8"
+          >
+            <div class="space-y-2">
+              <span
+                class="px-3 py-1 bg-fculgreen/10 text-fculgreen text-xs lg:text-sm font-black rounded-full uppercase tracking-wider border border-fculgreen/20"
+              >
+                Summer Research Scientific Internship
+              </span>
+              <h1
+                class="text-4xl lg:text-5xl font-extrabold text-oxfordblue dark:text-white tracking-tight leading-tight mt-6 mb-4"
+              >
+                How to deliver a presentation <br /><span class="text-fculblue"
+                  >The Art of the Pitch</span
+                >
+              </h1>
+              <p
+                class="text-sm lg:text-base text-gray-500 font-medium max-w-2xl mx-auto"
+              >
+                Scientific Communication Seminar <br />
+                Pitching your research project, designing clear slides, and
+                communicating complex technical ideas.
+              </p>
+            </div>
+
+            <div
+              class="flex flex-col md:flex-row items-stretch justify-center gap-6 mt-8"
+            >
+              <div
+                class="p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-md w-64 text-left flex flex-col justify-center"
+              >
+                <span
+                  class="text-[10px] font-black text-fculblue uppercase tracking-widest block mb-2"
+                  >Presenter</span
+                >
+                <h3 class="font-bold text-lg text-oxfordblue dark:text-white">
+                  João Garcia Farinha
+                </h3>
+                <p class="text-xs text-gray-500 mt-1">
+                  PhD Candidate | Lasige, FCUL
+                </p>
+              </div>
+
+              <div
+                class="p-4 bg-white rounded-3xl shadow-md border-2 border-fculblue/20 flex flex-col items-center justify-center"
+              >
+                <img
+                  src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fjohngf.xyz%2Fabout_me%2Fpresentation%2Fart_pitch%2Fart_pitch.html&color=0A1928"
+                  alt="Presentation QR Code"
+                  class="w-24 h-24 mx-auto"
+                />
+                <span
+                  class="text-[10px] font-black text-oxfordblue uppercase tracking-widest mt-2"
+                  >Follow along</span
+                >
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "2. Modern Presentation Tools",
+    notes: `Here are four modern presentation tools. Google Slides is the industry standard. Canva provides design flexibility. Prezi offers dynamic zooming presentations. LaTeX Beamer is ideal for academic content. Click any box to reveal the tool preview.`,
+    onInit: initToolBoxes,
+    html: `<div class="space-y-4 w-full h-full flex flex-col">
+            <div class="text-center">
+              <h2
+                class="text-4xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+              >
+                Modern Presentation Tools
+              </h2>
+              <p
+                class="text-lg text-gray-500 dark:text-gray-400 font-medium mt-2"
+              >
+                Click any box to reveal the tool
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 w-full flex-1 auto-rows-fr">
+              <div
+                data-tool-box="true"
+                class="relative bg-white dark:bg-slate-800 border-2 border-blue-300 dark:border-blue-600 rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer group min-h-64"
+              >
+                <img
+                  src="./assets/google-slides-example.png"
+                  class="absolute inset-0 w-full h-full object-cover"
+                  alt="Google Slides Example"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/40 dark:to-blue-800/40 flex flex-col items-center justify-center group-hover:opacity-75 transition-opacity duration-300 box-overlay"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-presentation text-blue-600 dark:text-blue-400 mb-4"
+                  >
+                    <path d="M2 3h20" />
+                    <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
+                    <path d="m7 21 5-5 5 5" />
+                  </svg>
+                  <h3
+                    class="font-black text-2xl text-blue-900 dark:text-blue-100 text-center"
+                  >
+                    Google Slides
+                  </h3>
+                  <p
+                    class="text-sm text-blue-700 dark:text-blue-300 mt-2 font-semibold"
+                  >
+                    Click to explore
+                  </p>
+                </div>
+              </div>
+
+              <div
+                data-tool-box="true"
+                class="relative bg-white dark:bg-slate-800 border-2 border-orange-300 dark:border-orange-600 rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer group min-h-64"
+              >
+                <img
+                  src="./assets/canvas.png"
+                  class="absolute inset-0 w-full h-full object-cover"
+                  alt="Canva Example"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/40 dark:to-orange-800/40 flex flex-col items-center justify-center group-hover:opacity-75 transition-opacity duration-300 box-overlay"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-palette text-orange-600 dark:text-orange-400 mb-4"
+                  >
+                    <path
+                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.35243 19.513 5.34005 20.3292 4.83226 20.8272L4.70711 20.9529C4.31658 21.3434 4.31658 21.9766 4.70711 22.3671C5.09764 22.7577 5.7308 22.7577 6.12133 22.3671L6.24647 22.242C6.74452 21.7535 7.54581 21.7578 8.04838 22.2505C9.20452 23.3837 10.5975 24 12 24Z"
+                    />
+                    <circle cx="7.5" cy="10.5" r="1.5" fill="currentColor" />
+                    <circle cx="11.5" cy="7.5" r="1.5" fill="currentColor" />
+                    <circle cx="16.5" cy="9.5" r="1.5" fill="currentColor" />
+                    <circle cx="15.5" cy="14.5" r="1.5" fill="currentColor" />
+                  </svg>
+                  <h3
+                    class="font-black text-2xl text-orange-900 dark:text-orange-100 text-center"
+                  >
+                    Canva
+                  </h3>
+                  <p
+                    class="text-sm text-orange-700 dark:text-orange-300 mt-2 font-semibold"
+                  >
+                    Click to explore
+                  </p>
+                </div>
+              </div>
+
+              <div
+                data-tool-box="true"
+                class="relative bg-white dark:bg-slate-800 border-2 border-purple-300 dark:border-purple-600 rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer group min-h-64"
+              >
+                <img
+                  src="./assets/prezi.png"
+                  class="absolute inset-0 w-full h-full object-cover"
+                  alt="Prezi Example"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/40 dark:to-purple-800/40 flex flex-col items-center justify-center group-hover:opacity-75 transition-opacity duration-300 box-overlay"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-zap text-purple-600 dark:text-purple-400 mb-4"
+                  >
+                    <polygon
+                      points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                    ></polygon>
+                  </svg>
+                  <h3
+                    class="font-black text-2xl text-purple-900 dark:text-purple-100 text-center"
+                  >
+                    Prezi
+                  </h3>
+                  <p
+                    class="text-sm text-purple-700 dark:text-purple-300 mt-2 font-semibold"
+                  >
+                    Click to explore
+                  </p>
+                </div>
+              </div>
+
+              <div
+                data-tool-box="true"
+                class="relative bg-white dark:bg-slate-800 border-2 border-green-300 dark:border-green-600 rounded-2xl shadow-lg overflow-hidden flex flex-col cursor-pointer group"
+              >
+                <img
+                  src="./assets/latex example.png"
+                  class="absolute inset-0 w-full h-full object-cover"
+                  alt="LaTeX Example"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/40 dark:to-green-800/40 flex flex-col items-center justify-center group-hover:opacity-75 transition-opacity duration-300 box-overlay"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-sigma text-green-600 dark:text-green-400 mb-4"
+                  >
+                    <path d="M18 7V5H6.13L12 12l-5.87 7H18v-2" />
+                  </svg>
+                  <h3
+                    class="font-black text-2xl text-green-900 dark:text-green-100 text-center"
+                  >
+                    LaTeX Beamer
+                  </h3>
+                  <p
+                    class="text-sm text-green-700 dark:text-green-300 mt-2 font-semibold"
+                  >
+                    Click to explore
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "3. Live Interactivity Demo",
+    notes: `This is what makes web-based presentations truly powerful. Here's a live, playable Snake game running directly in the browser. In 2 minutes, your audience can engage with interactive content, not just passive slides. This demonstrates that HTML and JavaScript can embed full applications—games, simulations, calculators, data visualizations—all seamlessly integrated into your presentation. Try it: use arrow keys or WASD to move the snake, eat the red food to score points, and avoid hitting the walls or yourself. This kind of engagement is impossible with PowerPoint, Keynote, or even PDFs.`,
+    onInit: initSnakeGame,
+    html: `<div
+            class="flex flex-col items-center justify-center h-full space-y-8"
+          >
+            <div class="text-center">
+              <h2
+                class="text-4xl font-extrabold text-oxfordblue dark:text-white tracking-tight mb-2"
+              >
+                Live Interactivity Demo
+              </h2>
+              <p class="text-lg text-gray-500 dark:text-gray-400">
+                Play Snake - Use arrow keys or WASD to move
+              </p>
+            </div>
+
+            <div class="flex flex-col items-center gap-6">
+              <div
+                class="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-xl border-2 border-fculblue/30"
+              >
+                <canvas
+                  id="snakeCanvas"
+                  width="300"
+                  height="300"
+                  class="border-4 border-fculblue rounded-lg bg-slate-900"
+                ></canvas>
+              </div>
+
+              <div class="flex gap-8 text-center">
+                <div
+                  class="bg-fculgreen/20 px-6 py-4 rounded-2xl border border-fculgreen"
+                >
+                  <p
+                    class="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold"
+                  >
+                    Score
+                  </p>
+                  <p id="snakeScore" class="text-3xl font-black text-fculgreen">
+                    0
+                  </p>
+                </div>
+                <div
+                  class="bg-tured/20 px-6 py-4 rounded-2xl border border-tured"
+                >
+                  <p
+                    class="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold"
+                  >
+                    Status
+                  </p>
+                  <p id="snakeStatus" class="text-lg font-black text-tured">
+                    Press Start
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-3">
+                <button
+                  data-snake-start="true"
+                  class="px-6 py-3 bg-fculblue text-white font-bold rounded-lg hover:bg-fculblue/80 transition"
+                >
+                  Start Game
+                </button>
+                <button
+                  data-snake-reset="true"
+                  class="px-6 py-3 bg-gray-400 text-white font-bold rounded-lg hover:bg-gray-500 transition"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            
+          </div>`,
+  },
+  {
+    section: "4. Know Your Audience",
+    notes: `Before you even open your presentation software, ask yourself: Who is in this room? Are they domain experts, students, or a mix? Do they have 5 minutes or 45? Are they here to be convinced, informed, or entertained? Understanding your audience is the foundation of effective communication. Every design choice, every example, every technical detail should be filtered through the lens of: Is this relevant and understandable to them?`,
+    html: `<div class="space-y-6 w-full h-full flex flex-col justify-center">
+            <div>
+              <h2
+                class="text-5xl font-extrabold text-oxfordblue dark:text-white tracking-tight mb-4"
+              >
+                Know Your Audience
+              </h2>
+              <p class="text-xl text-gray-600 dark:text-gray-300 font-medium">
+                Tailor your message to maximize impact and engagement.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mt-8 flex-1">
+              <div
+                class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500 rounded-xl p-6 shadow-md"
+              >
+                <div class="flex items-start space-x-4">
+                  <div class="p-3 bg-blue-500 text-white rounded-lg shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-cpu"
+                    >
+                      <rect width="16" height="16" x="4" y="4" rx="2" />
+                      <rect width="6" height="6" x="9" y="9" rx="1" />
+                      <path d="M9 20v2M15 20v2M20 9h2M20 15h2M9 4V2M15 4V2" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3
+                      class="font-black text-lg text-blue-900 dark:text-blue-100"
+                    >
+                      Technical Level
+                    </h3>
+                    <p class="text-sm text-blue-700 dark:text-blue-300 mt-2">
+                      Are they experts, students, or mixed? Adjust jargon and
+                      depth accordingly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 border-l-4 border-purple-500 rounded-xl p-6 shadow-md"
+              >
+                <div class="flex items-start space-x-4">
+                  <div class="p-3 bg-purple-500 text-white rounded-lg shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-book-open"
+                    >
+                      <path
+                        d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3
+                      class="font-black text-lg text-purple-900 dark:text-purple-100"
+                    >
+                      Background & Context
+                    </h3>
+                    <p
+                      class="text-sm text-purple-700 dark:text-purple-300 mt-2"
+                    >
+                      What's their domain? Tailor examples and references to
+                      their field.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 border-l-4 border-green-500 rounded-xl p-6 shadow-md"
+              >
+                <div class="flex items-start space-x-4">
+                  <div class="p-3 bg-green-500 text-white rounded-lg shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-target"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <circle cx="12" cy="12" r="6" />
+                      <circle cx="12" cy="12" r="2" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3
+                      class="font-black text-lg text-green-900 dark:text-green-100"
+                    >
+                      Goals & Expectations
+                    </h3>
+                    <p class="text-sm text-green-700 dark:text-green-300 mt-2">
+                      Are they evaluating, learning, or deciding? Structure your
+                      message accordingly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 border-l-4 border-orange-500 rounded-xl p-6 shadow-md"
+              >
+                <div class="flex items-start space-x-4">
+                  <div class="p-3 bg-orange-500 text-white rounded-lg shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-clock"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3
+                      class="font-black text-lg text-orange-900 dark:text-orange-100"
+                    >
+                      Attention & Format
+                    </h3>
+                    <p
+                      class="text-sm text-orange-700 dark:text-orange-300 mt-2"
+                    >
+                      Is this a 5-minute pitch or a 45-minute talk? Plan pacing
+                      accordingly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="mt-8 p-6 bg-gradient-to-r from-oxfordblue to-fculblue dark:from-slate-700 dark:to-slate-600 rounded-2xl shadow-lg border border-oxfordblue/30"
+            >
+              <p class="text-white font-semibold text-center text-lg">
+                💡 <span class="font-black">Golden Rule:</span> The best
+                presentation is one tailored to your specific audience. Data,
+                structure, and delivery should all align with their needs, not
+                yours.
+              </p>
+            </div>
+          </div>`,
+  },
+  {
+    section: "5. Know Your Audience",
+    notes: `Once you choose your tool, the next step is knowing your audience. There is no single pitch that works for everyone. Scientific peers want details and rigor; they will look for flaws in your methodology. Decision makers want to know if the project is feasible and worth the investment. General audiences just want to know the 'Why' and the impact. Before writing a single slide, ask yourself: Who is sitting in the room, and what do they care about?`,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-6">
+              <div>
+                <h2
+                  class="text-3xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  Know Your Audience
+                </h2>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                  Calibrating technical depth and messaging structure.
+                </p>
+              </div>
+              <span
+                class="px-2 py-1 bg-fculblue/10 text-fculblue text-xs font-bold rounded-lg uppercase tracking-wider border border-fculblue/20 shrink-0"
+              >
+                Audience Calibration
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-fculblue">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M4.5 16.5c-1.5 1.26-2.5 3.19-2.5 5.5s1 4.24 2.5 5.5"
+                    />
+                    <path
+                      d="M19.5 16.5c1.5 1.26 2.5 3.19 2.5 5.5s-1 4.24-2.5 5.5"
+                    />
+                    <circle cx="12" cy="7" r="4" />
+                    <path d="M20 21a8 8 0 0 0-16 0" />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    Scientific Peers
+                  </h3>
+                </div>
+                <div class="space-y-1 mt-4">
+                  <span class="text-xs font-black uppercase text-gray-400 block"
+                    >Core Focus</span
+                  >
+                  <span
+                    class="inline-block px-3 py-1 bg-fculblue/10 text-fculblue text-xs font-bold rounded"
+                    >Methodology & Rigor</span
+                  >
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-2 pt-4 list-disc list-inside"
+                >
+                  <li>Experimental design</li>
+                  <li>Mathematical consistency</li>
+                  <li>Acknowledge limitations</li>
+                </ul>
+              </div>
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-fculgreen">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    <rect width="20" height="14" x="2" y="6" rx="2" />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    Decision Makers
+                  </h3>
+                </div>
+                <div class="space-y-1 mt-4">
+                  <span class="text-xs font-black uppercase text-gray-400 block"
+                    >Core Focus</span
+                  >
+                  <span
+                    class="inline-block px-3 py-1 bg-fculgreen/10 text-fculgreen text-xs font-bold rounded"
+                    >Feasibility & Impact</span
+                  >
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-2 pt-4 list-disc list-inside"
+                >
+                  <li>Project timelines</li>
+                  <li>Budget & resources</li>
+                  <li>Real-world applications</li>
+                </ul>
+              </div>
+              <div
+                class="p-6 bg-white dark:bg-slate-855 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-tured">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    General Public
+                  </h3>
+                </div>
+                <div class="space-y-1 mt-4">
+                  <span class="text-xs font-black uppercase text-gray-400 block"
+                    >Core Focus</span
+                  >
+                  <span
+                    class="inline-block px-3 py-1 bg-tured/10 text-tured text-xs font-bold rounded"
+                    >The "Why" & Analogy</span
+                  >
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-2 pt-4 list-disc list-inside"
+                >
+                  <li>Zero technical jargon</li>
+                  <li>Relatable analogies</li>
+                  <li>Human-centric impact</li>
+                </ul>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "6. Narrative Structures by Audience",
+    notes: `Not all pitches follow the same structure. The classic "Problem-Solution" approach works for committees and academics—they want to see rigorous problem definition, methodology, and evidence. But executives and military leaders think differently. They want to know the solution first ("What do we do?"), then the impact, resources, and rationale. Why? Because they're decision-makers with limited time. The general public needs a different approach entirely—start with a hook that makes them care, use relatable analogies, build to an "aha" moment, then show the human impact. Understanding which structure fits your audience is crucial to being heard.`,
+    html: `<div class="space-y-6 w-full h-full flex flex-col">
+            <div>
+              <h2
+                class="text-4xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+              >
+                Narrative Structures by Audience
+              </h2>
+              <p
+                class="text-lg text-gray-600 dark:text-gray-300 font-medium mt-2"
+              >
+                Different stakeholders prefer different narrative flows.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 mt-8 flex-1">
+              <div
+                class="bg-gradient-to-b from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-2xl p-6 shadow-md border border-blue-200 dark:border-blue-700 flex flex-col"
+              >
+                <h3
+                  class="font-black text-lg text-blue-900 dark:text-blue-100 mb-6 text-center"
+                >
+                  Problem-First
+                </h3>
+                <p
+                  class="text-xs font-semibold text-blue-700 dark:text-blue-300 mb-4 text-center"
+                >
+                  Committees, Academia, Scientists
+                </p>
+
+                <div class="flex flex-col items-center space-y-3 flex-1">
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-blue-300 dark:border-blue-600"
+                  >
+                    <p
+                      class="text-xs font-black text-blue-900 dark:text-blue-100"
+                    >
+                      1. Context
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      Why now?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-blue-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-blue-300 dark:border-blue-600"
+                  >
+                    <p
+                      class="text-xs font-black text-blue-900 dark:text-blue-100"
+                    >
+                      2. Problem
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      What's broken?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-blue-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-blue-300 dark:border-blue-600"
+                  >
+                    <p
+                      class="text-xs font-black text-blue-900 dark:text-blue-100"
+                    >
+                      3. Methodology
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      How rigorous?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-blue-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-green-100 dark:bg-green-900/40 rounded-lg p-3 text-center border-2 border-green-400 dark:border-green-600"
+                  >
+                    <p
+                      class="text-xs font-black text-green-900 dark:text-green-100"
+                    >
+                      4. Solution
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      What works?
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-gradient-to-b from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 rounded-2xl p-6 shadow-md border border-orange-200 dark:border-orange-700 flex flex-col"
+              >
+                <h3
+                  class="font-black text-lg text-orange-900 dark:text-orange-100 mb-6 text-center"
+                >
+                  Solution-First
+                </h3>
+                <p
+                  class="text-xs font-semibold text-orange-700 dark:text-orange-300 mb-4 text-center"
+                >
+                  CEOs, Executives, Military
+                </p>
+
+                <div class="flex flex-col items-center space-y-3 flex-1">
+                  <div
+                    class="w-full bg-green-100 dark:bg-green-900/40 rounded-lg p-3 text-center border-2 border-green-400 dark:border-green-600"
+                  >
+                    <p
+                      class="text-xs font-black text-green-900 dark:text-green-100"
+                    >
+                      1. Solution
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      What do we do?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-orange-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-orange-300 dark:border-orange-600"
+                  >
+                    <p
+                      class="text-xs font-black text-orange-900 dark:text-orange-100"
+                    >
+                      2. Impact
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      How much does it matter?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-orange-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-orange-300 dark:border-orange-600"
+                  >
+                    <p
+                      class="text-xs font-black text-orange-900 dark:text-orange-100"
+                    >
+                      3. Resources
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      What do we need?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-orange-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-orange-300 dark:border-orange-600"
+                  >
+                    <p
+                      class="text-xs font-black text-orange-900 dark:text-orange-100"
+                    >
+                      4. Rationale
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      Why this way?
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-gradient-to-b from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-2xl p-6 shadow-md border border-purple-200 dark:border-purple-700 flex flex-col"
+              >
+                <h3
+                  class="font-black text-lg text-purple-900 dark:text-purple-100 mb-6 text-center"
+                >
+                  Context-Adaptive
+                </h3>
+                <p
+                  class="text-xs font-semibold text-purple-700 dark:text-purple-300 mb-4 text-center"
+                >
+                  General Public, Non-experts
+                </p>
+
+                <div class="flex flex-col items-center space-y-3 flex-1">
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-purple-300 dark:border-purple-600"
+                  >
+                    <p
+                      class="text-xs font-black text-purple-900 dark:text-purple-100"
+                    >
+                      1. Hook
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      Why should you care?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-purple-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-purple-300 dark:border-purple-600"
+                  >
+                    <p
+                      class="text-xs font-black text-purple-900 dark:text-purple-100"
+                    >
+                      2. Analogy
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      Relatable story?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-purple-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-white dark:bg-slate-800 rounded-lg p-3 text-center border-2 border-purple-300 dark:border-purple-600"
+                  >
+                    <p
+                      class="text-xs font-black text-purple-900 dark:text-purple-100"
+                    >
+                      3. Insight
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      The "aha" moment?
+                    </p>
+                  </div>
+
+                  <div class="h-6 flex items-center">
+                    <svg
+                      class="w-6 h-6 text-purple-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <div
+                    class="w-full bg-green-100 dark:bg-green-900/40 rounded-lg p-3 text-center border-2 border-green-400 dark:border-green-600"
+                  >
+                    <p
+                      class="text-xs font-black text-green-900 dark:text-green-100"
+                    >
+                      4. Impact
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                      How does it help?
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "7. The Hook & The Problem First",
+    notes: `Many presenters start by talking about themselves, their outline, or their beautiful code. This is a mistake. You must hook the audience immediately. Start with a problem. If they do not understand the friction of the status quo, they will not care about your solution. Frame the problem clearly in the first sixty seconds, and then show how you resolve it.`,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-6">
+              <div>
+                <h2
+                  class="text-3xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  The Hook & The Problem First
+                </h2>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                  Securing attention within the first 60 seconds.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+              <div
+                class="p-8 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-3xl flex flex-col justify-center text-center"
+              >
+                <h3 class="text-3xl font-black text-tured leading-tight">
+                  "People don't buy solutions;<br />they buy relief from
+                  problems."
+                </h3>
+              </div>
+
+              <div class="space-y-6 flex flex-col justify-center">
+                <div
+                  class="p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm flex items-start space-x-4"
+                >
+                  <div
+                    class="p-3 bg-fculblue/15 text-fculblue rounded-lg shrink-0"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-black text-sm text-oxfordblue dark:text-white uppercase tracking-wider"
+                    >
+                      Start with a Hook
+                    </h4>
+                    <p
+                      class="text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed"
+                    >
+                      Begin with a surprising statistic, a provocative question,
+                      or a short narrative instead of an outline.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm flex items-start space-x-4"
+                >
+                  <div
+                    class="p-3 bg-fculgreen/15 text-fculgreen rounded-lg shrink-0"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"
+                      />
+                      <line x1="12" x2="12" y1="9" y2="13" />
+                      <line x1="12" x2="12.01" y1="17" y2="17" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-bold text-sm text-oxfordblue dark:text-white uppercase tracking-wider"
+                    >
+                      Define the Friction
+                    </h4>
+                    <p
+                      class="text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed"
+                    >
+                      Clearly state what is broken with current methodologies.
+                      Make them feel the gap.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "8. Verbal Delivery & Body Language",
+    notes: `Your delivery is just as important as your slides. Nervousness naturally makes us speak fast and scan the room. To counteract this, force yourself to pause after key points. Speak to individuals in the audience rather than scanning. And during the Q&A, never get defensive—acknowledge the question, pause, and respond with structured logic.`,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-6">
+              <div>
+                <h2
+                  class="text-3xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  Verbal Delivery & Body Language
+                </h2>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                  Owning the stage and maintaining audience engagement.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-fculblue">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-timer"
+                  >
+                    <line x1="10" x2="14" y1="2" y2="2" />
+                    <line x1="12" x2="12" y1="14" y2="11" />
+                    <circle cx="12" cy="14" r="8" />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">Pacing</h3>
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-4 mt-4"
+                >
+                  <li>
+                    <b>Slow down</b> <br />Speak 20% slower than you think you
+                    should.
+                  </li>
+                  <li>
+                    <b>Embrace silence</b> <br />Pause 2 seconds after stating a
+                    major finding to let it sink in.
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="p-6 bg-white dark:bg-slate-855 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-fculgreen">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-eye"
+                  >
+                    <path
+                      d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0z"
+                    />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    Eye Contact
+                  </h3>
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-4 mt-4"
+                >
+                  <li>
+                    <b>One Person One Sentence</b> <br />Deliver a complete
+                    sentence to one person before moving on.
+                  </li>
+                  <li>
+                    <b>Build trust</b> <br />Creates a personal, conversational
+                    link with evaluators.
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-tured">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-move"
+                  >
+                    <path d="m9 18-3-3 3-3" />
+                    <path d="m15 6 3 3-3 3" />
+                    <path d="M18 9H6" />
+                    <path d="m9 6 3-3 3 3" />
+                    <path d="m9 18 3 3 3-3" />
+                    <path d="M12 3v18" />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    Body Movement
+                  </h3>
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-4 mt-4"
+                >
+                  <li>
+                    <b>Plant your feet</b> <br />Avoid nervous pacing; stand
+                    firmly to project ground authority.
+                  </li>
+                  <li>
+                    <b>Purposeful gestures</b> <br />Use open-hand gestures to
+                    emphasize key architecture or milestones.
+                  </li>
+                </ul>
+              </div>
+
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-fculblue">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-activity"
+                  >
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    Pitch & Modulation
+                  </h3>
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-4 mt-4"
+                >
+                  <li>
+                    <b>Vary inflection</b> <br />Drop your pitch slightly at the
+                    end of major claims to sound definitive.
+                  </li>
+                  <li>
+                    <b>Avoid trailing off</b> <br />Maintain core projection
+                    through the very last word of each sentence.
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-fculgreen">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-shuffle"
+                  >
+                    <path
+                      d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"
+                    />
+                    <path d="m18 2 4 4-4 4" />
+                    <path d="M2 6h1.9c1.2 0 2.3.6 3 1.7l1.1 1.6" />
+                    <path d="m15.4 12.8 1.2 1.7c.8 1.1 2 1.7 3.2 1.7H22" />
+                    <path d="m18 14 4 4-4 4" />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    Pulpit vs. Walking
+                  </h3>
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-4 mt-4"
+                >
+                  <li>
+                    <b>The Pulpit anchor</b> <br />Use the lectern briefly to
+                    establish control or reference data, but avoid hiding behind
+                    it.
+                  </li>
+                  <li>
+                    <b>Intentional transitions</b> <br />Step out into the open
+                    floor when dropping slides or engaging directly with
+                    evaluators.
+                  </li>
+                </ul>
+              </div>
+
+              <div
+                class="p-6 bg-white dark:bg-slate-855 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4"
+              >
+                <div class="flex items-center space-x-3 text-tured">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-message-square"
+                  >
+                    <path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    />
+                  </svg>
+                  <h3 class="font-black text-lg text-oxfordblue">
+                    Q&A Handling
+                  </h3>
+                </div>
+                <ul
+                  class="text-sm text-gray-500 dark:text-gray-400 space-y-4 mt-4"
+                >
+                  <li>
+                    <b>Acknowledge and Pause</b> <br />Acknowledge the question
+                    and pause to think for 3 seconds.
+                  </li>
+                  <li>
+                    <b>Build confidence</b> <br />Displays control and prevents
+                    defensive reactions.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "9. De-Risking and Proving Feasibility",
+    notes: `To secure support or pass a defense, you must make your evaluators feel safe. Proving feasibility is about showing resource readiness—like pointing to secured funding or equipment. Additionally, don't hide your project's risks. Bring them up yourself, and explain your plan B. This shows that you are a mature project manager who is prepared for real-world execution.`,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-6">
+              <div>
+                <h2
+                  class="text-3xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  De-Risking and Proving Feasibility
+                </h2>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                  How to make evaluators feel safe supporting your project.
+                </p>
+              </div>
+              <span
+                class="px-2 py-1 bg-fculgreen/10 text-fculgreen text-xs font-bold rounded-lg uppercase tracking-wider border border-fculgreen/20 shrink-0"
+              >
+                Project Safety
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+              <div class="space-y-6 flex flex-col justify-center">
+                <div
+                  class="p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm flex items-start space-x-4"
+                >
+                  <div
+                    class="p-3 bg-fculblue/15 text-fculblue rounded-lg shrink-0"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-black text-sm text-oxfordblue dark:text-white uppercase tracking-wider"
+                    >
+                      Resource Readiness
+                    </h4>
+                    <p
+                      class="text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed"
+                    >
+                      Highlight secured funding, hardware access, and lab space.
+                      Proves the project is ready to build.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm flex items-start space-x-4"
+                >
+                  <div
+                    class="p-3 bg-fculgreen/15 text-fculgreen rounded-lg shrink-0"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="m4.93 4.93 14.14 14.14" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-black text-sm text-oxfordblue dark:text-white uppercase tracking-wider"
+                    >
+                      Explicit Contingency Plans
+                    </h4>
+                    <p
+                      class="text-sm text-gray-500 dark:text-gray-400 mt-2 leading-relaxed"
+                    >
+                      Acknowledge your largest risk (hardware delay,
+                      recruitment) and show your active Plan B.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="p-8 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-3xl flex flex-col justify-center text-center"
+              >
+                <span
+                  class="text-sm font-black text-oxfordblue dark:text-white uppercase tracking-widest block mb-4"
+                  >The Evaluator's Question</span
+                >
+                <h3 class="text-3xl font-black text-fculblue leading-tight">
+                  "What could go wrong,<br />and why will you still succeed?"
+                </h3>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "10. Mini-Workshop: Stakeholder Showcase",
+    notes: ``,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-8">
+              <div>
+                <h2
+                  class="text-4xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  Mini-Workshop: Stakeholder Showcase
+                </h2>
+                <p class="text-lg text-gray-500 font-medium mt-2">
+                  Applying pitch principles in a high-leverage 90-minute sprint.
+                </p>
+              </div>
+              <span
+                class="px-3 py-1.5 bg-tured/10 text-tured text-sm font-black rounded-lg uppercase tracking-wider border border-tured/20 shrink-0"
+              >
+                90-Min Execution
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+              <div
+                class="relative p-6 bg-gradient-to-b from-white to-blue-50/30 dark:from-slate-850 dark:to-slate-800/50 border-t-4 border-t-fculblue border-x border-b border-gray-200 dark:border-gray-700 rounded-b-2xl shadow-sm space-y-4"
+              >
+                <div class="flex justify-between items-start mb-2">
+                  <span
+                    class="text-xs font-black text-fculblue uppercase tracking-widest bg-fculblue/10 px-2 py-1 rounded"
+                    >Part 1 • 35 Min</span
+                  >
+                  <div class="p-2 bg-fculblue/10 text-fculblue rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M2 3h20" />
+                      <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3" />
+                      <path d="m7 21 5-5 5 5" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                  Lecture & Strategy
+                </h3>
+                <p
+                  class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"
+                >
+                  Core training on presentation mediums, minimizing cognitive
+                  load, story funneling, and physical delivery mechanics.
+                </p>
+              </div>
+
+              <div
+                class="relative p-6 bg-gradient-to-b from-white to-green-50/30 dark:from-slate-850 dark:to-slate-800/50 border-t-4 border-t-fculgreen border-x border-b border-gray-200 dark:border-gray-700 rounded-b-2xl shadow-sm space-y-4"
+              >
+                <div class="flex justify-between items-start mb-2">
+                  <span
+                    class="text-xs font-black text-fculgreen uppercase tracking-widest bg-fculgreen/10 px-2 py-1 rounded"
+                    >Part 2 • 25 Min</span
+                  >
+                  <div class="p-2 bg-fculgreen/10 text-fculgreen rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                  Team Brainstorming
+                </h3>
+                <p
+                  class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"
+                >
+                  Form groups of 3-4. <b>1)</b> Pick a brief. <b>2)</b> Select
+                  Base or Advanced complexity. <b>3)</b> Select your target
+                  audience (Scientists, Executives, or Public). Outline your
+                  specific narrative structure.
+                </p>
+              </div>
+
+              <div
+                class="relative p-6 bg-gradient-to-b from-white to-red-50/30 dark:from-slate-850 dark:to-slate-800/50 border-t-4 border-t-tured border-x border-b border-gray-200 dark:border-gray-700 rounded-b-2xl shadow-sm space-y-4"
+              >
+                <div class="flex justify-between items-start mb-2">
+                  <span
+                    class="text-xs font-black text-tured uppercase tracking-widest bg-tured/10 px-2 py-1 rounded"
+                    >Part 3 • 30 Min</span
+                  >
+                  <div class="p-2 bg-tured/10 text-tured rounded-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+                      />
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                      <line x1="12" x2="12" y1="19" y2="22" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                  Stakeholder Pitch
+                </h3>
+                <p
+                  class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"
+                >
+                  Deliver a 3-minute pitch to your specific audience. The panel
+                  will roleplay that audience during a 2-minute Q&A, evaluating
+                  your tone, structure, and adaptability.
+                </p>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "11. Preset Challenges: Performance & Wellness",
+    notes: ``,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-6">
+              <div>
+                <h2
+                  class="text-3xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  Preset Challenges: Performance & Wellness
+                </h2>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                  Select a problem, choose your skill tier (Base/Advanced), and
+                  define your target audience.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span
+                    class="text-xs font-black text-fculblue uppercase tracking-widest block mb-2"
+                    >Brief A</span
+                  >
+                  <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                    Focus & Cognitive Optimizer
+                  </h3>
+                  <div
+                    class="text-sm text-gray-600 dark:text-gray-400 mt-4 space-y-3"
+                  >
+                    <p>
+                      <b class="text-oxfordblue dark:text-gray-200"
+                        >The Problem:</b
+                      >
+                      Students burn out, lose focus, and default to
+                      procrastination during peak exam stress. Current calendar
+                      apps are too passive to enforce discipline.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="space-y-3 pt-2 border-t border-gray-100 dark:border-gray-700"
+                >
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-fculblue"
+                  >
+                    <p class="text-xs font-bold text-fculblue uppercase mb-1">
+                      Base Target (MVP)
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a smart mobile app that actively detects digital
+                      procrastination and intervenes to trigger structured study
+                      blocks.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-oxfordblue dark:border-gray-500"
+                  >
+                    <p
+                      class="text-xs font-bold text-oxfordblue dark:text-gray-300 uppercase mb-1"
+                    >
+                      Advanced Target
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a predictive framework using biometric telemetry
+                      (heart rate/wearables) to detect cognitive fatigue
+                      <i>before</i> procrastination happens.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span
+                    class="text-xs font-black text-fculgreen uppercase tracking-widest block mb-2"
+                    >Brief B</span
+                  >
+                  <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                    Campus Resilience Hub
+                  </h3>
+                  <div
+                    class="text-sm text-gray-600 dark:text-gray-400 mt-4 space-y-3"
+                  >
+                    <p>
+                      <b class="text-oxfordblue dark:text-gray-200"
+                        >The Problem:</b
+                      >
+                      University counseling centers have long waitlists.
+                      Students experiencing acute isolation or early burnout
+                      lack immediate, low-barrier triage.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="space-y-3 pt-2 border-t border-gray-100 dark:border-gray-700"
+                >
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-fculgreen"
+                  >
+                    <p class="text-xs font-bold text-fculgreen uppercase mb-1">
+                      Base Target (MVP)
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch an anonymous, low-friction peer-support app that
+                      matches students for instant chat routing during moments
+                      of high stress.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-oxfordblue dark:border-gray-500"
+                  >
+                    <p
+                      class="text-xs font-bold text-oxfordblue dark:text-gray-300 uppercase mb-1"
+                    >
+                      Advanced Target
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a network that continuously maps systemic campus
+                      strain indicators and uses local NLP to route high-risk
+                      anomalies to professionals.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "12. Preset Challenges: Resource Logistics",
+    notes: ``,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-6">
+              <div>
+                <h2
+                  class="text-3xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  Preset Challenges: Resource Logistics
+                </h2>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                  Select a problem, choose your skill tier (Base/Advanced), and
+                  define your target audience.
+                </p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span
+                    class="text-xs font-black text-tured uppercase tracking-widest block mb-2"
+                    >Brief C</span
+                  >
+                  <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                    Zero-Waste Automation
+                  </h3>
+                  <div
+                    class="text-sm text-gray-600 dark:text-gray-400 mt-4 space-y-3"
+                  >
+                    <p>
+                      <b class="text-oxfordblue dark:text-gray-200"
+                        >The Problem:</b
+                      >
+                      Massive, unmonitored utility waste on campus. Tons of
+                      cafeteria food are discarded daily, and empty classroom
+                      HVAC systems remain on all night.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="space-y-3 pt-2 border-t border-gray-100 dark:border-gray-700"
+                >
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-tured"
+                  >
+                    <p class="text-xs font-bold text-tured uppercase mb-1">
+                      Base Target (MVP)
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a gamified platform to crowdsource
+                      sustainability—e.g., alerting peers to surplus event food
+                      or reporting empty, powered-on rooms.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-oxfordblue dark:border-gray-500"
+                  >
+                    <p
+                      class="text-xs font-bold text-oxfordblue dark:text-gray-300 uppercase mb-1"
+                    >
+                      Advanced Target
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch an autonomous IoT edge-sensing mesh that detects
+                      room occupancy and dynamically overrides utility grids to
+                      halt localized energy waste.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span
+                    class="text-xs font-black text-fculblue uppercase tracking-widest block mb-2"
+                    >Brief D</span
+                  >
+                  <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                    Closed-Loop Exchange
+                  </h3>
+                  <div
+                    class="text-sm text-gray-600 dark:text-gray-400 mt-4 space-y-3"
+                  >
+                    <p>
+                      <b class="text-oxfordblue dark:text-gray-200"
+                        >The Problem:</b
+                      >
+                      High financial friction for short-term assets. Students
+                      buy expensive textbooks or hardware kits that they only
+                      need for a 4-month semester.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="space-y-3 pt-2 border-t border-gray-100 dark:border-gray-700"
+                >
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-fculblue"
+                  >
+                    <p class="text-xs font-bold text-fculblue uppercase mb-1">
+                      Base Target (MVP)
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a hyper-local, zero-fee campus marketplace matching
+                      senior students with freshmen to seamlessly rent or swap
+                      specific course materials.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-oxfordblue dark:border-gray-500"
+                  >
+                    <p
+                      class="text-xs font-bold text-oxfordblue dark:text-gray-300 uppercase mb-1"
+                    >
+                      Advanced Target
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a verified, tokenized asset tracking system enabling
+                      departments and students to pool, trace, and temporarily
+                      distribute physical machinery.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "13. Preset Challenges: Security & Mobility",
+    notes: ``,
+    html: `<div class="space-y-6 w-full">
+            <div class="flex justify-between items-start gap-2 mb-6">
+              <div>
+                <h2
+                  class="text-3xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+                >
+                  Preset Challenges: Security & Mobility
+                </h2>
+                <p class="text-sm text-gray-500 font-medium mt-1">
+                  Select a problem, choose your skill tier (Base/Advanced), and
+                  define your target audience.
+                </p>
+              </div>
+            </div>
+
+            <div class="max-w-xl pt-4">
+              <div
+                class="p-6 bg-white dark:bg-slate-850 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm space-y-4 flex flex-col justify-between"
+              >
+                <div>
+                  <span
+                    class="text-xs font-black text-fculgreen uppercase tracking-widest block mb-2"
+                    >Brief E</span
+                  >
+                  <h3 class="font-bold text-xl text-oxfordblue dark:text-white">
+                    Mesh Safety & Companion
+                  </h3>
+                  <div
+                    class="text-sm text-gray-600 dark:text-gray-400 mt-4 space-y-3"
+                  >
+                    <p>
+                      <b class="text-oxfordblue dark:text-gray-200"
+                        >The Problem:</b
+                      >
+                      Personnel leaving labs or libraries at 2:00 AM feel
+                      vulnerable navigating unmonitored, low-density campus
+                      corridors alone.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="space-y-3 pt-2 border-t border-gray-100 dark:border-gray-700"
+                >
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-fculgreen"
+                  >
+                    <p class="text-xs font-bold text-fculgreen uppercase mb-1">
+                      Base Target (MVP)
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a localized safety companion app that syncs walking
+                      routes, grouping students heading in the same direction
+                      into physical buddy systems.
+                    </p>
+                  </div>
+                  <div
+                    class="bg-gray-50 dark:bg-slate-800 p-3 rounded-lg border-l-4 border-oxfordblue dark:border-gray-500"
+                  >
+                    <p
+                      class="text-xs font-bold text-oxfordblue dark:text-gray-300 uppercase mb-1"
+                    >
+                      Advanced Target
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      Pitch a decentralized protocol that maintains
+                      zero-knowledge location tracking and routes emergency
+                      signals even when campus Wi-Fi/cellular nodes fail.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`,
+  },
+  {
+    section: "14. Join the Feedback Board",
+    notes: `Before we begin the showcase, please scan this code to bring up the Slido panel on your phones. After each pitch, this screen will transform into a live word cloud tracking your real-time feedback.`,
+    html: `<div
+            class="space-y-6 w-full h-full flex flex-col items-center justify-center text-center"
+          >
+            <div>
+              <h2
+                class="text-4xl font-extrabold text-oxfordblue dark:text-white tracking-tight"
+              >
+                Join the Feedback Board
+              </h2>
+              <p class="text-lg text-gray-500 font-medium mt-1">
+                Scan to evaluate what the teams did well in real time.
+              </p>
+            </div>
+
+            <div
+              class="p-6 bg-white rounded-3xl shadow-xl inline-block border-2 border-fculblue/20"
+            >
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fapp.sli.do%2Fevent%2FnxkGFtwk13xQcbLb6iwFmp&color=0A1928"
+                alt="Slido Event QR Code"
+                class="w-56 h-56 mx-auto"
+              />
+            </div>
+
+            <p class="text-xs text-gray-400 font-mono">
+              https://app.sli.do/event/nxkGFtwk13xQcbLb6iwFmp
+            </p>
+          </div>`,
+  },
+];
+
+      /* ============================================================
+       *  GLOBAL STATE & SELECTORS
+       * ============================================================ */
+      let currentSlide = 0;
+      let isNotesVisible = false;
+      let notesWindow = null;
+
+      const slideContainer = document.getElementById("slide-container");
+      const slideSection = document.getElementById("slide-section");
+      const slideNumCurrent = document.getElementById("slide-num-current");
+      const slideNumTotal = document.getElementById("slide-num-total");
+      const progressFill = document.getElementById("progress-fill");
+
+      const btnPrev = document.getElementById("btn-prev");
+      const btnNext = document.getElementById("btn-next");
+      const btnNotes = document.getElementById("btn-notes");
+      const btnPresent = document.getElementById("theme-toggle");
+
+      const notesPanel = document.getElementById("notes-panel");
+      const notesContent = document.getElementById("notes-content");
+      const closeNotesBtn = document.getElementById("close-notes-btn");
+      const themeToggle = document.getElementById("theme-toggle");
+
+      /* ============================================================
+       *  REMOTE CONTROL ROLE (?role=master|controller)
+       * ============================================================ */
+      let ws = null;
+      let syncRole = "listener";
+      let wsSyncedLock = true;
+      let masterIndex = 0;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const roleParam = urlParams.get("role");
+      if (roleParam === "listener" || roleParam === "controller") {
+        syncRole = roleParam;
+      } else {
+        // No role, or an explicit ?role=master — this is the presenter's deck.
+        syncRole = "master";
+      }
+      if (syncRole === "controller") {
+        document.getElementById("controller-ui").classList.remove("hidden");
+      }
+      if (syncRole === "listener") {
+        // Listeners never get the notes button
+        btnNotes.classList.add("hidden");
+      }
+      /* ============================================================
+       *  RENDER CONTROLLER
+       * ============================================================ */
+      function init() {
+        slideNumTotal.textContent = slides.length;
+        renderSlide();
+      }
+
+      function renderSlide() {
+        const data = slides[currentSlide];
+        if (!data) return;
+
+        slideContainer.innerHTML = data.html;
+        slideSection.textContent = data.section;
+        slideNumCurrent.textContent = currentSlide + 1;
+
+        btnPrev.disabled = currentSlide === 0;
+        btnNext.disabled = currentSlide === slides.length - 1;
+
+        const percentage = (currentSlide / (slides.length - 1)) * 100;
+        progressFill.style.width = `${percentage}%`;
+
+        // Run per-slide initialiser (interactive widgets) after injection
+        if (typeof data.onInit === "function") {
+          try {
+            data.onInit();
+          } catch (err) {
+            console.warn("Slide onInit failed:", err);
+          }
+        }
+
+        updateNotes();
+        if (syncRole === "controller") updateControllerUI();
+      }
+
+      function goToSlide(index) {
+        if (index < 0 || index > slides.length - 1) return;
+        currentSlide = index;
+        renderSlide();
+        broadcastSlideChange();
+      }
+
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+      function prevSlide() {
+        goToSlide(currentSlide - 1);
+      }
+
+      /* ============================================================
+       *  INTERACTIVE WIDGETS (moved out of inline <script>)
+       * ============================================================ */
+      // Slide 2 — clickable tool preview boxes
+      function initToolBoxes() {
+        document.querySelectorAll("[data-tool-box]").forEach((box) => {
+          box.onclick = () => {
+            const overlay = box.querySelector(".box-overlay");
+            if (overlay) overlay.classList.toggle("hidden");
+          };
+        });
+      }
+
+      // Slide 3 — playable Snake game
+      let snakeGame = null;
+      function initSnakeGame() {
+        const canvas = document.getElementById("snakeCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        const GRID = 5;
+        const TILE = 60;
+
+        let snake, food, direction, nextDirection, score, running, over, timer;
+
+        function reset() {
+          if (timer) clearInterval(timer);
+          timer = null;
+          snake = [{ x: 2, y: 2 }];
+          food = {
+            x: Math.floor(Math.random() * GRID),
+            y: Math.floor(Math.random() * GRID),
+          };
+          direction = { x: 1, y: 0 };
+          nextDirection = { x: 1, y: 0 };
+          score = 0;
+          running = false;
+          over = false;
+          const sc = document.getElementById("snakeScore");
+          const st = document.getElementById("snakeStatus");
+          if (sc) sc.textContent = "0";
+          if (st) st.textContent = "Press Start";
+          draw();
+        }
+
+        function draw() {
+          ctx.fillStyle = "#1e293b";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.strokeStyle = "#334155";
+          ctx.lineWidth = 1;
+          for (let i = 0; i <= GRID; i++) {
+            ctx.beginPath();
+            ctx.moveTo(i * TILE, 0);
+            ctx.lineTo(i * TILE, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, i * TILE);
+            ctx.lineTo(canvas.width, i * TILE);
+            ctx.stroke();
+          }
+          ctx.fillStyle = "#EF4444";
+          ctx.fillRect(food.x * TILE + 5, food.y * TILE + 5, TILE - 10, TILE - 10);
+          snake.forEach((seg, i) => {
+            ctx.fillStyle = i === 0 ? "#22c55e" : "#16a34a";
+            ctx.fillRect(seg.x * TILE + 3, seg.y * TILE + 3, TILE - 6, TILE - 6);
+          });
+        }
+
+        function end() {
+          running = false;
+          over = true;
+          const st = document.getElementById("snakeStatus");
+          if (st) st.textContent = "Game Over!";
+          if (timer) {
+            clearInterval(timer);
+            timer = null;
+          }
+        }
+
+        function update() {
+          if (!running || over) return;
+          direction = nextDirection;
+          const head = {
+            x: snake[0].x + direction.x,
+            y: snake[0].y + direction.y,
+          };
+          if (head.x < 0 || head.x >= GRID || head.y < 0 || head.y >= GRID)
+            return end();
+          if (snake.some((s) => s.x === head.x && s.y === head.y)) return end();
+          snake.unshift(head);
+          if (head.x === food.x && head.y === food.y) {
+            score += 10;
+            const sc = document.getElementById("snakeScore");
+            if (sc) sc.textContent = score;
+            food = {
+              x: Math.floor(Math.random() * GRID),
+              y: Math.floor(Math.random() * GRID),
+            };
+          } else {
+            snake.pop();
+          }
+          draw();
+        }
+
+        function start() {
+          if (over) reset();
+          if (!running) {
+            running = true;
+            const st = document.getElementById("snakeStatus");
+            if (st) st.textContent = "Playing...";
+            if (timer) clearInterval(timer);
+            timer = setInterval(update, 300);
+          }
+        }
+
+        snakeGame = {
+          reset,
+          start,
+          isRunning: () => running,
+          handleKey: (e) => {            if (!running) {
+              if (e.key === " " || e.key === "Enter") {
+                start();
+                return true;
+              }
+              return false;
+            }
+            const k = e.key.toLowerCase();
+            if (k === "arrowup" || k === "w") {
+              if (direction.y === 0) nextDirection = { x: 0, y: -1 };
+              return true;
+            }
+            if (k === "arrowdown" || k === "s") {
+              if (direction.y === 0) nextDirection = { x: 0, y: 1 };
+              return true;
+            }
+            if (k === "arrowleft" || k === "a") {
+              if (direction.x === 0) nextDirection = { x: -1, y: 0 };
+              return true;
+            }
+            if (k === "arrowright" || k === "d") {
+              if (direction.x === 0) nextDirection = { x: 1, y: 0 };
+              return true;
+            }
+            return false;
+          },
+        };
+
+        const startBtn = document.querySelector("[data-snake-start]");
+        const resetBtn = document.querySelector("[data-snake-reset]");
+        if (startBtn) startBtn.onclick = start;
+        if (resetBtn) resetBtn.onclick = reset;
+
+        reset();
+      }
+
+      /* ============================================================
+       *  PRESENTER NOTES
+       * ============================================================ */
+      function toggleNotesMode(enabled) {
+        isNotesVisible = enabled;
+        if (isNotesVisible) {
+          notesPanel.classList.remove("hidden");
+          setTimeout(() => notesPanel.classList.remove("translate-x-full"), 10);
+          btnNotes.className =
+            "px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-fculblue text-white shadow-sm";
+
+          if (!notesWindow || notesWindow.closed) {
+            try {
+              notesWindow = window.open(
+                "",
+                "PresenterNotes",
+                "width=1000,height=700,menubar=no,toolbar=no,location=no,status=no",
+              );
+              if (notesWindow) {
+                notesWindow.document.write(`
+                  <html>
+                    <head>
+                      <title>Presenter Notes — The Art of the Pitch</title>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <script src="https://cdn.tailwindcss.com"><\/script>
+                      <style>
+                        body { font-family: 'Inter', sans-serif; background:#0f172a; color:#f1f5f9; margin:0; padding:1.5rem; }
+                        p { font-size:1.15rem; line-height:1.9rem; }
+                      </style>
+                    </head>
+                    <body class="flex flex-col h-screen">
+                      <header class="flex justify-between items-center pb-4 border-b border-slate-700 shrink-0">
+                        <div>
+                          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Presenter View</span>
+                          <h1 class="text-xl font-bold text-slate-200" id="current-section">Overview</h1>
+                        </div>
+                        <div class="text-right">
+                          <span class="text-xs text-slate-400 block">Slide</span>
+                          <span class="text-lg font-black text-blue-400" id="slide-num">1</span>
+                        </div>
+                      </header>
+                      <main class="flex-1 overflow-y-auto py-4 text-slate-300" id="notes-content">Loading notes...</main>
+                      <div class="mt-3 p-3 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-between gap-4 shrink-0">
+                        <div class="text-left">
+                          <span class="text-xs font-black text-blue-400 uppercase tracking-widest block">Remote Controller</span>
+                          <h4 class="text-xs font-bold text-white mt-1">Control from your Phone</h4>
+                          <p class="text-xs text-slate-400 mt-0.5 leading-normal">Scan to load the phone remote with slide controls and speaker scripts.</p>
+                        </div>
+                        <div class="shrink-0 p-1.5 bg-white rounded-lg">
+                          <img id="qr-controller" class="h-16 w-16 object-contain" alt="QR Phone Remote">
+                        </div>
+                      </div>
+                      <footer class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-500 shrink-0 flex justify-between">
+                        <span>The Art of the Pitch</span>
+                        <span>Arrow keys navigate slides</span>
+                      </footer>
+                      <script>
+                        window.addEventListener("keydown", (e) => {
+                          if (window.opener && !window.opener.closed) {
+                            if (e.key === "ArrowRight" || e.key === " ") {
+                              window.opener.document.getElementById("btn-next").click();
+                            } else if (e.key === "ArrowLeft") {
+                              window.opener.document.getElementById("btn-prev").click();
+                            }
+                          }
+                        });
+                      <\/script>
+                    </body>
+                  </html>
+                `);
+                notesWindow.document.close();
+              }
+            } catch (err) {
+              console.warn("Could not open presenter notes popup window:", err);
+            }
+          } else {
+            notesWindow.focus();
+          }
+          updateNotes();
+        } else {
+          notesPanel.classList.add("translate-x-full");
+          setTimeout(() => notesPanel.classList.add("hidden"), 300);
+          btnNotes.className =
+            "px-3 py-1.5 rounded-md text-xs font-bold transition-all text-gray-500 hover:text-gray-900 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800";
+          if (notesWindow && !notesWindow.closed) notesWindow.close();
+          notesWindow = null;
+        }
+      }
+
+      function updateNotes() {
+        const slideData = slides[currentSlide];
+        const sectionName = slideData ? slideData.section : "Overview";
+        const contentHtml = slideData && slideData.notes
+          ? `<p>${slideData.notes}</p>`
+          : `<p class="text-slate-500 italic">No notes available for this slide.</p>`;
+
+        if (notesContent) notesContent.innerHTML = contentHtml;
+
+        if (notesWindow && !notesWindow.closed) {
+          const doc = notesWindow.document;
+          if (document.documentElement.classList.contains("dark")) {
+            doc.documentElement.classList.add("dark");
+          } else {
+            doc.documentElement.classList.remove("dark");
+          }
+          const sectionEl = doc.getElementById("current-section");
+          const slideNumEl = doc.getElementById("slide-num");
+          const notesEl = doc.getElementById("notes-content");
+          if (sectionEl) sectionEl.textContent = sectionName;
+          if (slideNumEl)
+            slideNumEl.textContent = `${currentSlide + 1} / ${slides.length}`;
+          if (notesEl) notesEl.innerHTML = contentHtml;
+
+          const qrController = doc.getElementById("qr-controller");
+          if (qrController && !qrController.src) {
+            const controllerUrl =
+              window.location.href.split("?")[0] + "?role=controller";
+            qrController.src =
+              "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" +
+              encodeURIComponent(controllerUrl);
+          }
+        }
+      }
+
+      /* ============================================================
+       *  WEBSOCKET SYNC (master / controller / listener)
+       * ============================================================ */
+      function initWebSocket() {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        const host = window.location.hostname || "localhost";
+        const wsUrl = `${protocol}//${host}:8088`;
+        try {
+          ws = new WebSocket(wsUrl);
+        } catch (err) {
+          console.warn("WebSocket unavailable:", err);
+          return;
+        }
+
+        ws.onopen = () => {
+          console.log(`📡 Connected to sync server as: ${syncRole}`);
+          ws.send(JSON.stringify({ type: "register", role: syncRole }));
+        };
+
+        ws.onmessage = (event) => {
+          const msg = JSON.parse(event.data);
+
+          if (msg.type === "init_state") {
+            wsSyncedLock = msg.lock;
+            masterIndex = msg.index;
+            updateSyncUI();
+            if (syncRole === "listener" && wsSyncedLock) {
+              currentSlide = masterIndex;
+              renderSlide();
+            } else if (syncRole === "controller") {
+              currentSlide = masterIndex;
+              updateControllerUI();
+            }
+          } else if (msg.type === "sync_slide") {
+            masterIndex = msg.index;
+            if (syncRole === "listener" && wsSyncedLock) {
+              currentSlide = masterIndex;
+              renderSlide();
+            } else if (syncRole === "controller") {
+              currentSlide = masterIndex;
+              updateControllerUI();
+            }
+          } else if (msg.type === "sync_lock") {
+            wsSyncedLock = msg.lock;
+            masterIndex = msg.master_index;
+            updateSyncUI();
+            if (syncRole === "listener" && wsSyncedLock) {
+              currentSlide = masterIndex;
+              renderSlide();
+            }
+          } else if (msg.type === "remote_action") {
+            if (syncRole === "master") {
+              if (msg.command === "next") nextSlide();
+              else if (msg.command === "prev") prevSlide();
+            }
+          }
+        };
+
+        ws.onerror = () => {
+          wsSyncedLock = false;
+          updateSyncUI();
+        };
+
+        ws.onclose = () => {
+          console.warn("📡 Sync server offline.");
+          wsSyncedLock = false;
+          updateSyncUI();
+          setTimeout(initWebSocket, 4000);
+        };
+      }
+
+      function broadcastSlideChange() {
+        if (
+          ws &&
+          ws.readyState === WebSocket.OPEN &&
+          (syncRole === "master" || syncRole === "controller")
+        ) {
+          ws.send(JSON.stringify({ type: "slide_change", index: currentSlide }));
+        }
+      }
+
+      function updateSyncUI() {
+        const badge = document.getElementById("sync-status-badge");
+        const catchupBtn = document.getElementById("btn-catchup");
+        if (syncRole !== "listener") return;
+
+        if (badge) {
+          badge.classList.remove("hidden");
+          badge.textContent = wsSyncedLock ? "Synced" : "Independent";
+          badge.className = wsSyncedLock
+            ? "px-2.5 py-0.5 bg-fculblue/10 text-fculblue text-[10px] font-bold rounded uppercase tracking-wider animate-pulse"
+            : "px-2.5 py-0.5 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded uppercase tracking-wider";
+        }
+        if (catchupBtn) {
+          catchupBtn.classList.toggle("hidden", wsSyncedLock);
+        }
+        if (btnPrev && btnNext) {
+          btnPrev.classList.toggle("opacity-30", wsSyncedLock);
+          btnPrev.classList.toggle("pointer-events-none", wsSyncedLock);
+          btnNext.classList.toggle("opacity-30", wsSyncedLock);
+          btnNext.classList.toggle("pointer-events-none", wsSyncedLock);
+        }
+      }
+
+      function updateControllerUI() {
+        const slideData = slides[currentSlide];
+        if (!slideData) return;
+        const sectionEl = document.getElementById("controller-section");
+        const slideNumEl = document.getElementById("controller-slide-num");
+        const notesEl = document.getElementById("controller-notes-text");
+        if (sectionEl) sectionEl.textContent = slideData.section;
+        if (slideNumEl)
+          slideNumEl.textContent = `${currentSlide + 1} / ${slides.length}`;
+        if (notesEl) {
+          notesEl.innerHTML = slideData.notes
+            ? `<p>${slideData.notes}</p>`
+            : `<p class="text-slate-500 italic">No notes for this slide.</p>`;
+        }
+      }
+
+      /* ============================================================
+       *  EVENT BINDINGS
+       * ============================================================ */
+      btnNotes.addEventListener("click", () => {
+        if (syncRole === "listener") {
+          showNotification("🔒 Script access is restricted to the presenter.");
+          return;
+        }
+        toggleNotesMode(!isNotesVisible);
+      });
+      closeNotesBtn.addEventListener("click", () => toggleNotesMode(false));
+
+      btnPrev.addEventListener("click", () => {
+        if (syncRole !== "listener" || !wsSyncedLock) prevSlide();
+      });
+      btnNext.addEventListener("click", () => {
+        if (syncRole !== "listener" || !wsSyncedLock) nextSlide();
+      });
+
+      themeToggle.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+      });
+
+      document.getElementById("btn-catchup").onclick = () => {
+        currentSlide = masterIndex;
+        renderSlide();
+      };
+
+      // Controller buttons
+      const ctrlPrev = document.getElementById("ctrl-btn-prev");
+      const ctrlNext = document.getElementById("ctrl-btn-next");
+      if (ctrlPrev)
+        ctrlPrev.onclick = () => {
+          if (ws && ws.readyState === WebSocket.OPEN)
+            ws.send(JSON.stringify({ type: "action", command: "prev" }));
+        };
+      if (ctrlNext)
+        ctrlNext.onclick = () => {
+          if (ws && ws.readyState === WebSocket.OPEN)
+            ws.send(JSON.stringify({ type: "action", command: "next" }));
+        };
+      const lockToggle = document.getElementById("controller-sync-lock");
+      if (lockToggle)
+        lockToggle.onchange = (e) => {
+          if (ws && ws.readyState === WebSocket.OPEN)
+            ws.send(JSON.stringify({ type: "set_lock", lock: e.target.checked }));
+        };
+
+      // Keyboard
+      document.addEventListener("keydown", (e) => {
+        // Let the snake game consume keys while it is active
+        if (snakeGame && snakeGame.isRunning() && snakeGame.handleKey(e)) {
+          e.preventDefault();
+          return;
+        }
+        if (e.key === "Enter" && snakeGame && snakeGame.handleKey(e)) return;
+
+        if (syncRole === "listener" && wsSyncedLock) return;
+
+        if (e.key === "ArrowRight" || e.key === " ") {
+          nextSlide();
+          e.preventDefault();
+        } else if (e.key === "ArrowLeft") {
+          prevSlide();
+          e.preventDefault();
+        } else if (e.key.toLowerCase() === "n") {
+          if (syncRole !== "listener") toggleNotesMode(!isNotesVisible);
+        }
+      });
+
+      window.addEventListener("unload", () => {
+        if (notesWindow && !notesWindow.closed) notesWindow.close();
+      });
+
+      // Notification toast
+      let notifTimer = null;
+      function showNotification(text) {
+        const box = document.getElementById("notification-box");
+        const t = document.getElementById("notification-text");
+        if (!box || !t) return;
+        t.textContent = text;
+        box.classList.remove("translate-y-12", "opacity-0");
+        clearTimeout(notifTimer);
+        notifTimer = setTimeout(() => {
+          box.classList.add("translate-y-12", "opacity-0");
+        }, 2200);
+      }
+
+      /* ============================================================
+       *  START
+       * ============================================================ */
+      init();
+      initWebSocket();
+    </script>
+  </body>
+</html>

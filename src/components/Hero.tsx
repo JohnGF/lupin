@@ -36,8 +36,8 @@ export default function Hero() {
               <a href="#architecture" className="inline-flex items-center gap-2 rounded-full bg-gold text-ink px-7 py-3.5 text-sm font-semibold tracking-tight hover:bg-cream transition-colors shadow-[0_0_0_1px_rgba(194,164,93,0.3)]">
                 Explore Architecture <ArrowRight size={16} />
               </a>
-              <a href="#clinical" className="inline-flex items-center gap-2 rounded-full border border-frost/20 text-cream px-7 py-3.5 text-sm font-medium tracking-tight hover:border-gold hover:text-gold transition-colors">
-                Clinical Impact
+              <a href="/decks/lupin_roadmap/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-gold/40 text-gold px-7 py-3.5 text-sm font-medium tracking-tight hover:bg-gold/10 transition-colors">
+                LUPIN Roadmap Deck ↗
               </a>
               <a href="#dataset" className="inline-flex items-center gap-2 rounded-full border border-frost/20 text-cream px-7 py-3.5 text-sm font-medium tracking-tight hover:border-gold hover:text-gold transition-colors">
                 Open Benchmark

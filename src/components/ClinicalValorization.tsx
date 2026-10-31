@@ -45,18 +45,30 @@ export default function ClinicalValorization() {
         </div>
 
         {/* Asset release cards */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="rounded-2xl border border-gold/30 bg-gradient-to-br from-stone/60 to-ink p-8 md:p-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="rounded-2xl border border-gold/30 bg-gradient-to-br from-stone/60 to-ink p-8">
             <div className="font-mono text-xs uppercase tracking-[0.15em] text-gold mb-3">Intellectual Property</div>
-            <h3 className="font-serif text-3xl text-cream mb-3">EU Patent Pending</h3>
-            <p className="text-frost/70 leading-relaxed mb-6">Multimodal gating + manifold alignment architecture covered under European patent application — protecting both the method and the student-teacher distillation protocol.</p>
-            <a href="#" className="inline-flex items-center gap-2 text-gold font-medium hover:text-cream transition-colors">View Patent Details →</a>
+            <h3 className="font-serif text-2xl text-cream mb-3">Patent Status: TBD</h3>
+            <p className="text-frost/70 text-sm leading-relaxed mb-6">Multimodal gating + manifold alignment architecture — intellectual property protection under evaluation. No formal application filed yet.</p>
+            <span className="text-frost/50 font-mono text-xs">[Status TBD]</span>
           </div>
-          <div className="rounded-2xl border border-frost/10 bg-graphite/40 p-8 md:p-10">
+
+          <div className="rounded-2xl border border-frost/10 bg-graphite/40 p-8">
             <div className="font-mono text-xs uppercase tracking-[0.15em] text-gold mb-3">Open Science</div>
-            <h3 className="font-serif text-3xl text-cream mb-3">Dual-Stream Asset Release</h3>
-            <p className="text-frost/70 leading-relaxed mb-6">Dataset + model weights released under permissive open-science license: BIDS-compliant dataset (420 sessions) and distilled student checkpoint (RQ3) for reproducible validation.</p>
-            <a href="#dataset" className="inline-flex items-center gap-2 text-gold font-medium hover:text-cream transition-colors">Access Dataset →</a>
+            <h3 className="font-serif text-2xl text-cream mb-3">Dual-Stream Asset Release</h3>
+            <p className="text-frost/70 text-sm leading-relaxed mb-6">Dataset + model weights under open-science license: BIDS dataset &amp; distilled student checkpoint for validation.</p>
+            <a href="#dataset" className="inline-flex items-center gap-2 text-gold font-medium hover:text-cream text-sm transition-colors">Access Dataset →</a>
+          </div>
+
+          <div className="rounded-2xl border border-gold/30 bg-graphite/40 p-8">
+            <div className="font-mono text-xs uppercase tracking-[0.15em] text-gold mb-3">Presentation Decks</div>
+            <h3 className="font-serif text-2xl text-cream mb-3">Venture &amp; Technical Presentations</h3>
+            <p className="text-frost/70 text-sm leading-relaxed mb-4">Interactive HTML presentation decks styled with Tailwind CSS:</p>
+            <ul className="space-y-2 text-sm font-mono text-frost/90">
+              <li><a href="/decks/lupin_roadmap/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">↗ LUPIN Roadmap Deck</a></li>
+              <li><a href="/decks/art_pitch/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">↗ Art Pitch Deck</a></li>
+              <li><a href="/decks/early_pitch/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">↗ Early Pitch Deck</a></li>
+            </ul>
           </div>
         </div>
       </div>

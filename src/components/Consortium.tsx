@@ -4,8 +4,8 @@ import carlosPhoto from "../assets/team/carlos.jpg";
 import mamedePhoto from "../assets/team/mamede.jpg";
 
 const team = [
-  { name: "João Tomás Garcia Farinha", role: "Day-to-Day Lead & Architect", org: "LASIGE · FCUL", focus: "Execution, hardware-software co-design, and LUPI distillation", photo: joaoPhoto },
   { name: "Prof. Nuno Garcia", role: "PI — AI & Deep Learning", org: "LASIGE · FCUL", focus: "Multimodal learning, cross-attention, and distillation", photo: nunoPhoto },
+  { name: "João Tomás Garcia Farinha", role: "Day-to-Day Lead & Architect", org: "LASIGE · FCUL", focus: "Execution, hardware-software co-design, and LUPI distillation", photo: joaoPhoto },
   { name: "Prof. Carlos Duarte", role: "HCI & Experiment Design", org: "LASIGE · FCUL", focus: "Human-computer interaction, adaptive systems & UX", photo: carlosPhoto },
   { name: "Prof. Mamede de Carvalho", role: "Clinical Validation", org: "IMM · FMUL", focus: "Clinical neurophysiology and ALS trials", photo: mamedePhoto },
 ];

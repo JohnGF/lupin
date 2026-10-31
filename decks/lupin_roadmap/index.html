@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>LUPIN Roadmap — Context-Aware BCI</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+            colors: {
+              oxfordblue: "#0A192F",
+              fculblue: "#3b82f6",
+              fculgreen: "#10b981",
+              tured: "#ef4444",
+              caixablue: "#4090ce",
+              caixayellow: "#ffc226",
+              caixaorange: "#f04924",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg-overlay: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.98) 100%
+        );
+      }
+      html.dark {
+        --bg-overlay: linear-gradient(
+          180deg,
+          rgba(10, 25, 47, 0.96) 0%,
+          rgba(10, 25, 47, 0.99) 100%
+        );
+      }
+      body {
+        overflow: hidden;
+      }
+      .slide-bg {
+        background: var(--bg-overlay);
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 dark:bg-oxfordblue transition-colors duration-300">
+    <!-- Main Presentation Container -->
+    <!-- App + institutional bar -->
+    <div class="h-screen w-screen flex flex-col overflow-hidden">
+    <div class="flex flex-1 min-h-0 relative overflow-hidden">
+      <!-- LEFT PANEL: Slide Frame -->
+      <div class="flex-1 flex flex-col justify-between h-full p-2 sm:p-3 lg:p-4 relative z-10">
+        <!-- HEADER -->
+        <header
+          class="flex justify-between items-center shrink-0 pb-2 border-b border-gray-200/50 dark:border-gray-800/50"
+        >
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-8 h-8 rounded-lg bg-caixablue flex items-center justify-center text-white shadow-md"
+            >
+              <i class="fa-solid fa-brain text-xs"></i>
+            </div>
+            <div>
+              <h1
+                id="app-title"
+                class="text-base font-black text-slate-800 dark:text-white tracking-wide uppercase"
+              >
+                LUPIN Roadmap
+              </h1>
+              <p class="text-xs text-gray-400 font-medium">
+                Democratizing Neurorehabilitation via Context-Aware BCI
+              </p>
+            </div>
+          </div>
+
+          <!-- TOP CONTROL MENU -->
+          <div class="flex items-center space-x-3">
+            <span
+              id="sync-status-badge"
+              class="hidden px-2.5 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider"
+            ></span>
+            <button
+              id="btn-catchup"
+              class="hidden px-2.5 py-1 rounded-md text-[10px] font-bold bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 transition-all"
+              title="Jump back to the presenter's slide"
+            >
+              Catch up
+            </button>
+            <button
+              id="theme-toggle"
+              class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800 transition-colors"
+              title="Toggle Theme"
+            >
+              <i class="fa-solid fa-moon dark:hidden"></i>
+              <i class="fa-solid fa-sun hidden dark:block"></i>
+            </button>
+            <button
+              id="btn-notes"
+              class="px-3 py-1.5 rounded-md text-xs font-bold transition-all text-gray-500 hover:text-gray-900 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800"
+              title="Presenter view"
+            >
+              <i class="fa-solid fa-clipboard-list mr-1"></i> Notes
+            </button>
+          </div>
+        </header>
+
+        <!-- SLIDE WINDOW -->
+        <main
+          class="flex-1 flex items-center justify-center relative overflow-hidden my-1 sm:my-2 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-slate-900/60 shadow-xl transition-all duration-300 slide-bg"
+        >
+          <div
+            id="slide-container"
+            class="w-full h-full p-2 sm:p-4 lg:p-5 relative overflow-y-auto flex flex-col justify-between"
+          >
+            <!-- Slide HTML is dynamically loaded here -->
+          </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer
+          class="shrink-0 flex items-center justify-between pt-2 border-t border-gray-200/50 dark:border-gray-800/50 text-[11px] text-gray-400"
+        >
+          <div>
+            <span
+              id="slide-section"
+              class="font-bold text-caixablue uppercase tracking-wider"
+              >Overview</span
+            >
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <button
+              id="btn-prev"
+              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+              title="Previous Slide"
+            >
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+            <span class="font-semibold text-slate-700 dark:text-slate-300"
+              ><span id="slide-num-current">1</span> /
+              <span id="slide-num-total">6</span></span
+            >
+            <button
+              id="btn-next"
+              class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+              title="Next Slide"
+            >
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+          </div>
+
+          <div class="hidden sm:block">
+            <span class="font-medium">LUPIN — Confidential</span>
+          </div>
+        </footer>
+
+        <!-- PROGRESS BAR -->
+        <div class="absolute bottom-0 left-0 w-full h-[3px] bg-gray-200 dark:bg-slate-800">
+          <div
+            id="progress-fill"
+            class="h-full bg-caixablue transition-all duration-300"
+            style="width: 0%"
+          ></div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Backup Speaker Notes -->
+      <div
+        id="notes-panel"
+        class="w-[380px] h-full bg-white dark:bg-slate-900 border-l border-gray-200 dark:border-gray-800 shadow-2xl z-20 flex flex-col justify-between hidden transform translate-x-full transition-transform duration-300"
+      >
+        <header
+          class="p-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center shrink-0"
+        >
+          <div class="flex items-center space-x-2 text-caixablue">
+            <i class="fa-solid fa-clipboard-list text-sm"></i>
+            <h3
+              class="font-bold text-sm text-oxfordblue dark:text-white uppercase tracking-wider"
+            >
+              Backup Speaker Notes
+            </h3>
+          </div>
+          <button
+            id="close-notes-btn"
+            class="p-1 rounded-md text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800"
+          >
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </header>
+        <main
+          id="notes-content"
+          class="flex-1 p-6 overflow-y-auto text-sm text-gray-600 dark:text-gray-300 leading-relaxed space-y-4"
+        ></main>
+        <footer
+          class="p-4 border-t border-gray-200 dark:border-gray-800 text-center text-[10px] text-gray-400 shrink-0"
+        >
+          Standalone Notes panel (Mirrored in the popup Presenter View)
+        </footer>
+      </div>
+    </div>
+
+    <!-- Institutional logo bar -->
+    <footer
+      id="logo-bar"
+      class="shrink-0 z-40 bg-white/95 border-t border-gray-200"
+    >
+      <div
+        class="max-w-[1280px] mx-auto px-6 py-3 flex items-center gap-8 overflow-x-auto whitespace-nowrap justify-center"
+      >
+        <img src="./assets/la-caixa.svg" alt="La Caixa" class="h-7 w-auto opacity-80" />
+        <img src="./assets/fct.svg" alt="FCT — Fundação para a Ciência e a Tecnologia" class="h-6 w-auto opacity-80" />
+        <img src="./assets/lasige.svg" alt="LASIGE" class="h-6 w-auto opacity-80" />
+        <img src="./assets/ulisboa.svg" alt="Universidade de Lisboa" class="h-6 w-auto opacity-80" />
+      </div>
+    </footer>
+    </div>
+
+    <!-- PHONE CONTROLLER UI (?role=controller) -->
+    <div
+      id="controller-ui"
+      class="hidden fixed inset-0 z-[100] bg-slate-950 text-slate-100 flex flex-col justify-between p-6 overflow-hidden select-none"
+    >
+      <header
+        class="flex justify-between items-center pb-4 border-b border-slate-800 shrink-0"
+      >
+        <div>
+          <span
+            class="text-xs md:text-sm font-black text-caixablue uppercase tracking-widest block"
+            >Presenter Remote</span
+          >
+          <h1
+            class="text-sm font-extrabold text-white mt-0.5"
+            id="controller-section"
+          >
+            Overview
+          </h1>
+        </div>
+        <div class="text-right">
+          <span class="text-xs md:text-sm text-gray-500 block">Slide progress</span>
+          <span class="text-base font-black text-caixablue" id="controller-slide-num"
+            >1 / 6</span
+          >
+        </div>
+      </header>
+
+      <div class="flex-1 overflow-y-auto my-4 py-4 pr-1 scroll-smooth">
+        <span
+          class="text-xs md:text-sm font-black text-gray-500 uppercase tracking-wider block mb-2"
+          >Active Slide Script</span
+        >
+        <div
+          id="controller-notes-text"
+          class="text-sm leading-relaxed text-slate-300 font-medium italic"
+        >
+          Loading script...
+        </div>
+      </div>
+
+      <div class="space-y-4 shrink-0">
+        <div
+          class="flex justify-between items-center p-3.5 bg-slate-900 border border-slate-800 rounded-2xl"
+        >
+          <div class="text-left">
+            <span class="text-xs font-bold text-white block">Audience Lock Sync</span>
+            <span class="text-xs md:text-sm text-gray-500 block"
+              >Lock audience screens to follow slides</span
+            >
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="controller-sync-lock"
+              checked
+              class="sr-only peer"
+            />
+            <div
+              class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-caixablue"
+            ></div>
+          </label>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 h-24">
+          <button
+            id="ctrl-btn-prev"
+            class="bg-slate-900 active:bg-slate-800 text-white rounded-2xl font-black text-xs active:scale-95 transition-all border border-slate-800 flex flex-col items-center justify-center gap-1"
+          >
+            <span class="text-base">◀</span> PREV
+          </button>
+          <button
+            id="ctrl-btn-next"
+            class="bg-caixablue active:bg-blue-800 text-white rounded-2xl font-black text-xs active:scale-95 transition-all flex flex-col items-center justify-center gap-1 shadow-lg"
+          >
+            <span class="text-base">▶</span> NEXT
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification toast -->
+    <div
+      id="notification-box"
+      class="fixed bottom-20 right-6 z-[110] transform translate-y-12 opacity-0 transition-all duration-300 pointer-events-none"
+    >
+      <div
+        class="bg-oxfordblue text-white px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-xs font-bold border border-gray-700"
+      >
+        <span id="notification-text">Notification</span>
+      </div>
+    </div>
+
+    <script>      const slides = [
+  {
+    section: "1. Executive Summary & Core Mission",
+    notes: "Before our project started, we tested music imagery to predict intentions on dry EEG. Models fit much faster and easier. We have all four key sensing instruments active in our lab today: 32-channel g.Nautilus EEG, HIKMICRO thermal imaging, Revopoint 3D scanner, and Empatica wristbands. Alongside our in-house bci_projects stack—nautilus_bci, hikmicro-lsl, galaxy_watch_lsl, kinect_eye_tracker, and gpype—Milestone 1 is funded to validate our 2-class engine, connect to robotic arms, and sprint to market.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-2 lg:space-y-3">
+        <!-- Title -->
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Democratizing Neurorehabilitation</h2>
+        </div>
+
+        <!-- 3 Giant Hero Numbers -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 flex-1 min-h-0 items-stretch">
+          <div class="p-4 bg-white dark:bg-slate-800 border-l-4 border-tured rounded-2xl shadow-xs flex flex-col justify-between h-full">
+            <p class="text-xs font-black text-tured uppercase flex items-center gap-1.5"><i class="fa-solid fa-hospital-user"></i> Massive Need</p>
+            <div>
+              <p class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">140M Patients</p>
+              <p class="text-xs sm:text-sm font-bold text-gray-500 uppercase mt-1">Stroke (94M) · SCI (15M) · ALS</p>
+            </div>
+            <p class="text-xs font-bold text-gray-400">Trapped without accessible home neurorehab.</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-slate-800 border-l-4 border-caixablue rounded-2xl shadow-xs flex flex-col justify-between h-full">
+            <p class="text-xs font-black text-caixablue uppercase flex items-center gap-1.5"><i class="fa-solid fa-microchip"></i> Zero Implants</p>
+            <div>
+              <p class="text-4xl sm:text-5xl font-black text-caixablue tracking-tight">Class I/IIa SaMD</p>
+              <p class="text-xs sm:text-sm font-bold text-gray-500 uppercase mt-1">Software, Not Surgery</p>
+            </div>
+            <p class="text-xs font-bold text-gray-400">Plug-and-play middleware for robotic arms.</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-slate-800 border-l-4 border-fculgreen rounded-2xl shadow-xs flex flex-col justify-between h-full">
+            <p class="text-xs font-black text-fculgreen uppercase flex items-center gap-1.5"><i class="fa-solid fa-music"></i> Tested Pre-Kickoff</p>
+            <div>
+              <p class="text-4xl sm:text-5xl font-black text-fculgreen tracking-tight">music-imagery</p>
+              <p class="text-xs sm:text-sm font-bold text-gray-500 uppercase mt-1">10x Faster Fit · Near-Zero Fatigue</p>
+            </div>
+            <p class="text-xs font-bold text-gray-400">Natural rhythm replaces agonizing motor strain.</p>
+          </div>
+        </div>
+
+        <!-- In-House Materials & Software Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1 min-h-0 items-stretch">
+          <!-- Physical Material -->
+          <div class="p-4 bg-slate-50 dark:bg-slate-900/80 border border-gray-200 dark:border-gray-700 rounded-2xl flex flex-col justify-between h-full space-y-2">
+            <div class="flex items-center justify-between pb-1.5 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-xs font-black uppercase tracking-wider text-oxfordblue dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-boxes-stacked text-caixablue"></i> In-House Lab Hardware Fleet
+              </span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs flex-1">
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-caixablue"><i class="fa-solid fa-brain mr-1.5"></i> g.tec Nautilus</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">32-ch wireless dry/gel EEG</p>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-amber-500"><i class="fa-solid fa-temperature-half mr-1.5"></i> HIKMICRO Pocket 2</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">Facial thermal stress camera</p>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-purple-500"><i class="fa-solid fa-cube mr-1.5"></i> Revopoint MetroY Pro</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">Dual-laser 3D workspace scanner</p>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-fculgreen"><i class="fa-solid fa-heart-pulse mr-1.5"></i> Empatica Wristband</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">Biometric EDA, PPG &amp; heart rate</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Software Tools Stack (~/git/bci_projects/) -->
+          <div class="p-4 bg-slate-50 dark:bg-slate-900/80 border border-gray-200 dark:border-gray-700 rounded-2xl flex flex-col justify-between h-full space-y-2">
+            <div class="flex items-center justify-between pb-1.5 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-xs font-black uppercase tracking-wider text-oxfordblue dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-code text-fculgreen"></i> Software Ecosystem (~/git/bci_projects/)
+              </span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs flex-1">
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-caixablue"><i class="fa-solid fa-network-wired mr-1.5"></i> nautilus_bci</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">2-class decoding &amp; benchmark suite</p>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-orange-500"><i class="fa-solid fa-video mr-1.5"></i> hikmicro-lsl</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">Real-time thermal LSL streaming</p>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-cyan-600"><i class="fa-solid fa-clock mr-1.5"></i> galaxy_watch_lsl</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">Wearable autonomic telemetry</p>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-2xs flex flex-col justify-center">
+                <p class="font-black text-sm text-indigo-500"><i class="fa-solid fa-eye mr-1.5"></i> kinect_eye_tracker</p>
+                <p class="text-xs text-gray-500 font-bold mt-0.5">3D depth gaze &amp; workspace tracking</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    section: "2. The Core Problem — Wearable BCI Failure",
+    notes: "Why do wearable BCIs fail outside the laboratory? 1. Channel Drop-Off: stripping from 32 wires to 8 sensors cuts accuracy by 20 to 30%. 2. Exhausting Setup: 20 to 30 minutes of calibration exhausts patients before therapy starts. 3. Context Blindness: existing AI discards heart rate, sweating, and fatigue as noise, when physiological context is exactly what is needed to adapt.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-3">
+        <!-- Title -->
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Why Wearable BCIs Fail</h2>
+        </div>
+
+        <!-- 3 Tall Hero Failure Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0 items-stretch">
+          <!-- Card 1 -->
+          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-tured rounded-2xl shadow-sm flex flex-col justify-between h-full">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-tured/10 text-tured flex items-center justify-center text-2xl mb-4">
+                <i class="fa-solid fa-compress"></i>
+              </div>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Channel Drop-Off</h3>
+              <p class="text-5xl lg:text-6xl font-black text-tured tracking-tight mt-3">-20% to -30%</p>
+              <p class="text-xs sm:text-sm font-black text-gray-400 uppercase tracking-wider mt-1">Accuracy Loss</p>
+            </div>
+            <p class="text-sm font-bold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700 pt-3">
+              Going from 32 lab wires (g.Nautilus) to 8 wearable channels destroys standard spatial filters.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-amber-500 rounded-2xl shadow-sm flex flex-col justify-between h-full">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-4">
+                <i class="fa-solid fa-hourglass-half"></i>
+              </div>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Exhausting Setup</h3>
+              <p class="text-5xl lg:text-6xl font-black text-amber-500 tracking-tight mt-3">20–30 min</p>
+              <p class="text-xs sm:text-sm font-black text-gray-400 uppercase tracking-wider mt-1">Pre-Session Calibration</p>
+            </div>
+            <p class="text-sm font-bold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700 pt-3">
+              Patients exhaust cognitive energy on repetitive prompts before physical therapy starts.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-caixablue rounded-2xl shadow-sm flex flex-col justify-between h-full">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-caixablue/10 text-caixablue flex items-center justify-center text-2xl mb-4">
+                <i class="fa-solid fa-filter-circle-xmark"></i>
+              </div>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Context Blindness</h3>
+              <p class="text-4xl lg:text-5xl font-black text-caixablue tracking-tight mt-3">Treated as "Noise"</p>
+              <p class="text-xs sm:text-sm font-black text-gray-400 uppercase tracking-wider mt-1">Discarded Physiology</p>
+            </div>
+            <p class="text-sm font-bold text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700 pt-3">
+              Standard AI discards stress, pulse &amp; sweat instead of using them to adapt.
+            </p>
+          </div>
+        </div>
+
+        <!-- Solution Banner -->
+        <div class="p-4 bg-fculgreen/10 border border-fculgreen/30 rounded-2xl flex items-center gap-3 shrink-0">
+          <i class="fa-solid fa-lightbulb text-fculgreen text-xl"></i>
+          <span class="text-oxfordblue dark:text-white font-black text-base">LUPIN Solution:</span>
+          <span class="text-gray-700 dark:text-gray-300 text-sm font-bold">Dynamic physiological gating with thermal and autonomic telemetry.</span>
+        </div>
+      </div>
+    `,
+  },
+  {
+    section: "3. The Technology Asset — LUPIN Decoding Engine",
+    notes: "Before our project started, we wanted to use music imagery to understand if that was a good way to predict intentions. We got preliminary results showing models fit much easier on dry EEG. By closing the problem to 2 classes, we unlocked an immediate boost to 70.5% peak accuracy, EEGNet GPU fitting in 4.06 seconds, and only 1.7 minutes of active task data. Sham silent rest dropped to 50% chance, proving genuine intent. Next step: deploy on 6-DOF robotic arms, then sprint to market.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-3">
+        <!-- Header -->
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">LUPIN — 2-Class Music Imagery Engine</h2>
+        </div>
+
+        <!-- 4 Massive Hero KPI Tiles -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 shrink-0">
+          <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-caixablue/30 shadow-xs text-center space-y-1">
+            <p class="text-5xl lg:text-6xl font-black text-caixablue tracking-tight">70.5%</p>
+            <p class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase">2-Class Peak Accuracy</p>
+            <p class="text-xs text-gray-500 font-bold">Wind vs Electricity (5-Fold CV)</p>
+          </div>
+
+          <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-fculgreen/30 shadow-xs text-center space-y-1">
+            <p class="text-5xl lg:text-6xl font-black text-fculgreen tracking-tight">4.06s</p>
+            <p class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase">GPU Fit Time (EEGNet)</p>
+            <p class="text-xs text-fculgreen font-bold">67.6% Water vs Elec · 0.81s/fold</p>
+          </div>
+
+          <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-amber-500/30 shadow-xs text-center space-y-1">
+            <p class="text-5xl lg:text-6xl font-black text-amber-500 tracking-tight">+27.6%</p>
+            <p class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase">The 2-Class Leap</p>
+            <p class="text-xs text-gray-500 font-bold">Over 42.9% FBCSP &middot; 28.4% Riemannian MDM Pure Rhythm</p>
+          </div>
+
+          <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-tured/30 shadow-xs text-center space-y-1">
+            <p class="text-5xl lg:text-6xl font-black text-tured tracking-tight">1.70 min</p>
+            <p class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase">Active Task Data</p>
+            <p class="text-xs text-gray-500 font-bold">Only 34 clean 3s trials to converge</p>
+          </div>
+        </div>
+
+        <!-- 2 Column: Narrative & Next Roadmap Step -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0 items-stretch">
+          <!-- LEFT: The Pre-Project Origin in nautilus_bci -->
+          <div class="lg:col-span-6 bg-slate-50 dark:bg-slate-900/80 p-5 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-xs flex flex-col justify-between h-full space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800">
+              <span class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase flex items-center gap-2">
+                <i class="fa-solid fa-code-branch text-caixablue"></i> Pre-Project Discovery in Nautilus BCI (nautilus_bci)
+              </span>
+              <span class="text-xs font-black text-caixablue uppercase">Origin Story</span>
+            </div>
+            <div class="space-y-3 text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300">
+              <p class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-fculgreen text-sm"></i> <b>Exploratory PoC:</b> Tested <b>Music Imagery</b> pre-kickoff to predict intentions.</p>
+              <p class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-fculgreen text-sm"></i> <b>Effortless Fit:</b> Models converged significantly faster and easier on dry EEG.</p>
+              <p class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-fculgreen text-sm"></i> <b>2-Class Boost:</b> Closing the problem to 2 classes unlocked immediate <b>70.5% accuracy</b>.</p>
+              <p class="flex items-center gap-2.5"><i class="fa-solid fa-shield-halved text-caixablue text-sm"></i> <b>Negative Controls:</b> Sham silent rest collapsed to <b>50.0% chance</b>.</p>
+            </div>
+          </div>
+
+          <!-- RIGHT: The Execution Trajectory -->
+          <div class="lg:col-span-6 bg-gradient-to-br from-caixablue/10 via-slate-50/50 dark:via-slate-900/50 to-fculgreen/10 p-5 rounded-2xl border border-caixablue/30 shadow-xs flex flex-col justify-between h-full space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-caixablue/20">
+              <span class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase flex items-center gap-2">
+                <i class="fa-solid fa-robot text-caixablue"></i> The Execution Trajectory
+              </span>
+            </div>
+            <div class="space-y-3">
+              <div class="p-3.5 bg-white/90 dark:bg-slate-800/90 rounded-xl border-l-4 border-caixablue shadow-2xs">
+                <p class="font-black text-base text-oxfordblue dark:text-white">1. Assistive 6-DOF Robotic Arms</p>
+                <p class="text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400 mt-1">Direct intent control for reaching &amp; grasping (Kinova / Jaco).</p>
+              </div>
+              <div class="p-3.5 bg-white/90 dark:bg-slate-800/90 rounded-xl border-l-4 border-fculgreen shadow-2xs">
+                <p class="font-black text-base text-oxfordblue dark:text-white">2. Sprint to Market</p>
+                <p class="text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400 mt-1">Software middleware for clinics &amp; OEMs under Class I/IIa SaMD.</p>
+              </div>
+            </div>
+            <p class="text-xs font-black text-caixablue text-right">Funded by CaixaImpulse Milestone 1</p>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    section: "4. Paradigm Benchmarks — Music vs Speech vs Motor",
+    notes: "Why music imagery? Backed by literature (OpenMIIR Stober 2015; Schaefer 2011/2014; Di Liberto 2020) and verified in our lab: 1. Treino Mais Cómodo: Mentally humming a melody is intuitive and engaging. 2. Menos Tempo & Hassle: We get useful intent data in 1.7 minutes, not 30 minutes. 3. Menos Fadiga Mental: Musical rhythm entrains auditory cortex without muscular strain. 4. Alta Generalização: Overcomes the 30% to 50% BCI illiteracy trap where half of users fail on motor imagery.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-3">
+        <!-- Header -->
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Why Music Imagery Beats Motor &amp; Speech</h2>
+        </div>
+
+        <!-- 3 Paradigm Comparison Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 flex-1 min-h-0 items-stretch">
+          <div class="p-5 bg-white dark:bg-slate-800 rounded-2xl border-t-4 border-amber-500 shadow-xs flex flex-col justify-between h-full space-y-2">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-amber-500 uppercase tracking-wider">1. Speech Decoding</span>
+                <i class="fa-solid fa-microphone-lines text-amber-500 text-lg"></i>
+              </div>
+              <p class="text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white mt-2">~37%</p>
+              <p class="text-xs font-black text-gray-400 uppercase mt-0.5">Non-Invasive EEG</p>
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">Requires invasive brain surgery (ECoG grids) for practical vocabularies.</p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-slate-800 rounded-2xl border-t-4 border-caixablue shadow-xs flex flex-col justify-between h-full space-y-2">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-caixablue uppercase tracking-wider">2. Motor Imagery</span>
+                <i class="fa-solid fa-hand-fist text-caixablue text-lg"></i>
+              </div>
+              <p class="text-4xl lg:text-5xl font-black text-tured mt-2">30%–50%</p>
+              <p class="text-xs font-black text-tured uppercase mt-0.5">BCI Illiteracy Trap</p>
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">Straining to imagine paralyzed limbs induces high mental exhaustion.</p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-slate-800 rounded-2xl border-t-4 border-fculgreen ring-1 ring-fculgreen/30 shadow-xs flex flex-col justify-between h-full space-y-2">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-fculgreen uppercase tracking-wider">3. Music Imagery (LUPIN)</span>
+                <i class="fa-solid fa-music text-fculgreen text-lg"></i>
+              </div>
+              <p class="text-4xl lg:text-5xl font-black text-fculgreen mt-2">70.5%</p>
+              <p class="text-xs font-black text-fculgreen uppercase mt-0.5">2-Class High-Boost</p>
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">Fast 1.70 min data on dry EEG. Engaging, natural rhythm entrainment.</p>
+          </div>
+        </div>
+
+        <!-- 4 Human Advantage Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 shrink-0">
+          <div class="p-4 bg-slate-50 dark:bg-slate-800/90 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-2xs space-y-1">
+            <p class="font-black text-caixablue text-sm flex items-center gap-1.5"><i class="fa-solid fa-couch"></i> Treino Mais Cómodo</p>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">Intuitive melody humming; zero limb strain.</p>
+          </div>
+          <div class="p-4 bg-slate-50 dark:bg-slate-800/90 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-2xs space-y-1">
+            <p class="font-black text-fculgreen text-sm flex items-center gap-1.5"><i class="fa-solid fa-stopwatch"></i> Menos Tempo &amp; Hassle</p>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">1.70 min to useful data; no 30-min setup.</p>
+          </div>
+          <div class="p-4 bg-slate-50 dark:bg-slate-800/90 rounded-2xl border border-amber-500 text-sm flex items-center gap-1.5"><i class="fa-solid fa-battery-three-quarters"></i> Menos Fadiga Mental</p>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">Auditory entrainment keeps users comfortable.</p>
+          </div>
+          <div class="p-4 bg-slate-50 dark:bg-slate-800/90 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-2xs space-y-1">
+            <p class="font-black text-purple-500 text-sm flex items-center gap-1.5"><i class="fa-solid fa-users"></i> Alta Generalização</p>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">Bypasses the 30%–50% illiteracy trap.</p>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    section: "5. Methodological Rigor — Replication Traps & Proof",
+    notes: "We refuse to publish inflated numbers. Many BCI papers claim 95% using leaky pipelines like random trial splitting or global feature selection. We test strictly: multi-day LeaveOneGroupOut validation, fold-internal projection, and permutation controls. Our data efficiency is genuine: 9.7 to 14 minutes of active task data, under 2 seconds to fit, and under 15 ms inference latency.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-3">
+        <!-- Header -->
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Numbers — Rigor &amp; Efficiency</h2>
+        </div>
+
+        <!-- 2 Column: Traps vs Efficiency -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0 items-stretch">
+          <!-- LEFT: 3 Traps & Validated Defenses -->
+          <div class="lg:col-span-6 bg-slate-50 dark:bg-slate-900/80 p-5 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-xs flex flex-col justify-between h-full space-y-3">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-gray-200 dark:border-gray-800">
+                <span class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase flex items-center gap-2">
+                  <i class="fa-solid fa-triangle-exclamation text-tured"></i> Replication Traps vs. Our Protocol
+                </span>
+                <span class="text-xs font-black text-fculgreen uppercase">Strict Auditing</span>
+              </div>
+
+              <!-- 3 Traps -->
+              <div class="grid grid-cols-3 gap-2.5 text-center mt-3 mb-3">
+                <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border-t-4 border-tured shadow-2xs">
+                  <p class="text-xs font-black text-tured uppercase">Trial Split</p>
+                  <p class="text-base font-black text-oxfordblue dark:text-white">+5–30% fake</p>
+                  <p class="text-xs text-gray-400 font-bold">Learns scalp ID</p>
+                </div>
+                <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border-t-4 border-amber-500 shadow-2xs">
+                  <p class="text-xs font-black text-amber-500 uppercase">Feature Leak</p>
+                  <p class="text-base font-black text-oxfordblue dark:text-white">~18% papers</p>
+                  <p class="text-xs text-gray-400 font-bold">Global selection</p>
+                </div>
+                <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border-t-4 border-caixablue shadow-2xs">
+                  <p class="text-xs font-black text-caixablue uppercase">Site Bias</p>
+                  <p class="text-base font-black text-oxfordblue dark:text-white">99% site ID</p>
+                  <p class="text-xs text-gray-400 font-bold">Amplifier noise</p>
+                </div>
+              </div>
+
+              <!-- Checklist -->
+              <div class="space-y-2 text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300">
+                <div class="p-2.5 bg-white dark:bg-slate-800 rounded-xl border-l-4 border-fculgreen flex items-center gap-2.5">
+                  <i class="fa-solid fa-check text-fculgreen text-sm shrink-0"></i>
+                  <span><b>LeaveOneGroupOut:</b> Validated across multi-day sessions, never random trials.</span>
+                </div>
+                <div class="p-2.5 bg-white dark:bg-slate-800 rounded-xl border-l-4 border-fculgreen flex items-center gap-2.5">
+                  <i class="fa-solid fa-check text-fculgreen text-sm shrink-0"></i>
+                  <span><b>Fold-Internal Projections:</b> CSP &amp; tangent space fit strictly inside train fold.</span>
+                </div>
+                <div class="p-2.5 bg-white dark:bg-slate-800 rounded-xl border-l-4 border-fculgreen flex items-center gap-2.5">
+                  <i class="fa-solid fa-check text-fculgreen text-sm shrink-0"></i>
+                  <span><b>Permutation Controls:</b> 50–200 shuffles confirm statistical significance (<b class="text-fculgreen">p &lt; 0.01</b>).</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-2.5 bg-fculgreen/10 border border-fculgreen/20 rounded-xl text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 flex items-center justify-between">
+              <span class="text-fculgreen"><i class="fa-solid fa-circle-check mr-1.5"></i> Honest Baselines:</span>
+              <span>42.9% FBCSP &middot; 28.4% Riemannian MDM survive transfer</span>
+            </div>
+          </div>
+
+          <!-- RIGHT: Real-World Speed & Efficiency -->
+          <div class="lg:col-span-6 bg-gradient-to-br from-caixablue/10 via-slate-50/50 dark:via-slate-900/50 to-fculgreen/10 p-5 rounded-2xl border border-caixablue/30 shadow-xs flex flex-col justify-between h-full space-y-3">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-caixablue/20">
+                <span class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase flex items-center gap-2">
+                  <i class="fa-solid fa-bolt text-caixablue"></i> Real-World Speed &amp; Efficiency
+                </span>
+                <span class="text-xs font-black text-caixablue uppercase">Live Benchmarks</span>
+              </div>
+
+              <!-- 3 Speed Numbers -->
+              <div class="grid grid-cols-3 gap-2.5 text-center mt-3 mb-3">
+                <div class="p-3 bg-white/95 dark:bg-slate-900/90 rounded-xl border border-caixablue/20 shadow-2xs">
+                  <p class="text-2xl sm:text-3xl font-black text-caixablue">9.7–14m</p>
+                  <p class="text-xs font-black text-oxfordblue dark:text-white uppercase mt-0.5">Active Task Data</p>
+                  <p class="text-xs text-gray-500 font-bold">vs 30–60m standard</p>
+                </div>
+                <div class="p-3 bg-white/95 dark:bg-slate-900/90 rounded-xl border border-fculgreen/20 shadow-2xs">
+                  <p class="text-2xl sm:text-3xl font-black text-fculgreen">&lt; 2 sec</p>
+                  <p class="text-xs font-black text-oxfordblue dark:text-white uppercase mt-0.5">Model Fit Time</p>
+                  <p class="text-xs text-fculgreen font-bold">~20x–50x speed</p>
+                </div>
+                <div class="p-3 bg-white/95 dark:bg-slate-900/90 rounded-xl border border-amber-500/20 shadow-2xs">
+                  <p class="text-2xl sm:text-3xl font-black text-amber-500">&lt; 15 ms</p>
+                  <p class="text-xs font-black text-oxfordblue dark:text-white uppercase mt-0.5">Inference Latency</p>
+                  <p class="text-xs text-gray-500 font-bold">Instant feedback</p>
+                </div>
+              </div>
+
+              <div class="p-3.5 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-caixablue/10 space-y-2 text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
+                <p><b>Clean Datasets:</b> Tested on sub-01 classical (194 trials · 9.7m) and sub-02 modern (282 trials · 14.1m).</p>
+                <p><b>Negative Controls Passed:</b> Sham silent rest collapsed to 50.0% chance. Guaranteed zero silence shortcuts.</p>
+              </div>
+            </div>
+
+            <div class="p-2.5 bg-caixablue/5 dark:bg-slate-800/80 border-l-4 border-caixablue rounded-xl text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-300 flex items-center justify-between">
+              <span><b>Milestone 1 Funded:</b> Fast convergence + anti-leakage rigor.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    section: "6. Phased Commercialization & Product Roadmap",
+    notes: "Our commercialization roadmap follows the 3 CaixaImpulse stages (€700k total). Stage 1 (€50k, 1-year, now funded) validates our 2-class music engine on n=30 datasets and files the priority EPO patent. Stage 2 (€150k, 2-year) integrates the engine with 6-DOF assistive robotic arms for reaching and grasping, plus smart wheelchairs. Stage 3 (€500k, 2-year) runs multicenter clinical trials, achieves Class I/IIa SaMD clearance, and licenses our software to robotic arm manufacturers.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-3">
+        <!-- Header -->
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">The 3 Stages of CaixaImpulse</h2>
+        </div>
+
+        <!-- 3 Stages Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0 items-stretch">
+          <!-- Stage 1 -->
+          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-caixablue rounded-2xl shadow-sm ring-1 ring-caixablue/30 flex flex-col justify-between h-full space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-caixablue uppercase tracking-wider">Stage 1 · 1-Year</span>
+              </div>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Proof of Concept</h3>
+              <p class="text-3xl lg:text-4xl font-black text-caixablue">€50,000</p>
+              <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
+                Validate 2-class decoding across n=30 datasets. File priority <b>EPO patent application</b> on physiologically-gated neural decoding.
+              </p>
+            </div>
+            <p class="text-xs font-black text-fculgreen pt-3 border-t border-gray-100 dark:border-gray-700 flex items-center gap-2">
+              <i class="fa-solid fa-flag-checkered"></i> Milestone 1 Active
+            </p>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-amber-500 rounded-2xl shadow-sm flex flex-col justify-between h-full space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-amber-500 uppercase tracking-wider">Stage 2 · 2-Year</span>
+              </div>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Robotic Arms &amp; Mobility</h3>
+              <p class="text-3xl lg:text-4xl font-black text-amber-500">€150,000</p>
+              <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
+                Connect 2-class intent directly to <b>assistive 6-DOF robotic arms</b> (reaching &amp; grasping) and smart wheelchairs.
+              </p>
+            </div>
+            <p class="text-xs font-black text-gray-400 pt-3 border-t border-gray-100 dark:border-gray-700">
+              Hardware Embodiment
+            </p>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-fculgreen rounded-2xl shadow-sm flex flex-col justify-between h-full space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-fculgreen uppercase tracking-wider">Stage 3 · 2-Year</span>
+              </div>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Regulatory &amp; OEM Market</h3>
+              <p class="text-3xl lg:text-4xl font-black text-fculgreen">€500,000</p>
+              <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
+                Multicenter clinical trials, <b>Class I/IIa SaMD</b> regulatory clearance, and commercial B2B OEM middleware licensing.
+              </p>
+            </div>
+            <p class="text-xs font-black text-gray-400 pt-3 border-t border-gray-100 dark:border-gray-700">
+              OEM Licensing &amp; Clinics
+            </p>
+          </div>
+        </div>
+
+        <!-- Trajectory Banner -->
+        <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xs flex items-center gap-3 text-xs sm:text-sm shrink-0">
+          <i class="fa-solid fa-circle-check text-fculgreen text-base"></i>
+          <span class="text-oxfordblue dark:text-white font-black">Direct Trajectory:</span>
+          <span class="text-gray-600 dark:text-gray-300 font-bold">Tested Music Imagery &rarr; Validated 2-Class Boost &rarr; 6-DOF Assistive Robotic Arms &rarr; Sprint to Market.</span>
+        </div>
+      </div>
+    `,
+  },
+  {
+    section: "7. Health Economics, Business Model & Who Buys?",
+    notes: "Who buys? Three primary customers: 1. Neurorehab Clinics: fast 30s calibration saves therapist hours, zero patient fatigue, and ~3.9 month capital payback. 2. Assistive Robotic Arm OEMs (Kinova, Jaco): license LUPIN middleware for non-invasive neural intent. 3. Health Insurers & Payors: cut $70k to $248k per patient by enabling reimbursable home neurorehabilitation. Defensibility backed by priority EPO patent and n=30 training corpus.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-3">
+        <!-- Header -->
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Value Proposition &amp; Who Buys</h2>
+        </div>
+
+        <!-- 4 Top KPI Cards (Bigger Numbers) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 shrink-0">
+          <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-center space-y-1 shadow-xs">
+            <p class="text-4xl sm:text-5xl lg:text-6xl font-black text-fculgreen tracking-tight">$70k–$248k</p>
+            <p class="text-xs sm:text-sm font-black text-gray-500 uppercase">Saved Per Patient</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-center space-y-1 shadow-xs">
+            <p class="text-4xl sm:text-5xl lg:text-6xl font-black text-caixablue tracking-tight">€237M+</p>
+            <p class="text-xs sm:text-sm font-black text-gray-500 uppercase">Annual Europe Savings</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-center space-y-1 shadow-xs">
+            <p class="text-4xl sm:text-5xl lg:text-6xl font-black text-amber-500 tracking-tight">~3.9 mo</p>
+            <p class="text-xs sm:text-sm font-black text-gray-500 uppercase">Clinic Payback (50% util)</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl text-center space-y-1 shadow-xs">
+            <p class="text-4xl sm:text-5xl lg:text-6xl font-black text-tured tracking-tight">Class I/IIa</p>
+            <p class="text-xs sm:text-sm font-black text-gray-500 uppercase">SaMD Regulatory Route</p>
+          </div>
+        </div>
+
+        <!-- WHO BUYS? 3 Primary Customers -->
+        <div class="p-5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl flex-1 min-h-0 flex flex-col justify-between space-y-2.5 shadow-xs">
+          <div class="flex items-center justify-between pb-1.5 border-b border-gray-100 dark:border-gray-700">
+            <span class="text-xs sm:text-sm font-black text-oxfordblue dark:text-white uppercase flex items-center gap-2">
+              <i class="fa-solid fa-users-viewfinder text-caixablue"></i> Who Buys? 3 Target Customers
+            </span>
+            <span class="text-xs font-black text-caixablue uppercase">Market Demand</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 flex-1 items-stretch">
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/60 rounded-xl flex flex-col justify-between space-y-2">
+              <div>
+                <p class="font-black text-sm sm:text-base text-caixablue flex items-center gap-1.5"><i class="fa-solid fa-hospital"></i> 1. Rehab Clinics</p>
+                <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 mt-2">Fast 30s calibration saves therapist hours; zero patient dropout; ~3.9 month capital payback on equipment.</p>
+              </div>
+              <p class="text-xs font-black text-caixablue">Rapid Clinical ROI</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/60 rounded-xl flex flex-col justify-between space-y-2">
+              <div>
+                <p class="font-black text-sm sm:text-base text-fculgreen flex items-center gap-1.5"><i class="fa-solid fa-robot"></i> 2. Robotic Arm OEMs</p>
+                <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 mt-2">Kinova &amp; Jaco middleware licensing to deliver non-invasive reaching and grasping neural control.</p>
+              </div>
+              <p class="text-xs font-black text-fculgreen">OEM B2B Integration</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-slate-900/60 rounded-xl flex flex-col justify-between space-y-2">
+              <div>
+                <p class="font-black text-sm sm:text-base text-amber-500 flex items-center gap-1.5"><i class="fa-solid fa-hand-holding-dollar"></i> 3. Health Payors</p>
+                <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 mt-2">Reimbursable home tele-rehab cuts $70k–$248k per patient over long-term institutional care.</p>
+              </div>
+              <p class="text-xs font-black text-amber-500">Payer Cost Reduction</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Model & IP Protection Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 shrink-0">
+          <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-1 shadow-xs">
+            <p class="font-black text-xs sm:text-sm text-caixablue uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-sack-dollar"></i> Scalable Revenue</p>
+            <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">B2B SaaS software licensing ($500–$1,200/mo) + recurring OEM device royalties ($1,500/unit).</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-1 shadow-xs">
+            <p class="font-black text-xs sm:text-sm text-tured uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> IP Defensibility</p>
+            <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">Priority <b>EPO patent application</b> on physiologically-gated neural decoding + n=30 training corpus.</p>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+];
+
+
+      /* ===== LUPIN deck engine ===== */
+/* ============================================================
+       *  GLOBAL STATE & SELECTORS
+       * ============================================================ */
+      let currentSlide = 0;
+      let isNotesVisible = false;
+      let notesWindow = null;
+
+      const slideContainer = document.getElementById("slide-container");
+      const slideSection = document.getElementById("slide-section");
+      const slideNumCurrent = document.getElementById("slide-num-current");
+      const slideNumTotal = document.getElementById("slide-num-total");
+      const progressFill = document.getElementById("progress-fill");
+
+      const btnPrev = document.getElementById("btn-prev");
+      const btnNext = document.getElementById("btn-next");
+      const btnNotes = document.getElementById("btn-notes");
+      const btnPresent = document.getElementById("theme-toggle");
+
+      const notesPanel = document.getElementById("notes-panel");
+      const notesContent = document.getElementById("notes-content");
+      const closeNotesBtn = document.getElementById("close-notes-btn");
+      const themeToggle = document.getElementById("theme-toggle");
+
+      /* ============================================================
+       *  REMOTE CONTROL ROLE (?role=master|controller)
+       * ============================================================ */
+      let ws = null;
+      let syncRole = "listener";
+      let wsSyncedLock = true;
+      let masterIndex = 0;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const roleParam = urlParams.get("role");
+      if (roleParam === "listener" || roleParam === "controller") {
+        syncRole = roleParam;
+      } else {
+        // No role, or an explicit ?role=master — this is the presenter's deck.
+        syncRole = "master";
+      }
+      if (syncRole === "controller") {
+        document.getElementById("controller-ui").classList.remove("hidden");
+      }
+      if (syncRole === "listener") {
+        // Listeners never get the notes button
+        btnNotes.classList.add("hidden");
+      }
+      /* ============================================================
+       *  RENDER CONTROLLER
+       * ============================================================ */
+      function init() {
+        slideNumTotal.textContent = slides.length;
+        renderSlide();
+      }
+
+      function renderSlide() {
+        const data = slides[currentSlide];
+        if (!data) return;
+
+        slideContainer.innerHTML = data.html;
+        slideSection.textContent = data.section;
+        slideNumCurrent.textContent = currentSlide + 1;
+
+        btnPrev.disabled = currentSlide === 0;
+        btnNext.disabled = currentSlide === slides.length - 1;
+
+        const percentage = (currentSlide / (slides.length - 1)) * 100;
+        progressFill.style.width = `${percentage}%`;
+
+        // Run per-slide initialiser (interactive widgets) after injection
+        if (typeof data.onInit === "function") {
+          try {
+            data.onInit();
+          } catch (err) {
+            console.warn("Slide onInit failed:", err);
+          }
+        }
+
+        updateNotes();
+        if (syncRole === "controller") updateControllerUI();
+      }
+
+      function goToSlide(index) {
+        if (index < 0 || index > slides.length - 1) return;
+        currentSlide = index;
+        renderSlide();
+        broadcastSlideChange();
+      }
+
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+      function prevSlide() {
+        goToSlide(currentSlide - 1);
+      }
+
+      /* ============================================================
+       *  PRESENTER NOTES
+       * ============================================================ */
+      function toggleNotesMode(enabled) {
+        isNotesVisible = enabled;
+        if (isNotesVisible) {
+          notesPanel.classList.remove("hidden");
+          setTimeout(() => notesPanel.classList.remove("translate-x-full"), 10);
+          btnNotes.className =
+            "px-3 py-1.5 rounded-md text-xs font-bold transition-all bg-fculblue text-white shadow-sm";
+
+          if (!notesWindow || notesWindow.closed) {
+            try {
+              notesWindow = window.open(
+                "",
+                "PresenterNotes",
+                "width=1000,height=700,menubar=no,toolbar=no,location=no,status=no",
+              );
+              if (notesWindow) {
+                notesWindow.document.write(`
+                  <html>
+                    <head>
+                      <title>Presenter Notes — LUPIN Roadmap</title>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <script src="https://cdn.tailwindcss.com"><\/script>
+                      <style>
+                        body { font-family: 'Inter', sans-serif; background:#0f172a; color:#f1f5f9; margin:0; padding:1.5rem; }
+                        p { font-size:1.15rem; line-height:1.9rem; }
+                      </style>
+                    </head>
+                    <body class="flex flex-col h-screen">
+                      <header class="flex justify-between items-center pb-4 border-b border-slate-700 shrink-0">
+                        <div>
+                          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Presenter View</span>
+                          <h1 class="text-xl font-bold text-slate-200" id="current-section">Overview</h1>
+                        </div>
+                        <div class="text-right">
+                          <span class="text-xs text-slate-400 block">Slide</span>
+                          <span class="text-lg font-black text-blue-400" id="slide-num">1</span>
+                        </div>
+                      </header>
+                      <main class="flex-1 overflow-y-auto py-4 text-slate-300" id="notes-content">Loading notes...</main>
+                      <div class="mt-3 p-3 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-between gap-4 shrink-0">
+                        <div class="text-left">
+                          <span class="text-xs font-black text-blue-400 uppercase tracking-widest block">Remote Controller</span>
+                          <h4 class="text-xs font-bold text-white mt-1">Control from your Phone</h4>
+                          <p class="text-xs text-slate-400 mt-0.5 leading-normal">Scan to load the phone remote with slide controls and speaker scripts.</p>
+                        </div>
+                        <div class="shrink-0 p-1.5 bg-white rounded-lg">
+                          <img id="qr-controller" class="h-16 w-16 object-contain" alt="QR Phone Remote">
+                        </div>
+                      </div>
+                      <footer class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-500 shrink-0 flex justify-between">
+                        <span>LUPIN Roadmap</span>
+                        <span>Arrow keys navigate slides</span>
+                      </footer>
+                      <script>
+                        window.addEventListener("keydown", (e) => {
+                          if (window.opener && !window.opener.closed) {
+                            if (e.key === "ArrowRight" || e.key === " ") {
+                              window.opener.document.getElementById("btn-next").click();
+                            } else if (e.key === "ArrowLeft") {
+                              window.opener.document.getElementById("btn-prev").click();
+                            }
+                          }
+                        });
+                      <\/script>
+                    </body>
+                  </html>
+                `);
+                notesWindow.document.close();
+              }
+            } catch (err) {
+              console.warn("Could not open presenter notes popup window:", err);
+            }
+          } else {
+            notesWindow.focus();
+          }
+          updateNotes();
+        } else {
+          notesPanel.classList.add("translate-x-full");
+          setTimeout(() => notesPanel.classList.add("hidden"), 300);
+          btnNotes.className =
+            "px-3 py-1.5 rounded-md text-xs font-bold transition-all text-gray-500 hover:text-gray-900 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800";
+          if (notesWindow && !notesWindow.closed) notesWindow.close();
+          notesWindow = null;
+        }
+      }
+
+      function updateNotes() {
+        const slideData = slides[currentSlide];
+        const sectionName = slideData ? slideData.section : "Overview";
+        const contentHtml = slideData && slideData.notes
+          ? `<p>${slideData.notes}</p>`
+          : `<p class="text-slate-500 italic">No notes available for this slide.</p>`;
+
+        if (notesContent) notesContent.innerHTML = contentHtml;
+
+        if (notesWindow && !notesWindow.closed) {
+          const doc = notesWindow.document;
+          if (document.documentElement.classList.contains("dark")) {
+            doc.documentElement.classList.add("dark");
+          } else {
+            doc.documentElement.classList.remove("dark");
+          }
+          const sectionEl = doc.getElementById("current-section");
+          const slideNumEl = doc.getElementById("slide-num");
+          const notesEl = doc.getElementById("notes-content");
+          if (sectionEl) sectionEl.textContent = sectionName;
+          if (slideNumEl)
+            slideNumEl.textContent = `${currentSlide + 1} / ${slides.length}`;
+          if (notesEl) notesEl.innerHTML = contentHtml;
+
+          const qrController = doc.getElementById("qr-controller");
+          if (qrController && !qrController.src) {
+            const controllerUrl =
+              window.location.href.split("?")[0] + "?role=controller";
+            qrController.src =
+              "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" +
+              encodeURIComponent(controllerUrl);
+          }
+        }
+      }
+
+      /* ============================================================
+       *  WEBSOCKET SYNC (master / controller / listener)
+       * ============================================================ */
+      function initWebSocket() {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        const host = window.location.hostname || "localhost";
+        const wsUrl = `${protocol}//${host}:8088`;
+        try {
+          ws = new WebSocket(wsUrl);
+        } catch (err) {
+          console.warn("WebSocket unavailable:", err);
+          return;
+        }
+
+        ws.onopen = () => {
+          console.log(`📡 Connected to sync server as: ${syncRole}`);
+          ws.send(JSON.stringify({ type: "register", role: syncRole }));
+        };
+
+        ws.onmessage = (event) => {
+          const msg = JSON.parse(event.data);
+
+          if (msg.type === "init_state") {
+            wsSyncedLock = msg.lock;
+            masterIndex = msg.index;
+            updateSyncUI();
+            if (syncRole === "listener" && wsSyncedLock) {
+              currentSlide = masterIndex;
+              renderSlide();
+            } else if (syncRole === "controller") {
+              currentSlide = masterIndex;
+              updateControllerUI();
+            }
+          } else if (msg.type === "sync_slide") {
+            masterIndex = msg.index;
+            if (syncRole === "listener" && wsSyncedLock) {
+              currentSlide = masterIndex;
+              renderSlide();
+            } else if (syncRole === "controller") {
+              currentSlide = masterIndex;
+              updateControllerUI();
+            }
+          } else if (msg.type === "sync_lock") {
+            wsSyncedLock = msg.lock;
+            masterIndex = msg.master_index;
+            updateSyncUI();
+            if (syncRole === "listener" && wsSyncedLock) {
+              currentSlide = masterIndex;
+              renderSlide();
+            }
+          } else if (msg.type === "remote_action") {
+            if (syncRole === "master") {
+              if (msg.command === "next") nextSlide();
+              else if (msg.command === "prev") prevSlide();
+            }
+          }
+        };
+
+        ws.onerror = () => {
+          wsSyncedLock = false;
+          updateSyncUI();
+        };
+
+        ws.onclose = () => {
+          console.warn("📡 Sync server offline.");
+          wsSyncedLock = false;
+          updateSyncUI();
+          setTimeout(initWebSocket, 4000);
+        };
+      }
+
+      function broadcastSlideChange() {
+        if (
+          ws &&
+          ws.readyState === WebSocket.OPEN &&
+          (syncRole === "master" || syncRole === "controller")
+        ) {
+          ws.send(JSON.stringify({ type: "slide_change", index: currentSlide }));
+        }
+      }
+
+      function updateSyncUI() {
+        const badge = document.getElementById("sync-status-badge");
+        const catchupBtn = document.getElementById("btn-catchup");
+        if (syncRole !== "listener") return;
+
+        if (badge) {
+          badge.classList.remove("hidden");
+          badge.textContent = wsSyncedLock ? "Synced" : "Independent";
+          badge.className = wsSyncedLock
+            ? "px-2.5 py-0.5 bg-fculblue/10 text-fculblue text-[10px] font-bold rounded uppercase tracking-wider animate-pulse"
+            : "px-2.5 py-0.5 bg-amber-500/10 text-amber-500 text-[10px] font-bold rounded uppercase tracking-wider";
+        }
+        if (catchupBtn) {
+          catchupBtn.classList.toggle("hidden", wsSyncedLock);
+        }
+        if (btnPrev && btnNext) {
+          btnPrev.classList.toggle("opacity-30", wsSyncedLock);
+          btnPrev.classList.toggle("pointer-events-none", wsSyncedLock);
+          btnNext.classList.toggle("opacity-30", wsSyncedLock);
+          btnNext.classList.toggle("pointer-events-none", wsSyncedLock);
+        }
+      }
+
+      function updateControllerUI() {
+        const slideData = slides[currentSlide];
+        if (!slideData) return;
+        const sectionEl = document.getElementById("controller-section");
+        const slideNumEl = document.getElementById("controller-slide-num");
+        const notesEl = document.getElementById("controller-notes-text");
+        if (sectionEl) sectionEl.textContent = slideData.section;
+        if (slideNumEl)
+          slideNumEl.textContent = `${currentSlide + 1} / ${slides.length}`;
+        if (notesEl) {
+          notesEl.innerHTML = slideData.notes
+            ? `<p>${slideData.notes}</p>`
+            : `<p class="text-slate-500 italic">No notes for this slide.</p>`;
+        }
+      }
+
+      /* ============================================================
+       *  EVENT BINDINGS
+       * ============================================================ */
+      btnNotes.addEventListener("click", () => {
+        if (syncRole === "listener") {
+          showNotification("🔒 Script access is restricted to the presenter.");
+          return;
+        }
+        toggleNotesMode(!isNotesVisible);
+      });
+      closeNotesBtn.addEventListener("click", () => toggleNotesMode(false));
+
+      btnPrev.addEventListener("click", () => {
+        if (syncRole !== "listener" || !wsSyncedLock) prevSlide();
+      });
+      btnNext.addEventListener("click", () => {
+        if (syncRole !== "listener" || !wsSyncedLock) nextSlide();
+      });
+
+      themeToggle.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+      });
+
+      document.getElementById("btn-catchup").onclick = () => {
+        currentSlide = masterIndex;
+        renderSlide();
+      };
+
+      // Controller buttons
+      const ctrlPrev = document.getElementById("ctrl-btn-prev");
+      const ctrlNext = document.getElementById("ctrl-btn-next");
+      if (ctrlPrev)
+        ctrlPrev.onclick = () => {
+          if (ws && ws.readyState === WebSocket.OPEN)
+            ws.send(JSON.stringify({ type: "action", command: "prev" }));
+        };
+      if (ctrlNext)
+        ctrlNext.onclick = () => {
+          if (ws && ws.readyState === WebSocket.OPEN)
+            ws.send(JSON.stringify({ type: "action", command: "next" }));
+        };
+      const lockToggle = document.getElementById("controller-sync-lock");
+      if (lockToggle)
+        lockToggle.onchange = (e) => {
+          if (ws && ws.readyState === WebSocket.OPEN)
+            ws.send(JSON.stringify({ type: "set_lock", lock: e.target.checked }));
+        };
+
+      // Keyboard
+      document.addEventListener("keydown", (e) => {
+        if (syncRole === "listener" && wsSyncedLock) return;
+
+        if (e.key === "ArrowRight" || e.key === " ") {
+          nextSlide();
+          e.preventDefault();
+        } else if (e.key === "ArrowLeft") {
+          prevSlide();
+          e.preventDefault();
+        } else if (e.key.toLowerCase() === "n") {
+          if (syncRole !== "listener") toggleNotesMode(!isNotesVisible);
+        }
+      });
+
+      window.addEventListener("unload", () => {
+        if (notesWindow && !notesWindow.closed) notesWindow.close();
+      });
+
+      // Notification toast
+      let notifTimer = null;
+      function showNotification(text) {
+        const box = document.getElementById("notification-box");
+        const t = document.getElementById("notification-text");
+        if (!box || !t) return;
+        t.textContent = text;
+        box.classList.remove("translate-y-12", "opacity-0");
+        clearTimeout(notifTimer);
+        notifTimer = setTimeout(() => {
+          box.classList.add("translate-y-12", "opacity-0");
+        }, 2200);
+      }
+
+      /* ============================================================
+       *  START
+       * ============================================================ */
+      init();
+      initWebSocket();
+
+    </script>
+  </body>
+</html>
+

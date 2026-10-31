@@ -1,10 +1,13 @@
-import TeamPhoto from "../assets/team/placeholder.svg";
+import joaoPhoto from "../assets/team/joao.jpg";
+import nunoPhoto from "../assets/team/nuno.jpg";
+import carlosPhoto from "../assets/team/carlos.jpg";
+import mamedePhoto from "../assets/team/mamede.jpg";
 
 const team = [
-  { name: "João Tomás Garcia Farinha", role: "PhD Candidate / Lead Architect", org: "LASIGE · FCUL", focus: "Multimodal gating + LUPI distillation", photo: TeamPhoto },
-  { name: "Prof. Nuno Garcia", role: "Principal Investigator", org: "LASIGE · FCUL", focus: "Manifold alignment + open science", photo: TeamPhoto },
-  { name: "Prof. Carlos Duarte", role: "Co-Investigator", org: "LASIGE · FCUL", focus: "Signal processing + clinical validation", photo: TeamPhoto },
-  { name: "Prof. Mamede de Carvalho", role: "Clinical Lead", org: "IMM / FMUL", focus: "Neurology + assistive deployment", photo: TeamPhoto },
+  { name: "João Tomás Garcia Farinha", role: "PhD Candidate / Lead Architect", org: "LASIGE · FCUL", focus: "Multimodal gating + LUPI distillation", photo: joaoPhoto },
+  { name: "Prof. Nuno Garcia", role: "Principal Investigator", org: "LASIGE · FCUL", focus: "Manifold alignment + open science", photo: nunoPhoto },
+  { name: "Prof. Carlos Duarte", role: "Co-Investigator", org: "LASIGE · FCUL", focus: "Signal processing + clinical validation", photo: carlosPhoto },
+  { name: "Prof. Mamede de Carvalho", role: "Clinical Lead", org: "IMM / FMUL", focus: "Neurology + assistive deployment", photo: mamedePhoto },
 ];
 
 export default function Consortium() {

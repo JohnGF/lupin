@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LUPIN — Early Pitch (Embryonic)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ["Inter","sans-serif"] },
+      colors: { caixablue: "#4090ce", caixayellow: "#ffc226", oxfordblue: "#0A192F", emerald: "#10b981" }
+    }
+  }
+}
+</script>
+<style>html{scroll-behavior:smooth;} body{font-family:Inter,sans-serif;}</style>
+</head>
+<body class="bg-oxfordblue text-slate-200">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-oxfordblue/90 backdrop-blur border-b border-white/10 px-6 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-caixablue shadow-lg flex items-center justify-center text-white"><i class="fa-solid fa-brain"></i></div>
+    <div><h1 class="text-xl font-black tracking-tight text-white">LUPIN</h1><p class="text-xs text-slate-400">Early-stage pitch — SaMD middleware</p></div>
+  </div>
+  <div class="text-xs font-medium text-caixayellow">Embryonic / Pre-seed</div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-12 space-y-24">
+
+<!-- 1. Problem -->
+<section id="problem" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-full bg-tured text-white flex items-center justify-center text-sm font-black">1</span><h2 class="text-3xl font-black text-white tracking-tight">Problem</h2></div>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+      <h3 class="text-xl font-bold text-white mb-3"><i class="fa-regular fa-clock text-caixablue mr-2"></i>Calibration is slow</h3>
+      <p class="text-slate-300 leading-relaxed">Standard BCI protocols need <strong>20–30 min</strong> of setup + motor calibration before therapy begins. Patients exhaust themselves before the session starts.</p>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+      <h3 class="text-xl font-bold text-white mb-3"><i class="fa-solid fa-user-slash text-tured mr-2"></i>BCI illiteracy blocks adoption</h3>
+      <p class="text-slate-300 leading-relaxed"><strong>30–50%</strong> of users cannot reliably generate motor-imagery signals. The result: abandonment, high cost per patient, and poor reimbursement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Solution -->
+<section id="solution" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-full bg-emerald text-white flex items-center justify-center text-sm font-black">2</span><h2 class="text-3xl font-black text-white tracking-tight">Solution — LUPIN</h2></div>
+  <div class="bg-gradient-to-br from-caixablue/20 to-oxfordblue border border-caixablue/30 rounded-3xl p-8 md:p-10">
+    <p class="text-xl md:text-2xl font-medium text-white leading-snug mb-6">A <strong>2-class music-imagery</strong> classifier with <strong>autonomic gating</strong> — fast, non-invasive, software-only.</p>
+    <div class="grid sm:grid-cols-3 gap-4">
+      <div class="bg-oxfordblue/60 rounded-xl p-5 border border-white/10"><div class="text-3xl font-black text-caixayellow">1.70</div><div class="text-sm text-slate-300">min to active convergence</div></div>
+      <div class="bg-oxfordblue/60 rounded-xl p-5 border border-white/10"><div class="text-3xl font-black text-emerald">4.06</div><div class="text-sm text-slate-300">s GPU model fit</div></div>
+      <div class="bg-oxfordblue/60 rounded-xl p-5 border border-white/10"><div class="text-3xl font-black text-caixablue">70.5%</div><div class="text-sm text-slate-300">dry-EEG accuracy (prototype)</div></div>
+    </div>
+    <p class="mt-6 text-slate-300">No wet caps. No 32-channel amplifiers. Just an 8-channel dry headset + physiological sensors + a 1.7-minute calibration.</p>
+  </div>
+</section>
+
+<!-- 3. Architecture -->
+<section id="architecture" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-full bg-caixayellow text-oxfordblue flex items-center justify-center text-sm font-black">3</span><h2 class="text-3xl font-black text-white tracking-tight">Architecture</h2></div>
+  <div class="flex flex-wrap gap-4">
+    <div class="flex-1 min-w-[260px] bg-white/5 border border-white/10 rounded-2xl p-5"><h4 class="font-bold text-white mb-2"><i class="fa-solid fa-camera text-caixablue mr-2"></i>Spatial Context</h4><p class="text-sm text-slate-300">Depth / gaze scanner picks the target and computes 6-DOF reach trajectory.</p></div>
+    <div class="flex-1 min-w-[260px] bg-white/5 border border-white/10 rounded-2xl p-5"><h4 class="font-bold text-white mb-2"><i class="fa-solid fa-heart-pulse text-tured mr-2"></i>Physiological Gating</h4><p class="text-sm text-slate-300">EDA / HRV / thermal stress adjusts confidence threshold dynamically.</p></div>
+    <div class="flex-1 min-w-[260px] bg-white/5 border border-white/10 rounded-2xl p-5"><h4 class="font-bold text-white mb-2"><i class="fa-solid fa-music text-caixayellow mr-2"></i>Neural Trigger</h4><p class="text-sm text-slate-300">2-class music imagery → binary “go / stop” command.</p></div>
+  </div>
+  <div class="mt-4 text-center text-sm text-slate-400">Fusion layer outputs ROS-compatible intent + gating messages to any assistive actuator.</div>
+</section>
+
+<!-- 4. Market / Wedge -->
+<section id="market" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-full bg-caixablue text-white flex items-center justify-center text-sm font-black">4</span><h2 class="text-3xl font-black text-white tracking-tight">Market — Dual Wedge</h2></div>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white/5 border border-emerald/30 rounded-2xl p-6">
+      <h3 class="text-xl font-bold text-white mb-2">Primary — Independence (70%)</h3>
+      <p class="text-slate-300 text-sm mb-3">6-DOF assistive arms (Kinova Jaco, iARM) and smart wheelchairs for cervical SCI / ALS.</p>
+      <ul class="text-sm text-slate-300 list-disc pl-5 space-y-1"><li>OEM royalty ≈ <strong>$1.5k/unit</strong></li><li>No clinical-friction (music imagery works for assistive control)</li><li>Direct B2B licensing opportunity</li></ul>
+    </div>
+    <div class="bg-white/5 border border-caixablue/30 rounded-2xl p-6">
+      <h3 class="text-xl font-bold text-white mb-2">Secondary — Stroke Rehab (30%)</h3>
+      <p class="text-slate-300 text-sm mb-3">“Zero-Fatigue Rescue” for the 30–50% of stroke patients who fail standard motor imagery.</p>
+      <ul class="text-sm text-slate-300 list-disc pl-5 space-y-1"><li>Leveraging Prof. Mamede de Carvalho collaboration</li><li>CMS RTM / DME reimbursement tailwind</li><li>Clinical validation = 30-patient Stage-1 study</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Go-to-Market -->
+<section id="gtm" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-full bg-caixablue text-white flex items-center justify-center text-sm font-black">5</span><h2 class="text-3xl font-black text-white tracking-tight">Go-to-Market (12 months)</h2></div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+    <div class="bg-oxfordblue border border-white/10 rounded-xl p-4"><strong class="text-caixayellow">Q1</strong><br/>MVP + usability (n=5)</div>
+    <div class="bg-oxfordblue border border-white/10 rounded-xl p-4"><strong class="text-caixayellow">Q2</strong><br/>OEM pilot (Kinova / EU partner)</div>
+    <div class="bg-oxfordblue border border-white/10 rounded-xl p-4"><strong class="text-caixayellow">Q3</strong><br/>Clinic pilot (2 stroke sites)</div>
+    <div class="bg-oxfordblue border border-white/10 rounded-xl p-4"><strong class="text-caixayellow">Q4</strong><br/>First license + 510(k) / CE file</div>
+  </div>
+</section>
+
+<!-- 6. Ask -->
+<section id="ask" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-full bg-tured text-white flex items-center justify-center text-sm font-black">6</span><h2 class="text-3xl font-black text-white tracking-tight">The Ask</h2></div>
+  <div class="bg-gradient-to-r from-tured/20 to-caixablue/20 border border-white/10 rounded-3xl p-8 md:p-10">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-xl font-bold text-white mb-2">Seed Funding</h3>
+        <p class="text-slate-300 text-sm">$150k to complete pilot hardware, clinical site fees, and regulatory documentation (510(k) / MDR technical file).</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold text-white mb-2">OEM Partner</h3>
+        <p class="text-slate-300 text-sm">Co-develop a 4-week integration pilot on an existing 6-DOF assistive arm (e.g. Kinova Jaco).</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold text-white mb-2">Clinical Site</h3>
+        <p class="text-slate-300 text-sm">30-patient “Zero-Fatigue Rescue” study to generate clinical-performance data for reimbursement dossiers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-xs text-slate-500 pt-12 border-t border-white/10 flex justify-between">
+  <span>LUPIN — Early-stage pitch (embryonic)</span>
+  <span>Not for external distribution without consent</span>
+</footer>
+
+</main>
+</body>
+</html>

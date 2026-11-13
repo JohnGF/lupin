@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LUPIN — Market Data & Sources Appendix</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ["Inter","sans-serif"] },
+      colors: { 
+        caixablue: "#4090ce", 
+        caixayellow: "#ffc226", 
+        oxfordblue: "#0A192F", 
+        emerald: "#10b981",
+        tured: "#ef4444"
+      }
+    }
+  }
+}
+</script>
+<style>
+  html{scroll-behavior:smooth;} 
+  body{font-family:Inter,sans-serif;}
+  .source-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 0.375rem;
+    letter-spacing: 0.05em;
+  }
+  .audited { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+  .estimate { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+  .peer-reviewed { background: rgba(64, 144, 206, 0.2); color: #4090ce; border: 1px solid rgba(64, 144, 206, 0.3); }
+</style>
+</head>
+<body class="bg-oxfordblue text-slate-200">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-oxfordblue/90 backdrop-blur border-b border-white/10 px-6 py-4 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-caixablue shadow-lg flex items-center justify-center text-white">
+      <i class="fa-solid fa-chart-line"></i>
+    </div>
+    <div>
+      <h1 class="text-xl font-black tracking-tight text-white">Market Data & Sources</h1>
+      <p class="text-xs text-slate-400">Appendix — All claims trace to verified sources</p>
+    </div>
+  </div>
+  <div class="text-xs font-medium text-caixayellow">Nov 2026</div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
+
+<!-- Market Sizing Overview -->
+<section id="overview" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-6">
+    <span class="w-8 h-8 rounded-full bg-caixablue text-white flex items-center justify-center text-sm font-black">1</span>
+    <h2 class="text-3xl font-black text-white tracking-tight">Market Sizing Overview</h2>
+  </div>
+  
+  <div class="grid md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white/5 border border-caixablue/30 rounded-2xl p-6">
+      <div class="text-caixablue text-sm font-bold mb-2">BCI Market 2026</div>
+      <div class="text-4xl font-black text-white mb-1">$1.40B</div>
+      <div class="text-xs text-slate-400 mb-3">to $1.48B</div>
+      <div class="flex gap-1 flex-wrap">
+        <span class="source-badge estimate">Mordor Intel</span>
+        <span class="source-badge estimate">MRFR</span>
+      </div>
+      <div class="mt-3 pt-3 border-t border-white/10 text-xs text-slate-300">
+        <div class="flex justify-between"><span>2031 Projection:</span><strong>$2.26B–$3.70B</strong></div>
+        <div class="flex justify-between mt-1"><span>CAGR:</span><strong>10.10%</strong></div>
+      </div>
+    </div>
+
+    <div class="bg-white/5 border border-emerald/30 rounded-2xl p-6">
+      <div class="text-emerald text-sm font-bold mb-2">Neurorehab Devices</div>
+      <div class="text-4xl font-black text-white mb-1">$2.9B</div>
+      <div class="text-xs text-slate-400 mb-3">2026 estimate</div>
+      <div class="flex gap-1 flex-wrap">
+        <span class="source-badge estimate">Grand View</span>
+      </div>
+      <div class="mt-3 pt-3 border-t border-white/10 text-xs text-slate-300">
+        <div class="flex justify-between"><span>2030 Projection:</span><strong>$4.98B</strong></div>
+        <div class="flex justify-between mt-1"><span>CAGR:</span><strong>13.9%</strong></div>
+      </div>
+    </div>
+
+    <div class="bg-white/5 border border-caixayellow/30 rounded-2xl p-6">
+      <div class="text-caixayellow text-sm font-bold mb-2">Rehab Robots Hardware</div>
+      <div class="text-4xl font-black text-white mb-1">$580M</div>
+      <div class="text-xs text-slate-400 mb-3">to $598M in 2026</div>
+      <div class="flex gap-1 flex-wrap">
+        <span class="source-badge estimate">Fortune BI</span>
+        <span class="source-badge estimate">Grand View</span>
+      </div>
+      <div class="mt-3 pt-3 border-white/10 text-xs text-slate-300">
+        <div class="flex justify-between"><span>2030–34 Projection:</span><strong>$1.03B–$1.95B</strong></div>
+        <div class="flex justify-between mt-1"><span>CAGR:</span><strong>15.2%–16.4%</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-tured/10 border border-tured/30 rounded-xl p-4">
+    <div class="flex items-start gap-3">
+      <i class="fa-solid fa-triangle-exclamation text-tured mt-1"></i>
+      <div class="text-sm">
+        <div class="font-bold text-white mb-1">Important TAM Note</div>
+        <p class="text-slate-300">Broad reports bundling elderly-care robots, surgical robots, and powered exoskeletons quote TAMs of $4B–$11B with 20%+ CAGRs. <strong>Pure clinical rehab hardware is ~$580M–$600M.</strong> Always specify scope in presentations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Software Growth Opportunity -->
+<section id="software" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-6">
+    <span class="w-8 h-8 rounded-full bg-emerald text-white flex items-center justify-center text-sm font-black">2</span>
+    <h2 class="text-3xl font-black text-white tracking-tight">Software Layer Growth Opportunity</h2>
+  </div>
+  
+  <div class="bg-gradient-to-br from-emerald/20 to-oxfordblue border border-emerald/30 rounded-3xl p-8">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <div class="text-sm text-slate-400 mb-2">Software/Algorithm Layer CAGR</div>
+        <div class="text-5xl font-black text-emerald">23.88%</div>
+      </div>
+      <div class="text-right">
+        <div class="text-sm text-slate-400 mb-2">vs. Overall BCI Hardware</div>
+        <div class="text-3xl font-black text-slate-400">10.10%</div>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-4">
+      <p class="text-slate-300 text-sm mb-3"><span class="source-badge estimate">Mordor Intelligence</span> <strong class="text-white">Strategic Implication for LUPIN:</strong></p>
+      <ul class="text-sm text-slate-300 space-y-2 pl-5">
+        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald mt-0.5"></i><span>Software-only solution (SaMD) avoids hardware manufacturing overhead</span></li>
+        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald mt-0.5"></i><span>Can be licensed to existing OEMs (asset-light scaling)</span></li>
+        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald mt-0.5"></i><span>Higher margins than hardware sales</span></li>
+        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald mt-0.5"></i><span>Faster iteration and improvement cycles</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Competitor Landscape -->
+<section id="competitors" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-6">
+    <span class="w-8 h-8 rounded-full bg-caixayellow text-oxfordblue flex items-center justify-center text-sm font-black">3</span>
+    <h2 class="text-3xl font-black text-white tracking-tight">Competitive Landscape Financials</h2>
+  </div>
+  
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-white/10">
+          <th class="text-left py-3 px-4 font-bold text-slate-300">Company</th>
+          <th class="text-left py-3 px-4 font-bold text-slate-300">Revenue (Latest)</th>
+          <th class="text-left py-3 px-4 font-bold text-slate-300">Market Position</th>
+          <th class="text-left py-3 px-4 font-bold text-slate-300">Source</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-white/5">
+        <tr class="bg-white/5">
+          <td class="py-4 px-4 font-bold text-white">DIH / Hocoma</td>
+          <td class="py-4 px-4 text-emerald font-black">$62.9M<div class="text-xs text-slate-400 font-normal">(FY2025)</div></td>
+          <td class="py-4 px-4 text-slate-300">Market leader, upper/lower limb robotics</td>
+          <td class="py-4 px-4"><span class="source-badge audited">✅ SEC 10-K</span></td>
+        </tr>
+        <tr>
+          <td class="py-4 px-4 font-bold text-white">Tyromotion</td>
+          <td class="py-4 px-4 text-emerald font-black">€25M<div class="text-xs text-slate-400 font-normal">(~$27M proj. 2026)</div></td>
+          <td class="py-4 px-4 text-slate-300">Rapidly growing, preparing for sale</td>
+          <td class="py-4 px-4"><span class="source-badge audited">✅ M&A docs</span></td>
+        </tr>
+        <tr class="bg-white/5">
+          <td class="py-4 px-4 font-bold text-white">Kinova</td>
+          <td class="py-4 px-4 text-caixayellow font-black">$33M–$76M<div class="text-xs text-slate-400 font-normal">(est. range)</div></td>
+          <td class="py-4 px-4 text-slate-300">Leader in assistive robotic arms</td>
+          <td class="py-4 px-4"><span class="source-badge estimate">⚠️ Private est.</span></td>
+        </tr>
+        <tr>
+          <td class="py-4 px-4 font-bold text-white">g.tec</td>
+          <td class="py-4 px-4 text-caixayellow font-black">$8M–$36M<div class="text-xs text-slate-400 font-normal">(wide est. range)</div></td>
+          <td class="py-4 px-4 text-slate-300">BCI hardware specialist</td>
+          <td class="py-4 px-4"><span class="source-badge estimate">⚠️ Estimate</span></td>
+        </tr>
+        <tr class="bg-white/5">
+          <td class="py-4 px-4 font-bold text-white">Bionik</td>
+          <td class="py-4 px-4 text-tured font-black">$2.0M–$2.3M<div class="text-xs text-slate-400 font-normal">(annualized)</div></td>
+          <td class="py-4 px-4 text-slate-300">Restructuring phase</td>
+          <td class="py-4 px-4"><span class="source-badge audited">✅ OTC filing</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-6 grid md:grid-cols-2 gap-4">
+    <div class="bg-emerald/10 border border-emerald/30 rounded-xl p-4">
+      <div class="flex items-start gap-2">
+        <i class="fa-solid fa-check-circle text-emerald mt-0.5"></i>
+        <div class="text-xs">
+          <div class="font-bold text-white mb-1">High Confidence (✅ Audited / M&A)</div>
+          <p class="text-slate-300">DIH/Hocoma, Tyromotion, and Bionik figures are from audited SEC filings, M&A sale documents, or public OTC reports.</p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-caixayellow/10 border border-caixayellow/30 rounded-xl p-4">
+      <div class="flex items-start gap-2">
+        <i class="fa-solid fa-triangle-exclamation text-caixayellow mt-0.5"></i>
+        <div class="text-xs">
+          <div class="font-bold text-white mb-1">Estimates (⚠️ Private Intelligence)</div>
+          <p class="text-slate-300">Kinova and g.tec are private; estimates vary significantly across platforms (RocketReach, Exactitude, Growjo). Always cite range + source.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Clinical Evidence -->
+<section id="clinical" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-6">
+    <span class="w-8 h-8 rounded-full bg-tured text-white flex items-center justify-center text-sm font-black">4</span>
+    <h2 class="text-3xl font-black text-white tracking-tight">Clinical & Health-Economic Evidence</h2>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-6">
+    <!-- BCI Illiteracy -->
+    <div class="bg-white/5 border border-tured/30 rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xl font-bold text-white">BCI Illiteracy Rate</h3>
+        <span class="source-badge peer-reviewed">Peer-reviewed</span>
+      </div>
+      <div class="text-4xl font-black text-tured mb-2">30–50%</div>
+      <p class="text-sm text-slate-300 mb-4">of stroke patients fail to achieve reliable control with standard Motor Imagery BCI protocols</p>
+      <div class="space-y-2 text-xs">
+        <div class="flex items-start gap-2">
+          <i class="fa-solid fa-book text-caixablue mt-0.5"></i>
+          <div>
+            <div class="font-bold text-white">Allison & Neuper (2010)</div>
+            <div class="text-slate-400">"Could Anyone Use a BCI?" in <em>Brain-Computer Interfaces</em> (Springer)</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-2">
+          <i class="fa-solid fa-book text-caixablue mt-0.5"></i>
+          <div>
+            <div class="font-bold text-white">Vidaurre & Blankertz (2010)</div>
+            <div class="text-slate-400"><em>Brain Topography</em></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 pt-4 border-t border-white/10 text-xs text-slate-300">
+        <strong class="text-white">Key Finding:</strong> 15–30% fail with healthy populations; up to 50% in clinical/stroke cohorts fail to achieve >70% control accuracy.
+      </div>
+    </div>
+
+    <!-- Global Stroke Burden -->
+    <div class="bg-white/5 border border-caixablue/30 rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xl font-bold text-white">Global Stroke Burden</h3>
+        <span class="source-badge peer-reviewed">Peer-reviewed</span>
+      </div>
+      <div class="text-4xl font-black text-caixablue mb-2">93.8M</div>
+      <p class="text-sm text-slate-300 mb-4">prevalent stroke survivors globally (2021)</p>
+      <div class="space-y-2 text-xs">
+        <div class="flex items-start gap-2">
+          <i class="fa-solid fa-book text-caixablue mt-0.5"></i>
+          <div>
+            <div class="font-bold text-white">GBD 2021 Stroke Collaborators</div>
+            <div class="text-slate-400"><em>The Lancet Neurology</em> (2024)</div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 pt-4 border-t border-white/10 text-xs">
+        <div class="flex justify-between text-slate-300 mb-1">
+          <span>TAM (30–50% BCI illiteracy):</span>
+          <strong class="text-white">28M–47M patients</strong>
+        </div>
+        <div class="flex justify-between text-slate-300">
+          <span>Potential cost savings per patient:</span>
+          <strong class="text-white">$70k–$248k</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Regulatory Precedent -->
+  <div class="mt-6 bg-gradient-to-r from-emerald/10 to-caixablue/10 border border-emerald/30 rounded-2xl p-6">
+    <div class="flex items-center gap-3 mb-4">
+      <i class="fa-solid fa-stamp text-emerald text-2xl"></i>
+      <div>
+        <h3 class="text-xl font-bold text-white">FDA & CMS Reimbursement Precedent</h3>
+        <span class="source-badge audited">✅ Federal Filing</span>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <div class="font-bold text-white text-sm mb-2">Neurolutions IpsiHand</div>
+        <div class="space-y-1 text-xs text-slate-300">
+          <div class="flex justify-between"><span>FDA Clearance:</span><strong class="text-white">De Novo DEN200046</strong></div>
+          <div class="flex justify-between"><span>Date:</span><strong class="text-white">April 2021</strong></div>
+          <div class="flex justify-between"><span>Indication:</span><strong class="text-white">Non-invasive EEG upper-extremity chronic stroke rehab</strong></div>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-white text-sm mb-2">CMS Reimbursement</div>
+        <div class="space-y-1 text-xs text-slate-300">
+          <div class="flex justify-between"><span>HCPCS Codes:</span><strong class="text-white">E0738 / E0739</strong></div>
+          <div class="flex justify-between"><span>Category:</span><strong class="text-white">Home DME</strong></div>
+          <div class="flex justify-between"><span>Significance:</span><strong class="text-emerald">Establishes pathway for LUPIN</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Source Citation Guide -->
+<section id="citations" class="scroll-mt-24">
+  <div class="flex items-center gap-3 mb-6">
+    <span class="w-8 h-8 rounded-full bg-caixablue text-white flex items-center justify-center text-sm font-black">5</span>
+    <h2 class="text-3xl font-black text-white tracking-tight">Quick Citation Guide for Decks</h2>
+  </div>
+
+  <div class="space-y-4">
+    <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+      <div class="font-bold text-caixablue text-sm mb-2"><i class="fa-solid fa-quote-left mr-2"></i>Market Size Claims</div>
+      <p class="text-xs text-slate-300 font-mono bg-oxfordblue/60 p-3 rounded-lg">"The global BCI market is estimated at $1.40B–$1.48B in 2026, growing at 10.10% CAGR (Mordor Intelligence, MRFR 2026), with software/algorithm layers expanding at 23.88% CAGR."</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+      <div class="font-bold text-emerald text-sm mb-2"><i class="fa-solid fa-quote-left mr-2"></i>Competitor Revenue</div>
+      <p class="text-xs text-slate-300 font-mono bg-oxfordblue/60 p-3 rounded-lg">"DIH/Hocoma generated $62.9M in FY2025 (SEC 10-K), while Tyromotion is projected at €25M for 2026 (SHS M&A documents). Kinova, a private leader in assistive arms, is estimated at $33M–$76M (Exactitude, RocketReach)."</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+      <div class="font-bold text-tured text-sm mb-2"><i class="fa-solid fa-quote-left mr-2"></i>Clinical Problem Statement</div>
+      <p class="text-xs text-slate-300 font-mono bg-oxfordblue/60 p-3 rounded-lg">"30–50% of stroke patients fail standard motor imagery BCI protocols (Allison & Neuper 2010; Vidaurre & Blankertz 2010), creating an unaddressed $70k–$248k per-patient cost burden across 28M–47M potential users globally."</p>
+    </div>
+
+    <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+      <div class="font-bold text-caixayellow text-sm mb-2"><i class="fa-solid fa-quote-left mr-2"></i>Regulatory Precedent</div>
+      <p class="text-xs text-slate-300 font-mono bg-oxfordblue/60 p-3 rounded-lg">"Neurolutions' IpsiHand received FDA De Novo clearance (DEN200046, April 2021) and CMS DME reimbursement codes (E0738/E0739), establishing the regulatory pathway for non-invasive EEG-based upper-extremity rehabilitation."</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-xs text-slate-500 pt-12 border-t border-white/10 flex justify-between">
+  <span>LUPIN Market Data & Sources — Last Updated Nov 2026</span>
+  <span>Full documentation: <code class="text-caixablue">decks/SOURCES.md</code></span>
+</footer>
+
+</main>
+</body>
+</html>

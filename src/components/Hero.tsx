@@ -1,5 +1,4 @@
 import { ArrowRight, Waves } from "lucide-react";
-import SignalReframingGraphic from "./SignalReframingGraphic";
 
 export default function Hero() {
   return (
@@ -47,10 +46,23 @@ export default function Hero() {
 
           <div className="relative">
             <div className="rounded-2xl border border-frost/10 bg-graphite/60 p-4 md:p-6 shadow-2xl backdrop-blur-xl">
-              <SignalReframingGraphic />
+              <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
+                <video
+                  className="h-full w-full object-contain"
+                  autoPlay
+                  muted
+                  loop
+                  controls
+                  playsInline
+                  preload="metadata"
+                  src="/media/pipeline-walkthrough.mp4"
+                >
+                  Your browser does not support embedded MP4 playback.
+                </video>
+              </div>
               <div className="mt-4 flex items-center justify-between text-xs font-mono text-frost/50">
-                <span>RQ1 · RQ2 · RQ3</span>
-                <span>SCHEMATIC — NOT TO SCALE</span>
+                <span>LSL · QC · 3D TASK · BIDS</span>
+                <span>PIPELINE WALKTHROUGH — DRAFT</span>
               </div>
             </div>
           </div>

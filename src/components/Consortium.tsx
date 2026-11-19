@@ -34,7 +34,7 @@ export default function Consortium() {
         </div>
 
         {/* Institutional backing banner */}
-        <div className="rounded-2xl border border-frost/10 bg-gradient-to-r from-stone/60 via-ink to-stone/60 p-10 md:p-12">
+        <div className="rounded-2xl border border-frost/10 bg-gradient-to-r from-stone/60 via-ink to-stone/60 p-10 md:p-12 mb-12">
           <h3 className="font-mono text-xs uppercase tracking-[0.15em] text-gold mb-8">Institutional Backing</h3>
           <div className="grid md:grid-cols-4 gap-8">
             <div className="flex items-center gap-3">
@@ -59,8 +59,63 @@ export default function Consortium() {
               <div className="rounded-xl bg-cream border border-frost/10 p-3 shrink-0">
                 <img src="/la-caixa.svg" alt="&quot;la Caixa&quot; Foundation logo" className="h-6 w-auto" />
               </div>
-              <div><div className="font-serif text-xl text-cream">"la Caixa" Foundation</div><div className="text-xs text-frost/50">CAIXAIMPULSE Health</div></div>
+              <div><div className="font-serif text-xl text-cream">&quot;la Caixa&quot; Foundation</div><div className="text-xs text-frost/50">CAIXAIMPULSE Health</div></div>
             </div>
+          </div>
+        </div>
+
+        {/* CaixaImpulse Grant & Translational Milestone Tracker */}
+        <div className="rounded-2xl border border-frost/10 bg-graphite/40 p-8 md:p-10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
+            <h3 className="font-mono text-xs uppercase tracking-[0.15em] text-gold">
+              CaixaImpulse Translational Milestone Tracker
+            </h3>
+            <span className="font-mono text-[11px] text-frost/50">
+              CaixaImpulse Validation Stage (Stage 1) · IP planned for Stage 2
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                step: "01",
+                status: "Completed",
+                badge: "bg-sage/15 text-sage border-sage/30",
+                title: "Open LSL Acquisition Stack",
+                desc: "Unified EEG, fNIRS, watch IMU/PPG, thermal, and gaze streaming into BIDS.",
+              },
+              {
+                step: "02",
+                status: "Completed",
+                badge: "bg-sage/15 text-sage border-sage/30",
+                title: "Pilot LOSO Baselines",
+                desc: "4-class imagery & async L2 brain-switch benchmarks with negative controls.",
+              },
+              {
+                step: "03",
+                status: "In Progress",
+                badge: "bg-gold/15 text-gold border-gold/30",
+                title: "Ethics & Multimodal Corpus",
+                desc: "Anonymized BIDS multimodal data collection under ethics submission.",
+              },
+              {
+                step: "04",
+                status: "Stage 2",
+                badge: "bg-stone text-frost/70 border-frost/15",
+                title: "LUPI & Clinical Valorization",
+                desc: "Teacher→Student distillation, IMM/FMUL validation, and Stage 2 IP filing.",
+              },
+            ].map((m) => (
+              <div key={m.step} className="rounded-xl border border-frost/10 bg-ink/70 p-5 flex flex-col">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="font-mono text-xs text-frost/45">M{m.step}</span>
+                  <span className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] ${m.badge}`}>
+                    {m.status}
+                  </span>
+                </div>
+                <h4 className="font-serif text-lg text-cream mb-1.5">{m.title}</h4>
+                <p className="text-frost/60 text-xs leading-relaxed">{m.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

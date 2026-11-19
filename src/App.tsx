@@ -5,6 +5,7 @@ import ClinicalValorization from "./components/ClinicalValorization";
 import BenchmarkDataset from "./components/BenchmarkDataset";
 import Consortium from "./components/Consortium";
 import OpenSource from "./components/OpenSource";
+import StudentProjects from "./components/StudentProjects";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <BenchmarkDataset />
       <OpenSource />
       <Consortium />
+      <StudentProjects />
       <footer className="bg-ink border-t border-frost/10 py-8 text-center text-xs font-mono text-frost/40">
         LUPIN — Learning User Physiological Intent Networks · LASIGE · FCUL · IMM / FMUL · CAIXAIMPULSE HEALTH INNOVATION
         <div className="mt-2">

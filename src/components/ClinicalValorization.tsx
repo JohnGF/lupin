@@ -1,4 +1,4 @@
-import { Users, Activity, DollarSign, TrendingUp } from "lucide-react";
+import { Users, Activity, DollarSign, TrendingUp, Stethoscope, ShieldCheck } from "lucide-react";
 
 const kpis = [
   { icon: Users, value: "140M+", label: "Target Patients (EU Neurological Disorders)" },
@@ -44,13 +44,38 @@ export default function ClinicalValorization() {
           </div>
         </div>
 
+        {/* Clinical Roadmap & Ethics by Design */}
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
+          <div className="rounded-2xl border border-frost/10 bg-graphite/40 p-8">
+            <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.15em] text-gold mb-3">
+              <Stethoscope size={16} />
+              <span>Clinical Advisory &amp; Validation</span>
+            </div>
+            <h3 className="font-serif text-2xl text-cream mb-3">IMM / FMUL Clinical Pathway</h3>
+            <p className="text-frost/70 text-sm leading-relaxed">
+              Guided by clinical neurophysiology advisor <strong className="text-cream font-medium">Prof. Mamede de Carvalho</strong> (IMM / FMUL), aligning sensor ergonomics, protocol burden, and endpoint metrics with ALS and stroke rehabilitation cohorts.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-sage/30 bg-graphite/40 p-8">
+            <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.15em] text-sage mb-3">
+              <ShieldCheck size={16} />
+              <span>Ethics &amp; Privacy by Design</span>
+            </div>
+            <h3 className="font-serif text-2xl text-cream mb-3">Anonymized Open-Science Releases</h3>
+            <p className="text-frost/70 text-sm leading-relaxed">
+              Published BIDS datasets are <strong className="text-cream font-medium">fully anonymized</strong> in accordance with our ethics submission — stripping direct identifiers, using coded subject IDs (<code className="font-mono text-xs text-sage">sub-XX</code>), and excluding raw identifiable media from public releases.
+            </p>
+          </div>
+        </div>
+
         {/* Asset release cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="rounded-2xl border border-gold/30 bg-gradient-to-br from-stone/60 to-ink p-8">
             <div className="font-mono text-xs uppercase tracking-[0.15em] text-gold mb-3">Intellectual Property</div>
-            <h3 className="font-serif text-2xl text-cream mb-3">Patent Status: TBD</h3>
-            <p className="text-frost/70 text-sm leading-relaxed mb-6">Multimodal gating + manifold alignment architecture — intellectual property protection under evaluation. No formal application filed yet.</p>
-            <span className="text-frost/50 font-mono text-xs">[Status TBD]</span>
+            <h3 className="font-serif text-2xl text-cream mb-3">Stage 2 Scope (None Filed)</h3>
+            <p className="text-frost/70 text-sm leading-relaxed mb-6">Currently in CaixaImpulse Validation Stage (Stage 1). Formal IP protection for the multimodal gating and LUPI architecture is scoped for Stage 2.</p>
+            <span className="text-frost/50 font-mono text-xs">Stage 1 · Validation</span>
           </div>
 
           <div className="rounded-2xl border border-frost/10 bg-graphite/40 p-8">

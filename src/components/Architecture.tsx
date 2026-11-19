@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrainCircuit, AlignCenter, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import TeacherStudentSimulator from "./TeacherStudentSimulator";
 
 const pillars = [
   {
@@ -81,6 +82,8 @@ export default function Architecture() {
             );
           })}
         </div>
+
+        <TeacherStudentSimulator />
       </div>
     </section>
   );

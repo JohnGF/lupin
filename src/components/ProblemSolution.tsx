@@ -1,4 +1,5 @@
 import { CheckCircle2, XCircle } from "lucide-react";
+import NoiseAsContextDemo from "./NoiseAsContextDemo";
 
 const headers = ["Dimension", "Legacy Lab BCI Pipeline", "LUPIN Paradigm"];
 const rows = [
@@ -36,6 +37,8 @@ export default function ProblemSolution() {
             </tbody>
           </table>
         </div>
+
+        <NoiseAsContextDemo />
       </div>
     </section>
   );

@@ -40,7 +40,7 @@ export default function Architecture() {
           <p className="text-frost/70 text-lg leading-relaxed">One decoding engine, three breakthroughs — each one removes a wall between the lab and the living room.</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-3 gap-6 items-start">
           {pillars.map((p) => {
             const isOpen = open === p.id;
             const Icon = p.icon;
@@ -55,14 +55,14 @@ export default function Architecture() {
                   </div>
                   <div className="ml-auto mt-1 text-frost/40">{isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}</div>
                 </button>
-                <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+                <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"}`}>
                   <div className="px-7 pb-7 pt-2 border-t border-frost/10">
                     <p className="text-frost/80 leading-relaxed mb-6">{p.desc.split("*").join("")}</p>
                     {/* Lab-vs-Home switch for Engine 03 */}
                     {p.id === "rq3" && (
                       <div className="rounded-xl bg-ink border border-frost/10 p-5">
                         <h4 className="font-mono text-xs uppercase tracking-[0.12em] text-gold mb-3">From Our Lab to Their Living Room</h4>
-                        <div className="flex gap-4 text-sm flex-col sm:flex-row">
+                        <div className="flex gap-3 text-sm flex-col sm:flex-row lg:flex-col xl:flex-row">
                           <div className="flex-1 rounded-lg bg-stone/60 p-3 border border-frost/10">
                             <div className="text-xs font-mono text-frost/50 mb-1">IN THE LAB (TEACHER)</div>
                             <div className="text-cream font-medium">Full clinical sensor stack</div>

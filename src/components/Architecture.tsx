@@ -25,7 +25,7 @@ const pillars = [
     tag: "Engine 03",
     title: "Lab Intelligence, Consumer Hardware",
     productName: "Generative LUPI Distillation",
-    desc: "Trained with a full hospital-grade sensor stack, deployed on a sub-€300 consumer headset. The teacher brain we build in the lab hands its knowledge to a lightweight student on the patient's head — no recalibration, ever.",
+    desc: "Trained with a full hospital-grade sensor stack, deployed on a sub-€300 consumer headset. The teacher brain we build in the lab hands its knowledge to a lightweight student on the patient's head — anchored with a 30–60s silent rest baseline, no lengthy recalibration.",
   },
 ];
 
@@ -71,7 +71,7 @@ export default function Architecture() {
                           <div className="flex-1 rounded-lg bg-stone/60 p-3 border border-frost/10">
                             <div className="text-xs font-mono text-frost/50 mb-1">AT HOME (STUDENT)</div>
                             <div className="text-cream font-medium">4-channel headset + watch</div>
-                            <div className="text-frost/60 text-xs mt-1">Zero calibration; real-time intent prediction</div>
+                            <div className="text-frost/60 text-xs mt-1">30–60s rest anchor; real-time intent prediction</div>
                           </div>
                         </div>
                       </div>

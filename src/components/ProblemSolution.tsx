@@ -5,7 +5,7 @@ const headers = ["Dimension", "Legacy Lab BCI Pipeline", "LUPIN Paradigm"];
 const rows = [
   ["Training / Serving", "Skew — models trained on curated lab data fail in real-world deployment.", "Unified — same architecture from calibration to inference."],
   ["Artifacts", "Fallacy — physiological noise treated as signal, corrupting intent.", "Reframed — artifacts gated and aligned via multimodal fusion."],
-  ["Calibration", "High burden — per-session calibration takes 30–90 min per patient.", "Low burden — generative LUPI distillation reduces to near-zero calibration."],
+  ["Calibration", "High burden — per-session calibration takes 30–90 min per patient.", "Low burden — generative LUPI distillation + 30–60s silent rest anchor."],
 ];
 
 export default function ProblemSolution() {

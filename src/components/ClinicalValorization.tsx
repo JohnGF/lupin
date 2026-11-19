@@ -14,7 +14,7 @@ export default function ClinicalValorization() {
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="max-w-3xl mb-14">
           <h2 className="font-serif text-4xl md:text-6xl tracking-[-0.03em] text-cream mb-6">Clinical Valorization & Impact</h2>
-          <p className="text-frost/70 text-lg leading-relaxed">Designed for scale — from clinical validation to assistive deployment across the EU neurological burden.</p>
+          <p className="text-frost/70 text-lg leading-relaxed">Hardware-agnostic Software as a Medical Device (SaMD) designed for scale — from clinical validation to home neurorehab, consumer wearables, and confidence-gated assistive robotics.</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">

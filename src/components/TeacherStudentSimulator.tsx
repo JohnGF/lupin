@@ -190,6 +190,20 @@ export default function TeacherStudentSimulator() {
                   strokeDasharray="5 4"
                 />
                 <path
+                  d="M 64 198 Q 92 182 126 170"
+                  fill="none"
+                  stroke="#c2a45d"
+                  strokeWidth="1.6"
+                  strokeDasharray="4 4"
+                />
+                <path
+                  d="M 296 198 Q 268 182 234 170"
+                  fill="none"
+                  stroke="#c2a45d"
+                  strokeWidth="1.6"
+                  strokeDasharray="4 4"
+                />
+                <path
                   d="M 112 98 Q 146 130 180 170"
                   fill="none"
                   stroke="#4a7c6f"
@@ -216,16 +230,16 @@ export default function TeacherStudentSimulator() {
 
             {/* fNIRS optodes (Teacher only) */}
             {FNIRS_OPTODES.map((opt) => (
-              <g key={opt.id} opacity={isTeacher ? 0.95 : 0.1}>
+              <g key={opt.id} opacity={isTeacher ? 0.95 : 0.22}>
                 <rect
                   x={opt.x - 4}
                   y={opt.y - 4}
                   width="8"
                   height="8"
                   rx="2"
-                  fill="#4a7c6f"
-                  stroke="#e8e4db"
-                  strokeWidth="0.6"
+                  fill={isTeacher ? "#4a7c6f" : "#1e222c"}
+                  stroke={isTeacher ? "#e8e4db" : "#4b5563"}
+                  strokeWidth="0.8"
                 />
               </g>
             ))}
@@ -233,30 +247,43 @@ export default function TeacherStudentSimulator() {
             {/* 32-ch EEG electrodes */}
             {ELECTRODES.map((el) => {
               const isPhysical = isTeacher || Boolean(el.studentPhysical);
-              const isVirtualMotor = !isTeacher && Boolean(el.motorTarget);
+              const isVirtualMotor = !isTeacher && Boolean(el.motorTarget) && highlightLatent;
 
-              let fill = "#232733";
+              let fill = "#1e222c";
               let stroke = "#4b5563";
-              let opacity = 0.16;
+              let opacity = 0.28;
               let dash: string | undefined;
+              let radius = 8;
 
               if (isPhysical) {
                 fill = el.studentPhysical && !isTeacher ? "#4a7c6f" : "#c2a45d";
                 stroke = "#e8e4db";
                 opacity = 1;
+                radius = !isTeacher && el.studentPhysical ? 10.5 : 8;
               } else if (isVirtualMotor) {
                 fill = "#16181f";
                 stroke = "#c2a45d";
                 opacity = 1;
                 dash = "3 2";
+                radius = 10.5;
               }
 
               return (
                 <g key={el.id} opacity={opacity}>
+                  {!isTeacher && (el.studentPhysical || isVirtualMotor) && (
+                    <circle
+                      cx={el.x}
+                      cy={el.y}
+                      r={radius + 3.5}
+                      fill="none"
+                      stroke={el.studentPhysical ? "rgba(74,124,111,0.45)" : "rgba(194,164,93,0.45)"}
+                      strokeWidth="1.2"
+                    />
+                  )}
                   <circle
                     cx={el.x}
                     cy={el.y}
-                    r={el.motorTarget || el.studentPhysical ? 10 : 7.5}
+                    r={radius}
                     fill={fill}
                     stroke={stroke}
                     strokeWidth={isVirtualMotor ? 1.8 : 1.1}
@@ -264,10 +291,10 @@ export default function TeacherStudentSimulator() {
                   />
                   <text
                     x={el.x}
-                    y={el.y + 3}
+                    y={el.y + 2.8}
                     textAnchor="middle"
-                    fill={isPhysical ? "#111318" : "#c2a45d"}
-                    fontSize={el.motorTarget || el.studentPhysical ? "7.5" : "6.5"}
+                    fill={isPhysical ? "#111318" : isVirtualMotor ? "#c2a45d" : "#94a3b8"}
+                    fontSize={radius > 9 ? "7.5" : "6.2"}
                     fontWeight="600"
                     fontFamily="JetBrains Mono, monospace"
                   >

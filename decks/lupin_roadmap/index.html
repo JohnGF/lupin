@@ -335,37 +335,35 @@
 
     <script>      const slides = [
   {
-    section: "1. Pre-Kickoff Intro — Who We Are & The Core Bet",
-    notes: "Keep this to 3 minutes: introduce the team (LASIGE/FCUL AI + HCI, IMM/FMUL clinical neurophysiology), our core thesis (physiological artifacts like GSR, PPG, IMU and thermal are context, not noise), and what is already running in the lab today.",
+    section: "1. Where We Are Today (Pre-Kickoff Snapshot)",
+    notes: "Skip the long grant pitch—she's already seen the proposal. Give a 60-second snapshot: Stage 1 approved (€50k), active lab stack (nautilus_bci), and our sharpened focus: Motor Intent Prediction first (Option B) to drive daily wear, unlocking longitudinal rehab & biomarker insights (Option A).",
     html: `
       <div class="w-full h-full flex flex-col justify-between space-y-4">
         <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
           <div>
-            <span class="px-3 py-1 rounded-full bg-caixablue/10 text-caixablue text-xs font-black uppercase">Pre-Kickoff Mentor Alignment · CaixaImpulse Stage 1</span>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight mt-2">LUPIN: Turning Body &ldquo;Noise&rdquo; into Context</h2>
+            <span class="px-3 py-1 rounded-full bg-caixablue/10 text-caixablue text-xs font-black uppercase">CaixaImpulse Stage 1 Approved · Mentor Kickoff</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight mt-2">Where We Are Today &amp; Focus</h2>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0 items-stretch">
           <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-caixablue rounded-2xl shadow-sm flex flex-col justify-between">
             <div>
-              <p class="text-xs font-black text-caixablue uppercase tracking-wider mb-2"><i class="fa-solid fa-users mr-1.5"></i> The Team</p>
-              <h3 class="text-xl lg:text-2xl font-black text-oxfordblue dark:text-white mb-3">AI + HCI + Clinical</h3>
+              <p class="text-xs font-black text-caixablue uppercase tracking-wider mb-2"><i class="fa-solid fa-users mr-1.5"></i> Team &amp; Clinical Anchor</p>
+              <h3 class="text-xl lg:text-2xl font-black text-oxfordblue dark:text-white mb-3">LASIGE/FCUL + IMM/FMUL</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 leading-relaxed">
-                <b>LASIGE / FCUL:</b> João Farinha (Lead), Prof. Nuno Garcia (AI/ML), Prof. Carlos Duarte (HCI).<br/><br/>
-                <b>IMM / FMUL:</b> Prof. Mamede de Carvalho (Clinical Neurophysiology &amp; ALS/Stroke).
+                João Farinha (Lead), Prof. Nuno Garcia (AI/ML), Prof. Carlos Duarte (HCI), and Prof. Mamede de Carvalho (Clinical Neurophysiology).
               </p>
             </div>
-            <p class="text-xs font-black text-caixablue pt-3 border-t border-gray-100 dark:border-gray-700">CaixaImpulse Stage 1 (€50k)</p>
+            <p class="text-xs font-black text-caixablue pt-3 border-t border-gray-100 dark:border-gray-700">N=30 Cohort Ahead</p>
           </div>
 
           <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-fculgreen rounded-2xl shadow-sm flex flex-col justify-between">
             <div>
-              <p class="text-xs font-black text-fculgreen uppercase tracking-wider mb-2"><i class="fa-solid fa-brain mr-1.5"></i> The Core Bet</p>
-              <h3 class="text-xl lg:text-2xl font-black text-oxfordblue dark:text-white mb-3">Context-Gated BCI</h3>
+              <p class="text-xs font-black text-fculgreen uppercase tracking-wider mb-2"><i class="fa-solid fa-crosshairs mr-1.5"></i> Sharpened Beachhead</p>
+              <h3 class="text-xl lg:text-2xl font-black text-oxfordblue dark:text-white mb-3">Motor Intent Prediction</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 leading-relaxed">
-                Wearable BCIs fail outside quiet labs because heartbeats, sweat, and head motion poison EEG.<br/><br/>
-                LUPIN uses <b>PPG, GSR, IMU &amp; Thermal</b> as gating context—not discarded noise.
+                Focus on <b>assistive motor-intent control</b> first—improving patient QoL, cutting nurse-assisted care costs, and earning long-term daily wear.
               </p>
             </div>
             <p class="text-xs font-black text-fculgreen pt-3 border-t border-gray-100 dark:border-gray-700">Hardware-Agnostic SaMD</p>
@@ -373,13 +371,13 @@
 
           <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-amber-500 rounded-2xl shadow-sm flex flex-col justify-between">
             <div>
-              <p class="text-xs font-black text-amber-500 uppercase tracking-wider mb-2"><i class="fa-solid fa-microchip mr-1.5"></i> Already Running</p>
-              <h3 class="text-xl lg:text-2xl font-black text-oxfordblue dark:text-white mb-3">Open LSL Lab Stack</h3>
+              <p class="text-xs font-black text-amber-500 uppercase tracking-wider mb-2"><i class="fa-solid fa-microchip mr-1.5"></i> Lab Stack Live</p>
+              <h3 class="text-xl lg:text-2xl font-black text-oxfordblue dark:text-white mb-3">nautilus_bci + LSL</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 leading-relaxed">
-                <b>32-ch g.Nautilus</b> + <b>Galaxy Watch</b> (IMU/PPG) + <b>HIKMICRO Thermal</b> + <b>Kinect Gaze</b> streaming in sync into <code class="text-caixablue">nautilus_bci</code>.
+                32-ch g.Nautilus EEG + Galaxy Watch (IMU/PPG) + HIKMICRO Thermal + Kinect Gaze streaming in sync for Teacher → Student distillation.
               </p>
             </div>
-            <p class="text-xs font-black text-amber-500 pt-3 border-t border-gray-100 dark:border-gray-700">Ready for N=30 Cohort</p>
+            <p class="text-xs font-black text-amber-500 pt-3 border-t border-gray-100 dark:border-gray-700">Open-Science Pipeline Ready</p>
           </div>
         </div>
       </div>
@@ -436,46 +434,48 @@
     `,
   },
   {
-    section: "3. Architecture — Lab Teacher to Home Student",
-    notes: "Simple mental model of LUPIN: we use the heavy sensor stack in the lab to train a multimodal Teacher, then distill it into a lightweight Student that runs on a consumer headset + smartwatch with a 30–60s rest anchor.",
+    section: "3. Product & Clinical Sequencing Hypothesis",
+    notes: "Explain our two-horizon sequencing: Horizon 1 is assistive motor-intent control (drives QoL, cuts nurse-assisted care, earns daily wear). Horizon 2 leverages that continuous wear to stratify which physiotherapy works per patient and track longitudinal brainwave decline (ALS, Alzheimer's, Stroke).",
     html: `
       <div class="w-full h-full flex flex-col justify-between space-y-4">
         <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">How LUPIN Works: Lab to Living Room</h2>
+          <div>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Sequencing: Assistive Beachhead → Clinical Insights</h2>
+            <p class="text-xs sm:text-sm font-bold text-gray-500 mt-1">Why solving daily motor-intent wear first unlocks longitudinal rehab &amp; biomarker value</p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0 items-stretch">
-          <div class="p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xs flex flex-col justify-between">
-            <div>
-              <span class="px-2.5 py-1 rounded bg-caixablue/10 text-caixablue text-[11px] font-black uppercase">Step 1 · In The Lab</span>
-              <h3 class="text-2xl font-black text-oxfordblue dark:text-white mt-3 mb-2">Privileged Teacher</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 flex-1 min-h-0 items-stretch">
+          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-caixablue rounded-2xl shadow-sm flex flex-col justify-between">
+            <div class="space-y-3">
+              <span class="px-2.5 py-1 rounded bg-caixablue/10 text-caixablue text-xs font-black uppercase">Horizon 1 · Stage 1–2 Beachhead</span>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Motor Intent Prediction (QoL &amp; Care Cost)</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 leading-relaxed">
-                32-ch EEG + fNIRS + Thermal + Gaze + Watch recorded in sync over LSL to separate true neural intent from motion &amp; autonomic arousal.
+                Context-gated decoding (30–60s rest anchor + consumer headset/watch) enables reliable assistive control for daily tasks and robotics.
               </p>
+              <div class="p-3.5 bg-slate-50 dark:bg-slate-900/60 rounded-xl text-xs font-bold text-gray-700 dark:text-gray-300 space-y-1.5">
+                <p><i class="fa-solid fa-check text-caixablue mr-1.5"></i> Directly improves patient QoL &amp; independence</p>
+                <p><i class="fa-solid fa-check text-caixablue mr-1.5"></i> Reduces nurse-assisted care hours</p>
+                <p><i class="fa-solid fa-check text-caixablue mr-1.5"></i> Motivates patients to wear the device for longer periods</p>
+              </div>
             </div>
-            <p class="text-xs font-black text-caixablue pt-3 border-t border-gray-100 dark:border-gray-700">N=30 Training Corpus</p>
+            <p class="text-xs font-black text-caixablue pt-3 border-t border-gray-100 dark:border-gray-700">Faster EU MDR Entry (Assistive SaMD)</p>
           </div>
 
-          <div class="p-6 bg-gradient-to-br from-caixablue/10 to-fculgreen/10 border border-caixablue/30 rounded-2xl shadow-xs flex flex-col justify-between">
-            <div>
-              <span class="px-2.5 py-1 rounded bg-fculgreen/15 text-fculgreen text-[11px] font-black uppercase">Step 2 · Core IP</span>
-              <h3 class="text-2xl font-black text-oxfordblue dark:text-white mt-3 mb-2">Gating &amp; LUPI Distillation</h3>
+          <div class="p-6 bg-gradient-to-br from-fculgreen/10 to-caixablue/5 dark:from-slate-800 dark:to-slate-900 border-t-4 border-fculgreen rounded-2xl shadow-sm flex flex-col justify-between">
+            <div class="space-y-3">
+              <span class="px-2.5 py-1 rounded bg-fculgreen/15 text-fculgreen text-xs font-black uppercase">Horizon 2 · Longitudinal Flywheel</span>
+              <h3 class="text-2xl lg:text-3xl font-black text-oxfordblue dark:text-white">Personalized Rehab &amp; Decline Tracking</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 leading-relaxed">
-                Cross-attention gates down-weight corrupted EEG windows during motion/GSR bursts and distill privileged lab geometry into a compact student model.
+                Continuous daily wear turns LUPIN into a longitudinal neural + autonomic telemetry layer that reveals what actually works for each patient.
               </p>
+              <div class="p-3.5 bg-white/80 dark:bg-slate-900/60 rounded-xl text-xs font-bold text-gray-700 dark:text-gray-300 space-y-1.5">
+                <p><i class="fa-solid fa-check text-fculgreen mr-1.5"></i> <b>Physiotherapy Stratification:</b> See which exercises engage intent per individual</p>
+                <p><i class="fa-solid fa-check text-fculgreen mr-1.5"></i> <b>ALS / Alzheimer&apos;s / Stroke Decline:</b> Track subtle brainwave shifts over weeks</p>
+                <p><i class="fa-solid fa-check text-fculgreen mr-1.5"></i> <b>Granular Therapeutics:</b> Inform medication titration or therapy pivots</p>
+              </div>
             </div>
-            <p class="text-xs font-black text-fculgreen pt-3 border-t border-caixablue/20">Confidence-Gated Output</p>
-          </div>
-
-          <div class="p-6 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xs flex flex-col justify-between">
-            <div>
-              <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-600 text-[11px] font-black uppercase">Step 3 · At Home / Clinic</span>
-              <h3 class="text-2xl font-black text-oxfordblue dark:text-white mt-3 mb-2">Lightweight Student</h3>
-              <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300 leading-relaxed">
-                Runs on a 4-ch consumer headset + smartwatch with a <b>30–60s silent rest anchor</b>—triggering rehab software or assistive robotics.
-              </p>
-            </div>
-            <p class="text-xs font-black text-amber-600 pt-3 border-t border-gray-100 dark:border-gray-700">Hardware-Agnostic SDK</p>
+            <p class="text-xs font-black text-fculgreen pt-3 border-t border-fculgreen/20">Stage 2–3 Clinical Expansion</p>
           </div>
         </div>
       </div>
@@ -550,14 +550,14 @@
     `,
   },
   {
-    section: "5. Mentor Ask — 4 Decisions Where Yolanda Unlocks Stage 2",
-    notes: "Spend 25 minutes here. These are the 4 strategic questions where Yolanda's Neuroelectrics, ABB Healthcare, and medtech commercialization experience saves us months of guesswork.",
+    section: "5. Mentor Inputs — 4 Decisions to De-Risk Stage 1 → Stage 2",
+    notes: "Spend the bulk of the meeting here. Ask Yolanda for blunt feedback on: 1. OEM SDK vs bundled kit, 2. EU MDR boundary between assistive intent (Horizon 1) and clinical biomarkers (Horizon 2), 3. Patient/therapist drop-off friction for long-term wear, and 4. Which beachhead deserves a targeted bottom-up market study.",
     html: `
       <div class="w-full h-full flex flex-col justify-between space-y-4">
         <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
           <div>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Where We Need Your Guidance</h2>
-            <p class="text-xs sm:text-sm font-bold text-gray-500 mt-1">4 strategic decisions to align before our Stage 1 execution &amp; N=30 cohort</p>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Where We Need Your Input</h2>
+            <p class="text-xs sm:text-sm font-bold text-gray-500 mt-1">4 questions where your Neuroelectrics, ABB &amp; medtech experience saves us months</p>
           </div>
           <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-600 text-xs font-black uppercase">Mentor Discussion</span>
         </div>
@@ -565,40 +565,40 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0 items-stretch">
           <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-caixablue rounded-2xl shadow-xs flex flex-col justify-between">
             <div>
-              <p class="text-xs font-black text-caixablue uppercase tracking-wider mb-1">1. Business Model · Neuroelectrics Lens</p>
-              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">OEM Software SDK vs. Bundled Kit?</h3>
+              <p class="text-xs font-black text-caixablue uppercase tracking-wider mb-1">1. Go-to-Market · Neuroelectrics Lens</p>
+              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">OEM Middleware vs. Bundled Kit?</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
-                Should we license LUPIN as pure B2B middleware to EEG/rehab hardware makers, or package our own validated headset + wearable bundle for clinics?
+                For Horizon 1 motor-intent control, is it faster to license an SDK to EEG/robotics OEMs, or package a validated headset + watch bundle for clinics?
               </p>
             </div>
           </div>
 
           <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-fculgreen rounded-2xl shadow-xs flex flex-col justify-between">
             <div>
-              <p class="text-xs font-black text-fculgreen uppercase tracking-wider mb-1">2. EU MDR &amp; Evidence · Medtech Lens</p>
-              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">Class I vs. IIa &amp; N=30 Endpoints?</h3>
+              <p class="text-xs font-black text-fculgreen uppercase tracking-wider mb-1">2. EU MDR Boundary · Horizon 1 → 2</p>
+              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">Assistive Control vs. Biomarker Claims?</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
-                Before we lock the N=30 protocol with IMM/FMUL, which clinical endpoints (decoder accuracy vs. Fugl-Meyer recovery) actually satisfy notified bodies &amp; investors?
+                How do we keep Horizon 1 in Class I/IIa assistive SaMD while collecting longitudinal N=30 data for Horizon 2 (physio response &amp; ALS/AD decline)?
               </p>
             </div>
           </div>
 
           <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-amber-500 rounded-2xl shadow-xs flex flex-col justify-between">
             <div>
-              <p class="text-xs font-black text-amber-500 uppercase tracking-wider mb-1">3. Clinical Usability · Real-World EEG</p>
-              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">Where Do Patients &amp; Therapists Quit?</h3>
+              <p class="text-xs font-black text-amber-500 uppercase tracking-wider mb-1">3. Long-Term Wear · Real-World Friction</p>
+              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">Where Do Patients Quit Daily Wear?</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
-                In Neuroelectrics trials, what caused the #1 drop-off (cap donning, impedance, fatigue)? Does a 30–60s silent rest anchor fit real clinic workflows?
+                What caused the #1 drop-off in Neuroelectrics home/clinic trials, and is a 30–60s silent rest anchor realistic for daily use?
               </p>
             </div>
           </div>
 
           <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-tured rounded-2xl shadow-xs flex flex-col justify-between">
             <div>
-              <p class="text-xs font-black text-tured uppercase tracking-wider mb-1">4. Robotics &amp; IP · ABB Healthcare Lens</p>
-              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">Fail-Safe Gates &amp; Patent vs. Data Moat</h3>
+              <p class="text-xs font-black text-tured uppercase tracking-wider mb-1">4. Robotics &amp; Market Study · ABB Lens</p>
+              <h3 class="text-lg sm:text-xl font-black text-oxfordblue dark:text-white mb-2">Which Beachhead Should We Size First?</h3>
               <p class="text-xs sm:text-sm font-bold text-gray-600 dark:text-gray-300">
-                What safety/latency thresholds do rehab robotics OEMs require for neural control? And how defensible are CII patents vs. our proprietary dataset?
+                What safety/latency gates do rehab robotics OEMs demand, and should our targeted market study focus first on robotics/EEG OEMs or rehab clinics?
               </p>
             </div>
           </div>

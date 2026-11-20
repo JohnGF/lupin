@@ -903,6 +903,78 @@
       </div>
     `,
   },
+  {
+    section: "8. Stakeholder Map & Target Players (Mentor Review)",
+    notes: "Mentor review slide mapping the target ecosystem players around LUPIN SaMD: 1. EEG & Wearable OEMs (Neuroelectrics, g.tec, Emotiv, Muse/Galaxy Watch) for SDK licensing vs bundled hardware; 2. Rehab & Assistive Robotics (ABB Healthcare, Hocoma, Kinova) for latency and fail-safe confidence gates; 3. Clinical Validation (IMM/FMUL, neurorehab clinics); 4. Regulatory & Payors (EU MDR Class I vs IIa, health insurers). Designed for direct feedback on Stage 1/2 introductions.",
+    html: `
+      <div class="w-full h-full flex flex-col justify-between space-y-3">
+        <div class="flex items-center justify-between gap-4 flex-wrap shrink-0">
+          <div>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Stakeholder &amp; Target-Player Map</h2>
+            <p class="text-xs sm:text-sm font-bold text-gray-500 mt-1">Ecosystem positioning for CaixaImpulse Stage 1 → Stage 2 mentor review</p>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-caixablue/10 text-caixablue text-xs font-black uppercase">Mentor Discussion</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 min-h-0 items-stretch">
+          <!-- Center Hub-and-Spoke Graph -->
+          <div class="lg:col-span-5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 flex flex-col justify-center items-center shadow-xs">
+            <svg viewBox="0 0 360 300" class="w-full h-full max-h-[280px]">
+              <line x1="180" y1="150" x2="180" y2="42" stroke="#00529B" stroke-width="2" stroke-dasharray="4 3" />
+              <line x1="180" y1="150" x2="305" y2="108" stroke="#16A34A" stroke-width="2" stroke-dasharray="4 3" />
+              <line x1="180" y1="150" x2="275" y2="252" stroke="#D97706" stroke-width="2" stroke-dasharray="4 3" />
+              <line x1="180" y1="150" x2="85" y2="252" stroke="#DC2626" stroke-width="2" stroke-dasharray="4 3" />
+              <line x1="180" y1="150" x2="55" y2="108" stroke="#6366F1" stroke-width="2" stroke-dasharray="4 3" />
+
+              <circle cx="180" cy="150" r="42" fill="#0B1F3A" stroke="#00529B" stroke-width="3" />
+              <text x="180" y="146" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="900">LUPIN</text>
+              <text x="180" y="162" text-anchor="middle" fill="#93C5FD" font-size="9" font-weight="700">SaMD ENGINE</text>
+
+              <circle cx="180" cy="42" r="28" fill="#EFF6FF" stroke="#00529B" stroke-width="2" />
+              <text x="180" y="45" text-anchor="middle" fill="#0B1F3A" font-size="9" font-weight="800">Patients</text>
+
+              <circle cx="305" cy="108" r="30" fill="#F0FDF4" stroke="#16A34A" stroke-width="2" />
+              <text x="305" y="111" text-anchor="middle" fill="#14532D" font-size="9" font-weight="800">EEG OEMs</text>
+
+              <circle cx="275" cy="252" r="30" fill="#FFFBEB" stroke="#D97706" stroke-width="2" />
+              <text x="275" y="255" text-anchor="middle" fill="#78350F" font-size="9" font-weight="800">Robotics</text>
+
+              <circle cx="85" cy="252" r="30" fill="#FEF2F2" stroke="#DC2626" stroke-width="2" />
+              <text x="85" y="255" text-anchor="middle" fill="#7F1D1D" font-size="9" font-weight="800">MDR / Payors</text>
+
+              <circle cx="55" cy="108" r="30" fill="#EEF2FF" stroke="#6366F1" stroke-width="2" />
+              <text x="55" y="111" text-anchor="middle" fill="#312E81" font-size="9" font-weight="800">Clinics</text>
+            </svg>
+            <p class="text-[11px] font-bold text-gray-500 text-center mt-1">Value flows from hardware-agnostic physiological gating to clinical &amp; robotic endpoints</p>
+          </div>
+
+          <!-- 4 Target Player Cards -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-1.5 shadow-xs">
+              <p class="font-black text-xs sm:text-sm text-fculgreen uppercase flex items-center gap-1.5"><i class="fa-solid fa-microchip"></i> 1. EEG &amp; Wearable OEMs</p>
+              <p class="text-xs font-bold text-gray-700 dark:text-gray-200">Targets: Neuroelectrics, g.tec, Emotiv, Muse / Galaxy Watch</p>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Question: OEM SDK licensing vs. bundled dry-electrode kit for home neurorehab?</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-1.5 shadow-xs">
+              <p class="font-black text-xs sm:text-sm text-amber-600 uppercase flex items-center gap-1.5"><i class="fa-solid fa-robot"></i> 2. Rehab &amp; Assistive Robotics</p>
+              <p class="text-xs font-bold text-gray-700 dark:text-gray-200">Targets: ABB Healthcare, Hocoma, Kinova (Jaco), orthotics</p>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Question: Required latency &amp; fail-safe confidence gates for Stage 2 pilot integrations?</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-1.5 shadow-xs">
+              <p class="font-black text-xs sm:text-sm text-caixablue uppercase flex items-center gap-1.5"><i class="fa-solid fa-hospital-user"></i> 3. Clinical &amp; Patient Anchors</p>
+              <p class="text-xs font-bold text-gray-700 dark:text-gray-200">Anchor: IMM / FMUL (Prof. Mamede de Carvalho) · Stroke &amp; ALS</p>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Question: Is a 30–60s silent rest anchor acceptable in clinic &amp; home workflows?</p>
+            </div>
+            <div class="p-4 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-xl space-y-1.5 shadow-xs">
+              <p class="font-black text-xs sm:text-sm text-tured uppercase flex items-center gap-1.5"><i class="fa-solid fa-scale-balanced"></i> 4. Regulatory, Payors &amp; IP</p>
+              <p class="text-xs font-bold text-gray-700 dark:text-gray-200">Scope: EU MDR Class I vs. IIa · EPO Patent + n=30 Corpus</p>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Question: Which clinical endpoints &amp; IP split best de-risk Series A / acquirers?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+  },
 ];
 
 

@@ -1,4 +1,5 @@
 import { Users, Activity, DollarSign, TrendingUp, Stethoscope, ShieldCheck } from "lucide-react";
+import StakeholderEcosystem from "./StakeholderEcosystem";
 
 const kpis = [
   { icon: Users, value: "140M+", label: "Target Patients (EU Neurological Disorders)" },
@@ -43,6 +44,9 @@ export default function ClinicalValorization() {
             ))}
           </div>
         </div>
+
+        {/* Stakeholder & Value-Flow Ecosystem */}
+        <StakeholderEcosystem />
 
         {/* Clinical Roadmap & Ethics by Design */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">

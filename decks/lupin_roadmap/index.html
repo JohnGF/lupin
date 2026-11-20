@@ -336,31 +336,49 @@
     <script>      const slides = [
   {
     section: "1. LUPIN · Mentor Kickoff",
-    notes: "Keep it conversational: introduce the team (LASIGE/FCUL + IMM/FMUL), our core idea (using PPG/GSR/IMU/thermal as context instead of discarding them), and that the LSL lab stack is already live.",
+    notes: "Visual overview: full lab stack (32-ch EEG, Watch, Thermal) distills into a lightweight home/clinic student via physiological context gating.",
     html: `
       <div class="w-full h-full flex flex-col justify-between py-2">
-        <div>
-          <span class="px-3 py-1 rounded-full bg-caixablue/10 text-caixablue text-xs font-black uppercase tracking-wider">CaixaImpulse Stage 1 · €50k</span>
-          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-oxfordblue dark:text-white tracking-tight mt-4">Motor Intent Outside the Lab</h2>
-          <p class="text-lg sm:text-xl font-bold text-gray-500 mt-2">Hardware-agnostic SaMD · Physiological Context Gating</p>
+        <div class="flex items-end justify-between flex-wrap gap-3">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-caixablue/10 text-caixablue text-xs font-black uppercase tracking-wider">CaixaImpulse Stage 1 · €50k</span>
+            <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight mt-2">Motor Intent Outside the Lab</h2>
+          </div>
+          <p class="text-sm font-black text-gray-500">LASIGE / FCUL · IMM / FMUL</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-auto">
-          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-caixablue rounded-2xl shadow-sm">
-            <p class="text-xs font-black text-caixablue uppercase tracking-widest mb-2">Team</p>
-            <p class="text-2xl font-black text-oxfordblue dark:text-white">LASIGE / FCUL</p>
-            <p class="text-sm font-bold text-gray-500 mt-1">+ IMM / FMUL (Prof. Mamede)</p>
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-fculgreen rounded-2xl shadow-sm">
-            <p class="text-xs font-black text-fculgreen uppercase tracking-widest mb-2">Core Thesis</p>
-            <p class="text-2xl font-black text-oxfordblue dark:text-white">Noise = Context</p>
-            <p class="text-sm font-bold text-gray-500 mt-1">PPG · GSR · IMU · Thermal</p>
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-800 border-t-4 border-amber-500 rounded-2xl shadow-sm">
-            <p class="text-xs font-black text-amber-500 uppercase tracking-widest mb-2">Lab Stack</p>
-            <p class="text-2xl font-black text-oxfordblue dark:text-white">nautilus_bci</p>
-            <p class="text-sm font-bold text-gray-500 mt-1">32-ch EEG + Watch + Thermal Live</p>
-          </div>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm my-auto flex items-center justify-center">
+          <svg viewBox="0 0 760 220" class="w-full h-auto max-h-[260px]">
+            <!-- Lab Stack -->
+            <rect x="20" y="25" width="190" height="170" rx="18" fill="#EFF6FF" stroke="#00529B" stroke-width="2.5" />
+            <text x="115" y="58" text-anchor="middle" fill="#0B1F3A" font-size="14" font-weight="900">LAB TEACHER</text>
+            <text x="115" y="92" text-anchor="middle" fill="#00529B" font-size="12" font-weight="700">32-ch EEG + fNIRS</text>
+            <text x="115" y="118" text-anchor="middle" fill="#00529B" font-size="12" font-weight="700">Watch (PPG + IMU)</text>
+            <text x="115" y="144" text-anchor="middle" fill="#00529B" font-size="12" font-weight="700">Thermal + Gaze</text>
+            <text x="115" y="176" text-anchor="middle" fill="#64748B" font-size="11" font-weight="800">nautilus_bci · LSL</text>
+
+            <!-- Arrow 1 -->
+            <line x1="220" y1="110" x2="275" y2="110" stroke="#00529B" stroke-width="3" />
+            <polygon points="275,103 290,110 275,117" fill="#00529B" />
+
+            <!-- LUPIN Core -->
+            <rect x="295" y="35" width="170" height="150" rx="18" fill="#0B1F3A" stroke="#16A34A" stroke-width="3" />
+            <text x="380" y="82" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="900">LUPIN</text>
+            <text x="380" y="108" text-anchor="middle" fill="#86EFAC" font-size="12" font-weight="800">Noise = Context</text>
+            <text x="380" y="132" text-anchor="middle" fill="#CBD5E1" font-size="11" font-weight="700">Cross-Attention Gate</text>
+            <text x="380" y="156" text-anchor="middle" fill="#93C5FD" font-size="11" font-weight="700">30–60s Rest Anchor</text>
+
+            <!-- Arrow 2 -->
+            <line x1="475" y1="110" x2="530" y2="110" stroke="#16A34A" stroke-width="3" />
+            <polygon points="530,103 545,110 530,117" fill="#16A34A" />
+
+            <!-- Home / Clinic -->
+            <rect x="550" y="25" width="190" height="170" rx="18" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5" />
+            <text x="645" y="58" text-anchor="middle" fill="#14532D" font-size="14" font-weight="900">HOME / CLINIC</text>
+            <text x="645" y="98" text-anchor="middle" fill="#16A34A" font-size="12" font-weight="700">4-ch Headset + Watch</text>
+            <text x="645" y="128" text-anchor="middle" fill="#16A34A" font-size="12" font-weight="700">Motor Intent Output</text>
+            <text x="645" y="158" text-anchor="middle" fill="#16A34A" font-size="12" font-weight="700">Robotics &amp; Rehab SaMD</text>
+          </svg>
         </div>
 
         <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Pre-Kickoff Mentor Alignment</p>
@@ -369,133 +387,117 @@
   },
   {
     section: "2. Pre-Kickoff Proof",
-    notes: "Point to the four numbers briefly: 80.1% on 2-class rhythm, +8.75% gain from adding PPG to EEG, 70.75% zero-shot transfer in FNF, and 30–60s rest anchor replacing 30–90 min calibration. All validated with LOSO and Sham Rest controls.",
+    notes: "Show the two real plots from nautilus_bci: 80.1% on 2-class rhythm decoding (50% chance) and +8.75% gain when adding PPG to EEG.",
     html: `
       <div class="w-full h-full flex flex-col justify-between py-2">
         <div class="flex items-end justify-between flex-wrap gap-3">
-          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-oxfordblue dark:text-white tracking-tight">Pre-Kickoff Proof</h2>
-          <span class="px-3 py-1 rounded-full bg-fculgreen/10 text-fculgreen text-xs font-black uppercase">LOSO · Sham Controls at 50%</span>
+          <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Pre-Kickoff Proof</h2>
+          <span class="px-3 py-1 rounded-full bg-fculgreen/10 text-fculgreen text-xs font-black uppercase">LOSO · Sham Controls 50%</span>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 my-auto">
-          <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl border-b-4 border-caixablue shadow-sm text-center">
-            <p class="text-5xl lg:text-6xl font-black text-caixablue tracking-tight">80.1%</p>
-            <p class="text-sm font-black text-oxfordblue dark:text-white uppercase mt-3">2-Class Rhythm</p>
-            <p class="text-xs font-bold text-gray-400 mt-1">50% Chance</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-auto flex-1 min-h-0 py-3">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+            <div class="flex items-baseline justify-between mb-2">
+              <span class="text-sm font-black text-oxfordblue dark:text-white uppercase">2-Class Rhythm</span>
+              <span class="text-3xl font-black text-caixablue">80.1%</span>
+            </div>
+            <div class="flex-1 min-h-0 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+              <img src="/media/results/pairwise_rhythm_decoding_imagery.png" alt="2-Class Rhythm Decoding" class="max-h-full w-auto object-contain" />
+            </div>
           </div>
-          <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl border-b-4 border-fculgreen shadow-sm text-center">
-            <p class="text-5xl lg:text-6xl font-black text-fculgreen tracking-tight">+8.75%</p>
-            <p class="text-sm font-black text-oxfordblue dark:text-white uppercase mt-3">EEG + PPG Gain</p>
-            <p class="text-xs font-bold text-gray-400 mt-1">vs. EEG-Only</p>
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl border-b-4 border-amber-500 shadow-sm text-center">
-            <p class="text-5xl lg:text-6xl font-black text-amber-500 tracking-tight">70.75%</p>
-            <p class="text-sm font-black text-oxfordblue dark:text-white uppercase mt-3">Zero-Shot Prior</p>
-            <p class="text-xs font-bold text-gray-400 mt-1">72.0% at 1-Shot</p>
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl border-b-4 border-tured shadow-sm text-center">
-            <p class="text-5xl lg:text-6xl font-black text-tured tracking-tight">30–60s</p>
-            <p class="text-sm font-black text-oxfordblue dark:text-white uppercase mt-3">Rest Anchor</p>
-            <p class="text-xs font-bold text-gray-400 mt-1">vs. 30–90m Setup</p>
+
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+            <div class="flex items-baseline justify-between mb-2">
+              <span class="text-sm font-black text-oxfordblue dark:text-white uppercase">EEG + PPG Fusion</span>
+              <span class="text-3xl font-black text-fculgreen">+8.75%</span>
+            </div>
+            <div class="flex-1 min-h-0 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+              <img src="/media/results/multimodal_ablation_study.png" alt="Multimodal Ablation Study" class="max-h-full w-auto object-contain" />
+            </div>
           </div>
         </div>
 
-        <p class="text-xs font-black text-gray-400 uppercase tracking-widest">nautilus_bci Pilot Benchmarks</p>
+        <p class="text-xs font-black text-gray-400 uppercase tracking-widest">70.75% Zero-Shot Prior · 30–60s Rest Anchor</p>
       </div>
     `,
   },
   {
-    section: "3. Two-Horizon Path",
-    notes: "Explain the sequencing in your own words: Horizon 1 is assistive motor-intent prediction (drives QoL, cuts nurse-assisted care, earns daily wear). Horizon 2 uses that continuous wear for personalized physiotherapy stratification and longitudinal decline tracking (ALS, Alzheimer's, Stroke).",
+    section: "3. Brain Activity & Sequencing",
+    notes: "Left: real cortical topomaps from our pilot. Right: Horizon 1 (Motor Intent Control -> QoL & daily wear) feeding Horizon 2 (personalized physio & longitudinal ALS/AD/Stroke tracking).",
     html: `
       <div class="w-full h-full flex flex-col justify-between py-2">
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-oxfordblue dark:text-white tracking-tight">Beachhead → Flywheel</h2>
+        <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Beachhead → Flywheel</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
-          <div class="p-7 bg-white dark:bg-slate-800 border-l-8 border-caixablue rounded-2xl shadow-sm space-y-5">
-            <div>
-              <span class="text-xs font-black text-caixablue uppercase tracking-widest">Horizon 1 · Stage 1–2</span>
-              <h3 class="text-3xl font-black text-oxfordblue dark:text-white mt-1">Motor Intent Control</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 my-auto flex-1 min-h-0 py-3 items-stretch">
+          <div class="lg:col-span-7 bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+            <span class="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">Cortical Topomaps (Perception vs. Imagery)</span>
+            <div class="flex-1 min-h-0 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+              <img src="/media/results/cortical_perception_vs_imagery_topomaps.png" alt="Cortical Topomaps" class="max-h-full w-auto object-contain" />
             </div>
-            <ul class="space-y-3 text-base sm:text-lg font-bold text-gray-700 dark:text-gray-200">
-              <li><i class="fa-solid fa-arrow-right text-caixablue mr-2.5"></i>Assistive &amp; Robotics Triggers</li>
-              <li><i class="fa-solid fa-arrow-right text-caixablue mr-2.5"></i>QoL ↑ · Nurse Care Cost ↓</li>
-              <li><i class="fa-solid fa-arrow-right text-caixablue mr-2.5"></i>Earns Long-Term Daily Wear</li>
-            </ul>
           </div>
 
-          <div class="p-7 bg-white dark:bg-slate-800 border-l-8 border-fculgreen rounded-2xl shadow-sm space-y-5">
-            <div>
-              <span class="text-xs font-black text-fculgreen uppercase tracking-widest">Horizon 2 · Longitudinal Data</span>
-              <h3 class="text-3xl font-black text-oxfordblue dark:text-white mt-1">Clinical Insights</h3>
+          <div class="lg:col-span-5 flex flex-col justify-center gap-4">
+            <div class="p-6 bg-white dark:bg-slate-800 border-l-8 border-caixablue rounded-2xl shadow-sm">
+              <p class="text-xs font-black text-caixablue uppercase tracking-widest">Horizon 1</p>
+              <p class="text-2xl font-black text-oxfordblue dark:text-white mt-1">Motor Intent Control</p>
+              <p class="text-sm font-bold text-gray-500 mt-1">QoL ↑ · Nurse Care ↓ · Daily Wear</p>
             </div>
-            <ul class="space-y-3 text-base sm:text-lg font-bold text-gray-700 dark:text-gray-200">
-              <li><i class="fa-solid fa-arrow-right text-fculgreen mr-2.5"></i>Individual Physio Response</li>
-              <li><i class="fa-solid fa-arrow-right text-fculgreen mr-2.5"></i>ALS · AD · Stroke Decline</li>
-              <li><i class="fa-solid fa-arrow-right text-fculgreen mr-2.5"></i>Granular Therapy Adjustment</li>
-            </ul>
+            <div class="flex justify-center text-caixablue text-xl"><i class="fa-solid fa-arrow-down"></i></div>
+            <div class="p-6 bg-white dark:bg-slate-800 border-l-8 border-fculgreen rounded-2xl shadow-sm">
+              <p class="text-xs font-black text-fculgreen uppercase tracking-widest">Horizon 2</p>
+              <p class="text-2xl font-black text-oxfordblue dark:text-white mt-1">Longitudinal Insights</p>
+              <p class="text-sm font-bold text-gray-500 mt-1">Physio Response · ALS / AD Decline</p>
+            </div>
           </div>
         </div>
-
-        <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Lab Teacher (32-ch) → Home Student (4-ch + Watch)</p>
       </div>
     `,
   },
   {
-    section: "4. Target Landscape",
-    notes: "Show the ecosystem visually and talk through the players you researched—ask how she sees the fit across EEG OEMs, robotics, clinics, and EU MDR.",
+    section: "4. Ecosystem Map",
+    notes: "Visual map of the players around LUPIN—EEG OEMs, robotics, clinics, and EU MDR.",
     html: `
       <div class="w-full h-full flex flex-col justify-between py-2">
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-oxfordblue dark:text-white tracking-tight">Ecosystem Map</h2>
+        <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Ecosystem Map</h2>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-auto items-center">
-          <div class="lg:col-span-6 bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex items-center justify-center">
-            <svg viewBox="0 0 360 280" class="w-full h-full max-h-[260px]">
-              <line x1="180" y1="140" x2="180" y2="38" stroke="#00529B" stroke-width="2" stroke-dasharray="4 3" />
-              <line x1="180" y1="140" x2="305" y2="98" stroke="#16A34A" stroke-width="2" stroke-dasharray="4 3" />
-              <line x1="180" y1="140" x2="275" y2="238" stroke="#D97706" stroke-width="2" stroke-dasharray="4 3" />
-              <line x1="180" y1="140" x2="85" y2="238" stroke="#DC2626" stroke-width="2" stroke-dasharray="4 3" />
-              <line x1="180" y1="140" x2="55" y2="98" stroke="#6366F1" stroke-width="2" stroke-dasharray="4 3" />
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm my-auto flex-1 min-h-0 flex items-center justify-center">
+          <svg viewBox="0 0 680 320" class="w-full h-full max-h-[340px]">
+            <line x1="340" y1="160" x2="340" y2="52" stroke="#00529B" stroke-width="2.5" stroke-dasharray="5 4" />
+            <line x1="340" y1="160" x2="545" y2="100" stroke="#16A34A" stroke-width="2.5" stroke-dasharray="5 4" />
+            <line x1="340" y1="160" x2="525" y2="252" stroke="#D97706" stroke-width="2.5" stroke-dasharray="5 4" />
+            <line x1="340" y1="160" x2="155" y2="252" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="5 4" />
+            <line x1="340" y1="160" x2="135" y2="100" stroke="#6366F1" stroke-width="2.5" stroke-dasharray="5 4" />
 
-              <circle cx="180" cy="140" r="42" fill="#0B1F3A" stroke="#00529B" stroke-width="3" />
-              <text x="180" y="137" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="900">LUPIN</text>
-              <text x="180" y="153" text-anchor="middle" fill="#93C5FD" font-size="9" font-weight="700">SaMD</text>
+            <!-- Center -->
+            <circle cx="340" cy="160" r="52" fill="#0B1F3A" stroke="#00529B" stroke-width="3.5" />
+            <text x="340" y="156" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="900">LUPIN</text>
+            <text x="340" y="174" text-anchor="middle" fill="#93C5FD" font-size="10" font-weight="800">SaMD ENGINE</text>
 
-              <circle cx="180" cy="38" r="27" fill="#EFF6FF" stroke="#00529B" stroke-width="2" />
-              <text x="180" y="41" text-anchor="middle" fill="#0B1F3A" font-size="9" font-weight="800">Patients</text>
+            <!-- Patients -->
+            <rect x="255" y="16" width="170" height="54" rx="14" fill="#EFF6FF" stroke="#00529B" stroke-width="2" />
+            <text x="340" y="40" text-anchor="middle" fill="#0B1F3A" font-size="12" font-weight="900">Patients &amp; Caregivers</text>
+            <text x="340" y="56" text-anchor="middle" fill="#00529B" font-size="10" font-weight="700">Stroke · ALS · SCI</text>
 
-              <circle cx="305" cy="98" r="29" fill="#F0FDF4" stroke="#16A34A" stroke-width="2" />
-              <text x="305" y="101" text-anchor="middle" fill="#14532D" font-size="9" font-weight="800">EEG OEMs</text>
+            <!-- EEG OEMs -->
+            <rect x="465" y="66" width="195" height="62" rx="14" fill="#F0FDF4" stroke="#16A34A" stroke-width="2" />
+            <text x="562" y="92" text-anchor="middle" fill="#14532D" font-size="12" font-weight="900">EEG &amp; Wearables</text>
+            <text x="562" y="110" text-anchor="middle" fill="#16A34A" font-size="10" font-weight="700">Neuroelectrics · g.tec · Emotiv</text>
 
-              <circle cx="275" cy="238" r="29" fill="#FFFBEB" stroke="#D97706" stroke-width="2" />
-              <text x="275" y="241" text-anchor="middle" fill="#78350F" font-size="9" font-weight="800">Robotics</text>
+            <!-- Robotics -->
+            <rect x="450" y="220" width="195" height="62" rx="14" fill="#FFFBEB" stroke="#D97706" stroke-width="2" />
+            <text x="547" y="246" text-anchor="middle" fill="#78350F" font-size="12" font-weight="900">Rehab &amp; Robotics</text>
+            <text x="547" y="264" text-anchor="middle" fill="#D97706" font-size="10" font-weight="700">Kinova · Hocoma · ABB</text>
 
-              <circle cx="85" cy="238" r="29" fill="#FEF2F2" stroke="#DC2626" stroke-width="2" />
-              <text x="85" y="241" text-anchor="middle" fill="#7F1D1D" font-size="9" font-weight="800">EU MDR</text>
+            <!-- EU MDR -->
+            <rect x="35" y="220" width="195" height="62" rx="14" fill="#FEF2F2" stroke="#DC2626" stroke-width="2" />
+            <text x="132" y="246" text-anchor="middle" fill="#7F1D1D" font-size="12" font-weight="900">Regulatory &amp; Payors</text>
+            <text x="132" y="264" text-anchor="middle" fill="#DC2626" font-size="10" font-weight="700">EU MDR Class I / IIa</text>
 
-              <circle cx="55" cy="98" r="29" fill="#EEF2FF" stroke="#6366F1" stroke-width="2" />
-              <text x="55" y="101" text-anchor="middle" fill="#312E81" font-size="9" font-weight="800">Clinics</text>
-            </svg>
-          </div>
-
-          <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm">
-              <p class="text-xs font-black text-fculgreen uppercase tracking-wider mb-1">EEG &amp; Wearables</p>
-              <p class="text-base font-black text-oxfordblue dark:text-white">Neuroelectrics · g.tec · Emotiv</p>
-            </div>
-            <div class="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm">
-              <p class="text-xs font-black text-amber-600 uppercase tracking-wider mb-1">Rehab &amp; Robotics</p>
-              <p class="text-base font-black text-oxfordblue dark:text-white">Kinova · Hocoma · ABB</p>
-            </div>
-            <div class="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm">
-              <p class="text-xs font-black text-caixablue uppercase tracking-wider mb-1">Clinical Anchor</p>
-              <p class="text-base font-black text-oxfordblue dark:text-white">IMM / FMUL (N=30)</p>
-            </div>
-            <div class="p-5 bg-white dark:bg-slate-800 rounded-2xl shadow-sm">
-              <p class="text-xs font-black text-tured uppercase tracking-wider mb-1">Regulatory</p>
-              <p class="text-base font-black text-oxfordblue dark:text-white">EU MDR Class I / IIa</p>
-            </div>
-          </div>
+            <!-- Clinics -->
+            <rect x="20" y="66" width="195" height="62" rx="14" fill="#EEF2FF" stroke="#6366F1" stroke-width="2" />
+            <text x="117" y="92" text-anchor="middle" fill="#312E81" font-size="12" font-weight="900">Clinical Anchor</text>
+            <text x="117" y="110" text-anchor="middle" fill="#6366F1" font-size="10" font-weight="700">IMM / FMUL (N=30)</text>
+          </svg>
         </div>
 
         <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Researched Partner Landscape</p>
@@ -504,38 +506,45 @@
   },
   {
     section: "5. What We're Testing",
-    notes: "Open conversation: share your 4 brief hypotheses and invite her thoughts on buyer speed, SDK vs bundle, and which beachhead makes the most sense after Stage 1 R&D.",
+    notes: "Show the live 3-engine pipeline validation plot alongside the 4 brief commercial hypotheses for open discussion.",
     html: `
       <div class="w-full h-full flex flex-col justify-between py-2">
         <div class="flex items-end justify-between flex-wrap gap-3">
-          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black text-oxfordblue dark:text-white tracking-tight">What We&apos;re Testing</h2>
+          <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">What We&apos;re Testing</h2>
           <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-600 text-xs font-black uppercase">Open Discussion</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-auto">
-          <div class="p-6 bg-white dark:bg-slate-800 border-l-8 border-caixablue rounded-2xl shadow-sm">
-            <p class="text-xs font-black text-caixablue uppercase tracking-widest mb-1">1. Fastest Buyer</p>
-            <p class="text-2xl font-black text-oxfordblue dark:text-white">Private Clinics &amp; OEMs</p>
-            <p class="text-sm font-bold text-gray-500 mt-1">vs. Public Hospital Procurement</p>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 my-auto flex-1 min-h-0 py-3 items-stretch">
+          <div class="lg:col-span-6 bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+            <span class="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">3-Engine Live Pipeline Validation</span>
+            <div class="flex-1 min-h-0 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+              <img src="/media/results/multimodal_pipeline_validation.png" alt="3-Engine Live Pipeline Validation" class="max-h-full w-auto object-contain" />
+            </div>
           </div>
-          <div class="p-6 bg-white dark:bg-slate-800 border-l-8 border-fculgreen rounded-2xl shadow-sm">
-            <p class="text-xs font-black text-fculgreen uppercase tracking-widest mb-1">2. Commercial Model</p>
-            <p class="text-2xl font-black text-oxfordblue dark:text-white">Software SDK vs. Bundle</p>
-            <p class="text-sm font-bold text-gray-500 mt-1">SaaS / Royalties vs. Turnkey Kit</p>
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-800 border-l-8 border-amber-500 rounded-2xl shadow-sm">
-            <p class="text-xs font-black text-amber-500 uppercase tracking-widest mb-1">3. Next 90 Days</p>
-            <p class="text-2xl font-black text-oxfordblue dark:text-white">Stage 1 R&amp;D + N=30 Prep</p>
-            <p class="text-sm font-bold text-gray-500 mt-1">IMM / FMUL Validation</p>
-          </div>
-          <div class="p-6 bg-white dark:bg-slate-800 border-l-8 border-tured rounded-2xl shadow-sm">
-            <p class="text-xs font-black text-tured uppercase tracking-widest mb-1">4. Stage 2 Direction</p>
-            <p class="text-2xl font-black text-oxfordblue dark:text-white">Which Beachhead First?</p>
-            <p class="text-sm font-bold text-gray-500 mt-1">Assistive Robotics vs. Rehab Clinics</p>
+
+          <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-caixablue rounded-2xl shadow-sm flex flex-col justify-center">
+              <i class="fa-solid fa-hospital text-caixablue text-xl mb-2"></i>
+              <p class="text-xs font-black text-caixablue uppercase">1. Fastest Buyer</p>
+              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">Clinics &amp; OEMs</p>
+            </div>
+            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-fculgreen rounded-2xl shadow-sm flex flex-col justify-center">
+              <i class="fa-solid fa-code text-fculgreen text-xl mb-2"></i>
+              <p class="text-xs font-black text-fculgreen uppercase">2. Model</p>
+              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">SDK vs. Bundle</p>
+            </div>
+            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-amber-500 rounded-2xl shadow-sm flex flex-col justify-center">
+              <i class="fa-solid fa-flask text-amber-500 text-xl mb-2"></i>
+              <p class="text-xs font-black text-amber-500 uppercase">3. Next 90 Days</p>
+              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">R&amp;D + N=30 Prep</p>
+            </div>
+            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-tured rounded-2xl shadow-sm flex flex-col justify-center">
+              <i class="fa-solid fa-compass text-tured text-xl mb-2"></i>
+              <p class="text-xs font-black text-tured uppercase">4. Beachhead</p>
+              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">Robotics vs. Rehab</p>
+            </div>
           </div>
         </div>
-
-        <p class="text-xs font-black text-gray-400 uppercase tracking-widest">CaixaImpulse Stage 1 → Stage 2</p>
       </div>
     `,
   },

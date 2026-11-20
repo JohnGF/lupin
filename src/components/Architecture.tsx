@@ -70,7 +70,7 @@ export default function Architecture() {
                           </div>
                           <div className="flex-1 rounded-lg bg-stone/60 p-3 border border-frost/10">
                             <div className="text-xs font-mono text-frost/50 mb-1">AT HOME (STUDENT)</div>
-                            <div className="text-cream font-medium">4-channel headset + watch</div>
+                            <div className="text-cream font-medium">14-ch consumer headset + watch</div>
                             <div className="text-frost/60 text-xs mt-1">30–60s rest anchor; real-time intent prediction</div>
                           </div>
                         </div>

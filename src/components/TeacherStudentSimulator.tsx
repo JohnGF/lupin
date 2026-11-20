@@ -16,36 +16,36 @@ const ELECTRODES: Electrode[] = [
   { id: "Fp2", x: 212, y: 78 },
   { id: "AF7", x: 112, y: 98, studentPhysical: true },
   { id: "AF8", x: 248, y: 98, studentPhysical: true },
-  { id: "F7", x: 96, y: 124 },
-  { id: "F3", x: 138, y: 118 },
+  { id: "F7", x: 96, y: 124, studentPhysical: true },
+  { id: "F3", x: 138, y: 118, studentPhysical: true },
   { id: "Fz", x: 180, y: 114 },
-  { id: "F4", x: 222, y: 118 },
-  { id: "F8", x: 264, y: 124 },
-  { id: "FC5", x: 110, y: 146 },
+  { id: "F4", x: 222, y: 118, studentPhysical: true },
+  { id: "F8", x: 264, y: 124, studentPhysical: true },
+  { id: "FC5", x: 110, y: 146, studentPhysical: true },
   { id: "FC1", x: 156, y: 142 },
   { id: "FC2", x: 204, y: 142 },
-  { id: "FC6", x: 250, y: 146 },
-  { id: "T7", x: 76, y: 170 },
+  { id: "FC6", x: 250, y: 146, studentPhysical: true },
+  { id: "T7", x: 76, y: 170, studentPhysical: true },
   { id: "C3", x: 126, y: 170, motorTarget: true },
   { id: "Cz", x: 180, y: 170, motorTarget: true },
   { id: "C4", x: 234, y: 170, motorTarget: true },
-  { id: "T8", x: 284, y: 170 },
-  { id: "TP9", x: 64, y: 198, studentPhysical: true },
-  { id: "TP10", x: 296, y: 198, studentPhysical: true },
+  { id: "T8", x: 284, y: 170, studentPhysical: true },
+  { id: "TP9", x: 64, y: 198 },
+  { id: "TP10", x: 296, y: 198 },
   { id: "CP5", x: 108, y: 198 },
   { id: "CP1", x: 156, y: 198 },
   { id: "CP2", x: 204, y: 198 },
   { id: "CP6", x: 252, y: 198 },
-  { id: "P7", x: 98, y: 226 },
+  { id: "P7", x: 98, y: 226, studentPhysical: true },
   { id: "P3", x: 138, y: 224 },
   { id: "Pz", x: 180, y: 226 },
   { id: "P4", x: 222, y: 224 },
-  { id: "P8", x: 262, y: 226 },
+  { id: "P8", x: 262, y: 226, studentPhysical: true },
   { id: "PO3", x: 150, y: 248 },
   { id: "PO4", x: 210, y: 248 },
-  { id: "O1", x: 154, y: 268 },
+  { id: "O1", x: 154, y: 268, studentPhysical: true },
   { id: "Oz", x: 180, y: 272 },
-  { id: "O2", x: 206, y: 268 },
+  { id: "O2", x: 206, y: 268, studentPhysical: true },
 ];
 
 const FNIRS_OPTODES = [
@@ -128,7 +128,7 @@ export default function TeacherStudentSimulator() {
         <div className="lg:col-span-7 rounded-xl border border-frost/10 bg-graphite/60 p-4 md:p-6">
           <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
             <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-frost/60">
-              {isTeacher ? "32-ch EEG + 8-optode fNIRS + 4 Aux Streams" : "4-ch Frontal EEG + Watch IMU/PPG → Virtual C3/C4"}
+              {isTeacher ? "32-ch EEG + 8-optode fNIRS + 4 Aux Streams" : "14-ch Consumer EEG (EPOC X) + Watch IMU/PPG → Virtual C3/C4"}
             </span>
             {!isTeacher && (
               <button
@@ -190,20 +190,6 @@ export default function TeacherStudentSimulator() {
                   strokeDasharray="5 4"
                 />
                 <path
-                  d="M 64 198 Q 92 182 126 170"
-                  fill="none"
-                  stroke="#c2a45d"
-                  strokeWidth="1.6"
-                  strokeDasharray="4 4"
-                />
-                <path
-                  d="M 296 198 Q 268 182 234 170"
-                  fill="none"
-                  stroke="#c2a45d"
-                  strokeWidth="1.6"
-                  strokeDasharray="4 4"
-                />
-                <path
                   d="M 112 98 Q 146 130 180 170"
                   fill="none"
                   stroke="#4a7c6f"
@@ -230,16 +216,16 @@ export default function TeacherStudentSimulator() {
 
             {/* fNIRS optodes (Teacher only) */}
             {FNIRS_OPTODES.map((opt) => (
-              <g key={opt.id} opacity={isTeacher ? 0.95 : 0.22}>
+              <g key={opt.id} opacity={isTeacher ? 0.95 : 0.1}>
                 <rect
                   x={opt.x - 4}
                   y={opt.y - 4}
                   width="8"
                   height="8"
                   rx="2"
-                  fill={isTeacher ? "#4a7c6f" : "#1e222c"}
-                  stroke={isTeacher ? "#e8e4db" : "#4b5563"}
-                  strokeWidth="0.8"
+                  fill="#4a7c6f"
+                  stroke="#e8e4db"
+                  strokeWidth="0.6"
                 />
               </g>
             ))}
@@ -247,43 +233,30 @@ export default function TeacherStudentSimulator() {
             {/* 32-ch EEG electrodes */}
             {ELECTRODES.map((el) => {
               const isPhysical = isTeacher || Boolean(el.studentPhysical);
-              const isVirtualMotor = !isTeacher && Boolean(el.motorTarget) && highlightLatent;
+              const isVirtualMotor = !isTeacher && Boolean(el.motorTarget);
 
-              let fill = "#1e222c";
+              let fill = "#232733";
               let stroke = "#4b5563";
-              let opacity = 0.28;
+              let opacity = 0.16;
               let dash: string | undefined;
-              let radius = 8;
 
               if (isPhysical) {
                 fill = el.studentPhysical && !isTeacher ? "#4a7c6f" : "#c2a45d";
                 stroke = "#e8e4db";
                 opacity = 1;
-                radius = !isTeacher && el.studentPhysical ? 10.5 : 8;
               } else if (isVirtualMotor) {
                 fill = "#16181f";
                 stroke = "#c2a45d";
                 opacity = 1;
                 dash = "3 2";
-                radius = 10.5;
               }
 
               return (
                 <g key={el.id} opacity={opacity}>
-                  {!isTeacher && (el.studentPhysical || isVirtualMotor) && (
-                    <circle
-                      cx={el.x}
-                      cy={el.y}
-                      r={radius + 3.5}
-                      fill="none"
-                      stroke={el.studentPhysical ? "rgba(74,124,111,0.45)" : "rgba(194,164,93,0.45)"}
-                      strokeWidth="1.2"
-                    />
-                  )}
                   <circle
                     cx={el.x}
                     cy={el.y}
-                    r={radius}
+                    r={el.motorTarget || el.studentPhysical ? 10 : 7.5}
                     fill={fill}
                     stroke={stroke}
                     strokeWidth={isVirtualMotor ? 1.8 : 1.1}
@@ -291,10 +264,10 @@ export default function TeacherStudentSimulator() {
                   />
                   <text
                     x={el.x}
-                    y={el.y + 2.8}
+                    y={el.y + 3}
                     textAnchor="middle"
-                    fill={isPhysical ? "#111318" : isVirtualMotor ? "#c2a45d" : "#94a3b8"}
-                    fontSize={radius > 9 ? "7.5" : "6.2"}
+                    fill={isPhysical ? "#111318" : "#c2a45d"}
+                    fontSize={el.motorTarget || el.studentPhysical ? "7.5" : "6.5"}
                     fontWeight="600"
                     fontFamily="JetBrains Mono, monospace"
                   >
@@ -395,7 +368,7 @@ export default function TeacherStudentSimulator() {
             <p className="text-frost/75 text-sm leading-relaxed">
               {isTeacher
                 ? "In the lab, LUPIN records dense 32-channel g.Nautilus EEG over sensorimotor cortex (C3, Cz, C4), 8-optode fNIRS hemodynamics, thermal imaging, gaze, and autonomic signals. This builds a rich multimodal motor-intent representation."
-                : "At home, the patient wears only a 4-channel frontal headband (Muse S: AF7, AF8, TP9, TP10) and a Galaxy Watch (IMU + PPG). The distilled Student model maps these sparse inputs onto the Teacher's motor-aligned latent space."}
+                : "At home, the patient wears a comfier 14-channel consumer headset (e.g. Emotiv EPOC X) and a Galaxy Watch (IMU + PPG). The distilled Student model maps this sparser montage onto the Teacher's motor-aligned latent space."}
             </p>
           </div>
 

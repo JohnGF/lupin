@@ -8,7 +8,7 @@ const repos = [
   { name: "kinect2pipe", icon: Camera, role: "Camera driver", desc: "Kinect v2 on Linux: 1080p webcam, IR night vision, colour + IR + depth over shared memory." },
   { name: "hikmicro-lsl", icon: Thermometer, role: "Thermal", desc: "HIKMICRO / InfiRay thermal camera to LSL, plus offline temperature extraction." },
   { name: "galaxy_watch_lsl", icon: Watch, role: "Wearables", desc: "Wear OS app streaming IMU, heart rate and touch from a smartwatch to the hub." },
-  { name: "bci_workshop", icon: GraduationCap, role: "Teaching", desc: "Muse EEG and phone IMU workshop: real-time dashboard and BCI-controlled games." },
+  { name: "bci_workshop", icon: GraduationCap, role: "Teaching", desc: "Muse EEG (focus/calmness state buffs, blink/frown triggers) & phone IMU workshop for teaching and games." },
 ];
 
 export default function OpenSource() {

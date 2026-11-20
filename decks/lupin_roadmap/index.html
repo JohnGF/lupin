@@ -505,12 +505,12 @@
     `,
   },
   {
-    section: "5. What We're Testing",
-    notes: "Show the live 3-engine pipeline validation plot alongside the 4 brief commercial hypotheses for open discussion.",
+    section: "5. Potential Use Cases (Open Discussion)",
+    notes: "Show the live 3-engine pipeline validation plot alongside 3 potential use cases to discuss with Yolanda: 1. Assistive & Robotics (primary motor-intent beachhead), 2. Rehab & Longitudinal Biomarkers (physio fit + ALS/AD decline), 3. Low-Cost Gaming & Biofeedback (focus/calm buffs + artifact/IMU triggers).",
     html: `
       <div class="w-full h-full flex flex-col justify-between py-2">
         <div class="flex items-end justify-between flex-wrap gap-3">
-          <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">What We&apos;re Testing</h2>
+          <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Potential Use Cases</h2>
           <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-600 text-xs font-black uppercase">Open Discussion</span>
         </div>
 
@@ -522,26 +522,32 @@
             </div>
           </div>
 
-          <div class="lg:col-span-6 grid grid-cols-2 gap-4">
-            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-caixablue rounded-2xl shadow-sm flex flex-col justify-center">
-              <i class="fa-solid fa-hospital text-caixablue text-xl mb-2"></i>
-              <p class="text-xs font-black text-caixablue uppercase">1. Fastest Buyer</p>
-              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">Clinics &amp; OEMs</p>
+          <div class="lg:col-span-6 flex flex-col justify-between gap-3.5">
+            <div class="p-5 bg-white dark:bg-slate-800 border-l-8 border-caixablue rounded-2xl shadow-sm flex items-center gap-4 flex-1">
+              <i class="fa-solid fa-robot text-caixablue text-2xl shrink-0"></i>
+              <div>
+                <p class="text-xs font-black text-caixablue uppercase tracking-wider">1. Assistive &amp; Robotics (Beachhead)</p>
+                <p class="text-lg font-black text-oxfordblue dark:text-white">Motor Intent Control</p>
+                <p class="text-xs font-bold text-gray-500">QoL ↑ · Nurse Care ↓ · Robotic Arms &amp; Mobility</p>
+              </div>
             </div>
-            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-fculgreen rounded-2xl shadow-sm flex flex-col justify-center">
-              <i class="fa-solid fa-code text-fculgreen text-xl mb-2"></i>
-              <p class="text-xs font-black text-fculgreen uppercase">2. Model</p>
-              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">SDK vs. Bundle</p>
+
+            <div class="p-5 bg-white dark:bg-slate-800 border-l-8 border-fculgreen rounded-2xl shadow-sm flex items-center gap-4 flex-1">
+              <i class="fa-solid fa-heart-pulse text-fculgreen text-2xl shrink-0"></i>
+              <div>
+                <p class="text-xs font-black text-fculgreen uppercase tracking-wider">2. Rehab &amp; Longitudinal Insights</p>
+                <p class="text-lg font-black text-oxfordblue dark:text-white">Physio Fit &amp; Decline Tracking</p>
+                <p class="text-xs font-bold text-gray-500">Individual Response · ALS / AD / Stroke Monitoring</p>
+              </div>
             </div>
-            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-amber-500 rounded-2xl shadow-sm flex flex-col justify-center">
-              <i class="fa-solid fa-flask text-amber-500 text-xl mb-2"></i>
-              <p class="text-xs font-black text-amber-500 uppercase">3. Next 90 Days</p>
-              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">R&amp;D + N=30 Prep</p>
-            </div>
-            <div class="p-5 bg-white dark:bg-slate-800 border-l-4 border-tured rounded-2xl shadow-sm flex flex-col justify-center">
-              <i class="fa-solid fa-compass text-tured text-xl mb-2"></i>
-              <p class="text-xs font-black text-tured uppercase">4. Beachhead</p>
-              <p class="text-lg font-black text-oxfordblue dark:text-white mt-1">Robotics vs. Rehab</p>
+
+            <div class="p-5 bg-white dark:bg-slate-800 border-l-8 border-amber-500 rounded-2xl shadow-sm flex items-center gap-4 flex-1">
+              <i class="fa-solid fa-gamepad text-amber-500 text-2xl shrink-0"></i>
+              <div>
+                <p class="text-xs font-black text-amber-500 uppercase tracking-wider">3. Low-Cost Gaming &amp; Biofeedback</p>
+                <p class="text-lg font-black text-oxfordblue dark:text-white">Consumer Entry Point</p>
+                <p class="text-xs font-bold text-gray-500">Focus/Calm Buffs · Artifact &amp; IMU Triggers (bci_workshop)</p>
+              </div>
             </div>
           </div>
         </div>

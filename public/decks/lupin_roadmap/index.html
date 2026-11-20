@@ -408,31 +408,31 @@
 
           <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
             <div class="flex items-baseline justify-between mb-2">
-              <span class="text-sm font-black text-oxfordblue dark:text-white uppercase">EEG + PPG Fusion</span>
-              <span class="text-3xl font-black text-fculgreen">+8.75%</span>
+              <span class="text-sm font-black text-oxfordblue dark:text-white uppercase">Few-Shot Auditory Prior</span>
+              <span class="text-3xl font-black text-fculgreen">70.75%</span>
             </div>
             <div class="flex-1 min-h-0 flex items-center justify-center bg-white rounded-xl overflow-hidden">
-              <img src="/media/results/multimodal_ablation_study.png" alt="Multimodal Ablation Study" class="max-h-full w-auto object-contain" />
+              <img src="/media/results/listening_to_active_transfer_curves.png" alt="Few-Shot Auditory Prior Transfer" class="max-h-full w-auto object-contain" />
             </div>
           </div>
         </div>
 
-        <p class="text-xs font-black text-gray-400 uppercase tracking-widest">70.75% Zero-Shot Prior · 30–60s Rest Anchor</p>
+        <p class="text-xs font-black text-gray-400 uppercase tracking-widest">+8.75% EEG + PPG Gain · 30–60s Rest Anchor</p>
       </div>
     `,
   },
   {
     section: "3. Brain Activity & Sequencing",
-    notes: "Left: real cortical topomaps from our pilot. Right: Horizon 1 (Motor Intent Control -> QoL & daily wear) feeding Horizon 2 (personalized physio & longitudinal ALS/AD/Stroke tracking).",
+    notes: "Left: real Mu & Beta cortical topomaps across 4 directions. Right: Horizon 1 (Motor Intent Control -> QoL & daily wear) feeding Horizon 2 (personalized physio & longitudinal ALS/AD/Stroke tracking).",
     html: `
       <div class="w-full h-full flex flex-col justify-between py-2">
         <h2 class="text-4xl sm:text-5xl font-black text-oxfordblue dark:text-white tracking-tight">Beachhead → Flywheel</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 my-auto flex-1 min-h-0 py-3 items-stretch">
           <div class="lg:col-span-7 bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-            <span class="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">Cortical Topomaps (Perception vs. Imagery)</span>
+            <span class="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">4-Direction Cortical Topomaps (Mu &amp; Beta)</span>
             <div class="flex-1 min-h-0 flex items-center justify-center bg-white rounded-xl overflow-hidden">
-              <img src="/media/results/cortical_perception_vs_imagery_topomaps.png" alt="Cortical Topomaps" class="max-h-full w-auto object-contain" />
+              <img src="/media/results/fnf_ses07_directional_topomaps.png" alt="4-Direction Cortical Topomaps" class="max-h-full w-auto object-contain" />
             </div>
           </div>
 

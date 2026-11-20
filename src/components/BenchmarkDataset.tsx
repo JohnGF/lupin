@@ -173,39 +173,27 @@ const resultFigures: {
   category: Exclude<FigureCategory, "all">;
 }[] = [
   {
-    src: "/media/results/cortical_perception_vs_imagery_topomaps.png",
-    title: "Perception vs. Imagery Topomaps",
-    caption: "Cortical scalp distributions comparing music perception against silent elemental imagery.",
-    category: "brain",
-  },
-  {
-    src: "/media/results/fnf_left_arrow_right_hemisphere_lateralization_map.png",
-    title: "Contralateral Hemisphere Lateralization",
-    caption: "Right-hemisphere motor lateralization during left-directional imagery (FNF paradigm).",
-    category: "brain",
-  },
-  {
     src: "/media/results/fnf_ses07_directional_topomaps.png",
     title: "4-Direction Spectral Topomaps",
-    caption: "Distinct cortical activation patterns across Left, Right, Up, and Down motor imagery.",
+    caption: "Distinct Mu (8–12 Hz) and Beta (13–30 Hz) cortical topographies across Left, Right, Up, and Down imagery.",
     category: "brain",
   },
   {
     src: "/media/results/erd_mu.png",
-    title: "Mu-Band (8–12 Hz) ERD Topomap",
-    caption: "Event-related desynchronization over sensorimotor cortex during directional imagery.",
+    title: "Mu-Band (8–13 Hz) ERD Topomap",
+    caption: "Event-related desynchronization over sensorimotor cortex with trial-locked power time-course.",
     category: "brain",
   },
   {
     src: "/media/results/fnf_mind_vs_movement_spectral_topomap.png",
     title: "Mind vs. Movement Spectral Topomap",
-    caption: "Cortical spatial topographies comparing silent imagery against active motor execution.",
+    caption: "PSD at C3 and Mu-band cortical spatial topographies comparing silent imagery against active execution.",
     category: "brain",
   },
   {
-    src: "/media/results/multimodal_ablation_study.png",
-    title: "Multimodal Modality Ablation",
-    caption: "EEG, PPG & IMU ablation across Gradient Boosting and Random Forest, plus learned modality contributions.",
+    src: "/media/results/pairwise_rhythm_decoding_imagery.png",
+    title: "2-Class Rhythm Pairwise Decoding",
+    caption: "Binary music-imagery pairs (50% chance) across 5 pooled sessions, peaking at 80.1% (Wind vs. Electricity).",
     category: "pipeline",
   },
   {
@@ -218,12 +206,6 @@ const resultFigures: {
     src: "/media/results/multimodal_pipeline_validation.png",
     title: "3-Engine Live Pipeline Validation",
     caption: "Synchronized blink/PERCLOS, cognitive focus/fatigue, and 4-class BCI decoding over a 467s session.",
-    category: "pipeline",
-  },
-  {
-    src: "/media/results/pairwise_rhythm_decoding_imagery.png",
-    title: "2-Class Rhythm Pairwise Decoding",
-    caption: "Binary music-imagery pairs (50% chance) across 5 pooled sessions, peaking at 80.1% (Wind vs. Electricity).",
     category: "pipeline",
   },
 ];
@@ -709,9 +691,9 @@ export default function BenchmarkDataset() {
                 <div className="inline-flex rounded-xl bg-stone/70 border border-frost/10 p-1">
                   {(
                     [
-                      { id: "all", label: "All (9)" },
-                      { id: "brain", label: "Brain Activity (5)" },
-                      { id: "pipeline", label: "Pipeline & Transfer (4)" },
+                      { id: "all", label: "All (6)" },
+                      { id: "brain", label: "Brain Activity (3)" },
+                      { id: "pipeline", label: "Pipeline & Transfer (3)" },
                     ] as const
                   ).map((c) => (
                     <button

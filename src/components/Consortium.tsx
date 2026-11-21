@@ -64,7 +64,7 @@ export default function Consortium() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-frost/10 flex justify-center">
-            <div className="rounded-xl bg-white px-5 py-3 border border-frost/10">
+            <div className="rounded-xl bg-cream px-5 py-3 border border-frost/10">
               <img src="/barra-prr.png" alt="PRR · República Portuguesa · Financiado pela União Europeia NextGenerationEU" className="h-8 md:h-10 w-auto" />
             </div>
           </div>

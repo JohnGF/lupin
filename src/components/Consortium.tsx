@@ -62,6 +62,12 @@ export default function Consortium() {
               <div><div className="font-serif text-xl text-cream">&quot;la Caixa&quot; Foundation</div><div className="text-xs text-frost/50">CAIXAIMPULSE Health</div></div>
             </div>
           </div>
+
+          <div className="mt-8 pt-6 border-t border-frost/10 flex justify-center">
+            <div className="rounded-xl bg-white px-5 py-3 border border-frost/10">
+              <img src="/barra-prr.png" alt="PRR · República Portuguesa · Financiado pela União Europeia NextGenerationEU" className="h-8 md:h-10 w-auto" />
+            </div>
+          </div>
         </div>
 
         {/* CaixaImpulse Grant & Translational Milestone Tracker */}
